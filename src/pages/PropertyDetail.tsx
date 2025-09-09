@@ -47,8 +47,14 @@ const PropertyDetail = () => {
   const address = `${data?.data.properties[0].street_address}, ${data?.data.properties[0].lga}, ${data?.data.properties[0].state} ${data?.data.properties[0].country}`;
   const unitsAvialable = item?.unit_available || 0;
   // Filter items by purpose
-  const bungalows = item.details.filter((item) => item.purpose === "bungalow");
-  const duplexes = item.details.filter((item) => item.purpose === "duplex");
+
+  const bungalows = item.details.filter(
+    (item) => item.purpose.toLowerCase() == "bungalow"
+  );
+  const duplexes = item.details.filter(
+    (item) => item.purpose.toLowerCase() == "duplex"
+  );
+
 
   // Calculate totals
   const bungalowTotal = bungalows.reduce((sum, item) => sum + item.value, 0);
@@ -208,7 +214,7 @@ const PropertyDetail = () => {
 
                 <div className="flex flex-col gap-2">
                   <h4 className="font-bold text-md">Overview</h4>
-                  {item?.type.name === "Land" ? (
+                  {item?.category == "estate" ? (
                     <div className="text-sm flex flex-wrap ml-5 divide-adron-gray-300 divide-x-1 py-1 mb-2 border-b-1 border-b-gray-300">
                       {item?.topography != null && (
                         <li className="flex items-center gap-2 px-2">
