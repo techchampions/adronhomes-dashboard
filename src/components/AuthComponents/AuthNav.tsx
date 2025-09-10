@@ -5,11 +5,11 @@ export default function AuthNavbar() {
 
   const navLinks = [
     { name: "Home", href: "https://adromhomes.com/" },
-    { name: "Properties", href: "https://adromhomes.com/properties" },
-    { name: "Virtual Tour", href: "https://adromhomes.com/virtual-tour" },
-    { name: "About us", href: "https://adromhomes.com/about-us" },
-    { name: "Contact Us", href: "https://adromhomes.com/contact" },
-    { name: "Blog", href: "https://adromhomes.com/blog" },
+    { name: "Properties", href: "https://adronhomes.com/properties" },
+    { name: "Virtual Tour", href: "https://adronhomes.com/virtual-tour" },
+    { name: "About us", href: "https://adronhomes.com/about-us" },
+    { name: "Contact Us", href: "https://adronhomes.com/contact" },
+    { name: "Blog", href: "https://blog.adronhomes.com/" },
   ];
 
   return (
