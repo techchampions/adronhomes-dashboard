@@ -47,12 +47,14 @@ const PropertyDetail = () => {
   const address = `${data?.data.properties[0].street_address}, ${data?.data.properties[0].lga}, ${data?.data.properties[0].state} ${data?.data.properties[0].country}`;
   const unitsAvialable = item?.unit_available || 0;
   // Filter items by purpose
+
   const bungalows = item.details.filter(
     (item) => item.purpose.toLowerCase() == "bungalow"
   );
   const duplexes = item.details.filter(
     (item) => item.purpose.toLowerCase() == "duplex"
   );
+
 
   // Calculate totals
   const bungalowTotal = bungalows.reduce((sum, item) => sum + item.value, 0);
