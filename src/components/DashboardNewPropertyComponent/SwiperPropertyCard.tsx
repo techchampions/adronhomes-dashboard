@@ -233,7 +233,7 @@ export default function SwiperPropertyCard({ property }: Props) {
           <Button
             label="View Property"
             className="bg-adron-green text-xs py-3"
-            onClick={() => navigate(`/dashboard/properties/${property.id}`)}
+            onClick={() => navigate(`/dashboard/properties/${property.slug}`)}
           />
           {isRented ? (
             <Button
