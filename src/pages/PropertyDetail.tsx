@@ -20,6 +20,7 @@ import { LiaLandmarkSolid, LiaToiletSolid } from "react-icons/lia";
 import { TbBed } from "react-icons/tb";
 import {
   IoCarSportOutline,
+  IoClose,
   IoConstructOutline,
   IoDocument,
   IoLogoWhatsapp,
@@ -27,12 +28,15 @@ import {
 import { useUserStore } from "../zustand/UserStore";
 import { useToastStore } from "../zustand/useToastStore";
 import HorizontalPropertyList from "../components/DashboardPropertyComponent/HorizontalPropertyList";
-import { PhoneCall } from "lucide-react";
+import { MapPinned, PhoneCall } from "lucide-react";
 import { MdOutlineLandscape } from "react-icons/md";
+import { useModalStore } from "../zustand/useModalStore";
+import { useState } from "react";
 const PropertyDetail = () => {
   const params = useParams();
   const { user } = useUserStore();
   const navigate = useNavigate();
+  const [showMap, setshowMap] = useState(false);
   const id = params?.id;
   const { showToast } = useToastStore();
   const { data, isError, isLoading } = useGetPropertyByID(id ?? "");
@@ -44,7 +48,7 @@ const PropertyDetail = () => {
   const features = item?.features || [];
   const isRented = item?.purpose?.includes("Rent") || false;
 
-  const address = `${data?.data.properties[0].street_address}, ${data?.data.properties[0].lga}, ${data?.data.properties[0].state} ${data?.data.properties[0].country}`;
+  const address = `${data?.data.properties[0].street_address}, ${data?.data.properties[0].state} ${data?.data.properties[0].country}`;
   const unitsAvialable = item?.unit_available || 0;
   // Filter items by purpose
 
@@ -69,7 +73,7 @@ const PropertyDetail = () => {
     0
   );
   return (
-    <div className="flex flex-col w-full px-4 md:px-0 pb-32">
+    <div className="flex flex-col w-full px-4 md:px-0 pb-0">
       <div className="w-full flex flex-col md:flex-row justify-between md:items-start my-5">
         <div className="flex flex-col gap-4  md:w-[70%]">
           <h4 className="font-bold text-3xl md:text-6x line-clamp-2">
@@ -213,7 +217,6 @@ const PropertyDetail = () => {
                 )}
 
                 <div className="flex flex-col gap-2">
-                  <h4 className="font-bold text-md">Overview</h4>
                   {item?.category == "estate" ? (
                     <div className="text-sm flex flex-wrap ml-5 divide-adron-gray-300 divide-x-1 py-1 mb-2 border-b-1 border-b-gray-300">
                       {item?.topography != null && (
@@ -376,66 +379,6 @@ const PropertyDetail = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                     {/* Split details in half for two tables */}
                     {item?.details && item.details.length > 0 ? (
-                      // <>
-                      //   <div className="relative overflow-x-hidden">
-                      //     <div className="w-full text-sm text-left rtl:text-right text-gray-500">
-                      //       {item.details
-                      //         .slice(0, Math.ceil(item.details.length / 2))
-                      //         .map((detail) => (
-                      //           <div
-                      //             key={detail.id}
-                      //             className="bg-white p-3 border-b flex justify-between border-gray-200 min-w-0"
-                      //           >
-                      //             <div className="">
-                      //               <div
-                      //                 // scope="row"
-                      //                 className="truncate font-medium text-gray-900 whitespace-nowrap"
-                      //               >
-                      //                 {detail.name.trim()}{" "}
-                      //                 {detail.purpose && (
-                      //                   <div className="text-xs text-gray-500">
-                      //                     purpose: {detail.purpose}
-                      //                   </div>
-                      //                 )}
-                      //               </div>
-                      //             </div>
-                      //             <span className=" truncate ">
-                      //               {formatPrice(detail.value)}
-                      //             </span>
-                      //           </div>
-                      //         ))}
-                      //     </div>
-                      //   </div>
-                      //   <div className="relative overflow-x-hidden">
-                      //     <div className="w-full text-sm text-left rtl:text-right text-gray-500">
-                      //       {item.details
-                      //         .slice(Math.ceil(item.details.length / 2))
-                      //         .map((detail) => (
-                      //           <div
-                      //             key={detail.id}
-                      //             className="bg-white p-3 border-b flex justify-between border-gray-200 min-w-0"
-                      //           >
-                      //             <div className="">
-                      //               <div
-                      //                 // scope="row"
-                      //                 className="truncate font-medium text-gray-900 whitespace-nowrap"
-                      //               >
-                      //                 {detail.name.trim()}{" "}
-                      //                 {detail.purpose && (
-                      //                   <div className="text-xs text-gray-500">
-                      //                     purpose: {detail.purpose}
-                      //                   </div>
-                      //                 )}
-                      //               </div>
-                      //             </div>
-                      //             <span className="">
-                      //               {formatPrice(detail.value)}
-                      //             </span>
-                      //           </div>
-                      //         ))}
-                      //     </div>
-                      //   </div>
-                      // </>
                       <>
                         <div className="relative overflow-x-hidden">
                           <div className="w-full text-sm text-left rtl:text-right text-gray-500">
@@ -580,19 +523,6 @@ const PropertyDetail = () => {
                     </div>
                   </div>
                 </div>
-
-                {data?.data.properties[0].property_map && (
-                  <div className="relative w-full h-[360px] rounded-[50px] overflow-hidden mb-6">
-                    {/* <StreetView lat={40.748817} lng={-73.985428} /> */}
-                    <iframe
-                      src={data?.data.properties[0].property_map || ""}
-                      className="w-full h-full"
-                      allowFullScreen
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                    ></iframe>
-                  </div>
-                )}
               </div>
               {/* Interest Form  */}
               <div className="w-full md:w-[30%] space-y-4">
@@ -679,6 +609,14 @@ const PropertyDetail = () => {
                     </div>
                   </Form>
                 </Formik>
+                {data?.data.properties[0].property_map && (
+                  <Button
+                    rightIcon={<MapPinned size={16} />}
+                    label="See Property on map"
+                    onClick={() => setshowMap(!showMap)}
+                  />
+                )}
+
                 {data?.data.properties[0].video_link && (
                   <div className="video-responsive w-full h-[250px] md:h-[150px] rounded-2xl overflow-hidden">
                     <iframe
@@ -724,6 +662,36 @@ const PropertyDetail = () => {
           </div>
         </div>
       </div>
+      {showMap && (
+        <div
+          className="fixed inset-0 flex items-center justify-center bg-black/50 z-50"
+          onClick={() => setshowMap(false)}
+        >
+          <div
+            className="bg-white p-5 rounded-xl shadow-lg w-[98%] md:w-fit"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              className="absolute top-4 right-3 text-gray-600 bg-white p-2 rounded-full hover:text-gray-900"
+              onClick={() => setshowMap(false)}
+              aria-label="Close"
+            >
+              <IoClose size={24} />
+            </button>
+
+            <div className="w-full md:w-[600px] h-[360px] rounded-lg overflow-hidden">
+              {/* <StreetView lat={40.748817} lng={-73.985428} /> */}
+              <iframe
+                src={data?.data.properties[0].property_map || ""}
+                className="w-full h-full"
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
