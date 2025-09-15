@@ -79,7 +79,7 @@ export default function SwiperPropertyCard({ property }: Props) {
   //   }
   // }, [swiper]); // Ensure this effect runs when the swiper instance is available
 
-  const address = `${property.street_address}, ${property.lga}, ${property.state} ${property.country}`;
+  const address = `${property.street_address}, ${property.state} ${property.country}`;
   // const features = property.features;
   const toggleSaveProperty = async () => {
     try {
