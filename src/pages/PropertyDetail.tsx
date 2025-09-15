@@ -59,6 +59,7 @@ const PropertyDetail = () => {
     (item) => item.purpose.toLowerCase() == "duplex"
   );
 
+
   // Calculate totals
   const bungalowTotal = bungalows.reduce((sum, item) => sum + item.value, 0);
   const duplexTotal = duplexes.reduce((sum, item) => sum + item.value, 0);
