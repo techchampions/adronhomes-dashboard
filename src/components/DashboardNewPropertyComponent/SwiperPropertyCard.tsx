@@ -191,7 +191,7 @@ export default function SwiperPropertyCard({ property }: Props) {
             <span className="flex items-center gap-1 truncate">
               {/* <TfiRulerAlt2 />  */}
               <img src="/ruler.svg" width={14} height={14} alt="dumbbell" />
-              {property.size} Sm q
+              {property.size} SqM
             </span>
             {displayFeatures.map((feature, index) => (
               <span key={index} className="flex items-center gap-1 truncate">

@@ -57,7 +57,7 @@ const PropertyCard = ({
             <div className="flex items-center gap-1">
               <img src="/ruler.svg" width={14} height={14} alt="ruler" />
 
-              <span className="mr-1">{squareFeet}</span>
+              <span className="mr-1">{squareFeet} SqM</span>
             </div>
 
             <div className="flex items-center">
