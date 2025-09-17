@@ -59,7 +59,6 @@ const PropertyDetail = () => {
     (item) => item.purpose.toLowerCase() == "duplex"
   );
 
-
   // Calculate totals
   const bungalowTotal = bungalows.reduce((sum, item) => sum + item.value, 0);
   const duplexTotal = duplexes.reduce((sum, item) => sum + item.value, 0);
@@ -380,6 +379,13 @@ const PropertyDetail = () => {
                     {/* Split details in half for two tables */}
                     {item?.details && item.details.length > 0 ? (
                       <>
+                        <div className="bg-white font-extrabold p-3 border-b flex justify-between border-gray-200 min-w-0">
+                          Bungalow
+                        </div>
+                        <div className="bg-white font-extrabold p-3 border-b flex justify-between border-gray-200 min-w-0">
+                          Duplex
+                        </div>
+
                         <div className="relative overflow-x-hidden">
                           <div className="w-full text-sm text-left rtl:text-right text-gray-500">
                             {bungalows.length > 0 ? (
@@ -407,11 +413,11 @@ const PropertyDetail = () => {
                                     </span>
                                   </div>
                                 ))}
-                                <div className="bg-white p-3 border-b flex justify-between border-gray-200 min-w-0">
+                                <div className="bg-white font-adron-mid p-3 border-b flex justify-between border-gray-200 min-w-0">
                                   <div className="">
                                     <div
                                       // scope="row"
-                                      className="truncate font-medium text-gray-900 whitespace-nowrap"
+                                      className="truncate text-gray-900 whitespace-nowrap"
                                     >
                                       Total:{" "}
                                     </div>
@@ -453,11 +459,11 @@ const PropertyDetail = () => {
                                     </span>
                                   </div>
                                 ))}
-                                <div className="bg-white p-3 border-b flex justify-between border-gray-200 min-w-0">
+                                <div className="bg-white p-3 font-adron-mid border-b flex justify-between border-gray-200 min-w-0">
                                   <div className="">
                                     <div
                                       // scope="row"
-                                      className="truncate font-medium text-gray-900 whitespace-nowrap"
+                                      className="truncate text-gray-900 whitespace-nowrap"
                                     >
                                       Total:{" "}
                                     </div>
