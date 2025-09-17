@@ -68,10 +68,10 @@ const PropertyCard = ({
               <MdOutlinePower className="h-4 w-4" />
               <span>Electricity</span>
             </div>
-            <div className="flex gap-1 items-center">
+            {/* <div className="flex gap-1 items-center">
               <img src="/dumbbell.svg" width={16} height={16} alt="dumbbell" />
               <span>Gym</span>
-            </div>
+            </div> */}
           </div>
           <div className="flex justify-between gap-4 w-full mt-6 items-center">
             <Button
