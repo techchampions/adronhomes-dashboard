@@ -46,6 +46,7 @@ const PropertyDetail = () => {
   const item = data?.data.properties[0];
   const photoLenght = item?.photos.length || 0;
   const features = item?.features || [];
+
   const isRented =
     item?.purpose?.includes("rent") || item?.purpose?.includes("Rent") || false;
   let address = "All Adron locations.";
