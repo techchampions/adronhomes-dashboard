@@ -48,7 +48,14 @@ const PropertyDetail = () => {
   const features = item?.features || [];
   const isRented =
     item?.purpose?.includes("rent") || item?.purpose?.includes("Rent") || false;
-  const address = `${data?.data.properties[0].street_address}, ${data?.data.properties[0].state} ${data?.data.properties[0].country}`;
+  let address = "All Adron locations.";
+  if (
+    data?.data.properties[0].street_address &&
+    data?.data.properties[0].state &&
+    data?.data.properties[0].country
+  ) {
+    address = `${data?.data.properties[0].street_address}, ${data?.data.properties[0].state} ${data?.data.properties[0].country}`;
+  }
   const unitsAvialable = item?.unit_available || 0;
   // Filter items by purpose
 
@@ -170,26 +177,32 @@ const PropertyDetail = () => {
                   {item?.type.name}
                 </div>
               </div>
-              <div className="flex flex-col items-end mt-3 md:mt-0">
-                <div className="flex items-center gap-2">
-                  {item?.is_discount && (
-                    <div className="bg-red-700 text-white text-xs px-2 py-1 rounded-full">
-                      {item.discount_percentage}% off
+              {isRented ? (
+                <div className="flex flex-col items-end mt-3 md:mt-0 text-cyan-700">
+                  For Rent
+                </div>
+              ) : (
+                <div className="flex flex-col items-end mt-3 md:mt-0">
+                  <div className="flex items-center gap-2">
+                    {item?.is_discount && (
+                      <div className="bg-red-700 text-white text-xs px-2 py-1 rounded-full">
+                        {item.discount_percentage}% off
+                      </div>
+                    )}
+                    <div className="text-2xl font-bold ">
+                      {formatPrice(item?.price ?? 0)}
+                    </div>
+                  </div>
+                  {item?.initial_deposit && (
+                    <div className="flex items-center text-gray-700 text-xs bg-[#CFFFCF] p-2 rounded-full">
+                      Initial Deposit{" "}
+                      <span className="text-bold text-adron-green text-sm ml-2">
+                        {formatPrice(item?.initial_deposit || 0)}
+                      </span>
                     </div>
                   )}
-                  <div className="text-2xl font-bold ">
-                    {formatPrice(item?.price ?? 0)}
-                  </div>
                 </div>
-                {item?.initial_deposit && (
-                  <div className="flex items-center text-gray-700 text-xs bg-[#CFFFCF] p-2 rounded-full">
-                    Initial Deposit{" "}
-                    <span className="text-bold text-adron-green text-sm ml-2">
-                      {formatPrice(item?.initial_deposit || 0)}
-                    </span>
-                  </div>
-                )}
-              </div>
+              )}
             </div>
             <div className="flex flex-col md:flex-row gap-4">
               <div className="flex flex-col w-full md:w-[70%] gap-10">

@@ -25,6 +25,7 @@ import apiClient from "../../data/apiClient";
 import { useToastStore } from "../../zustand/useToastStore";
 import { Property, PropertyType } from "../../data/types/propertiesPageTypes";
 import { IoGiftOutline, IoLogoWhatsapp } from "react-icons/io5";
+import LinkButton from "../LinkButton";
 // import { useToggleSaveProperty } from "../../data/hooks";
 
 interface Props {
@@ -40,7 +41,10 @@ export default function SwiperPropertyCard({ property }: Props) {
     allowedFeatures.includes(item)
   );
 
-  const isRented = property?.purpose?.includes("Rent") || false;
+  const isRented =
+    property?.purpose?.includes("rent") ||
+    property?.purpose?.includes("Rent") ||
+    false;
   console.log(isRented);
   // const { mutate: toggleSavePropertyHook, isLoading } = useToggleSaveProperty();
 
@@ -78,8 +82,10 @@ export default function SwiperPropertyCard({ property }: Props) {
   //     swiper.navigation.update(); // Ensure the navigation buttons are updated after initialization
   //   }
   // }, [swiper]); // Ensure this effect runs when the swiper instance is available
-
-  const address = `${property.street_address}, ${property.state} ${property.country}`;
+  let address = "All Adron locations";
+  if (property.street_address && property.state && property.country) {
+    address = `${property.street_address}, ${property.state} ${property.country}`;
+  }
   // const features = property.features;
   const toggleSaveProperty = async () => {
     try {
@@ -173,9 +179,9 @@ export default function SwiperPropertyCard({ property }: Props) {
         </div>
         {/* {`${property.street_address}, ${property.lga}, ${property.state} ${property.country}`} */}
 
-        <div className="text-lg font-black text-adron-black mt-4 flex justify-between">
-          <span className="w-[70%] truncate">
-            {formatPrice(property.price ?? 0)}
+        <div className="text-lg font-black text-adron-black mt-4 flex justify-between items-center">
+          <span className={`w-[70%] truncate ${isRented && "text-cyan-700"}`}>
+            {isRented ? "for rent" : formatPrice(property.price ?? 0)}
           </span>
           <div className="mr-2" onClick={toggleSaveProperty}>
             {isSaved ? (
@@ -236,10 +242,11 @@ export default function SwiperPropertyCard({ property }: Props) {
             onClick={() => navigate(`/dashboard/properties/${property.slug}`)}
           />
           {isRented ? (
-            <Button
-              label="For rent"
+            <LinkButton
+              href={property.whatsapp_link}
+              label="Inquire"
               icon={<IoLogoWhatsapp className="h-4 w-4" />}
-              className="text-xs py-3 !bg-transparent !text-gray-700"
+              className="text-xs py-3 !bg-transparent !text-green-700 border hover:!bg-green-700 hover:!text-white"
             />
           ) : property.unit_available < 1 ? (
             <Button
