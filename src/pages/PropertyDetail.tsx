@@ -50,6 +50,7 @@ const PropertyDetail = () => {
 
   const isRented =
     item?.purpose?.includes("rent") || item?.purpose?.includes("Rent") || false;
+
   let address = "All Adron locations.";
   if (
     data?.data.properties[0].street_address &&
@@ -58,6 +59,7 @@ const PropertyDetail = () => {
   ) {
     address = `${data?.data.properties[0].street_address}, ${data?.data.properties[0].state} ${data?.data.properties[0].country}`;
   }
+
   const unitsAvialable = item?.unit_available || 0;
   // Filter items by purpose
 
