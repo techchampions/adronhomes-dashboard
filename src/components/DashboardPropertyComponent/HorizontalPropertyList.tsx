@@ -56,6 +56,7 @@ const HorizontalPropertyList: React.FC<Props> = ({ title, properties }) => {
             {properties.map((property, index) => (
               <PropertyCard
                 key={index}
+                slug={property.slug}
                 id={property.id}
                 image={property.display_image}
                 title={property.name}
