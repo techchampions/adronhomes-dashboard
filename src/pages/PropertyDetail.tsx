@@ -2,7 +2,7 @@ import { Form, Formik } from "formik";
 import { PiRoadHorizonDuotone } from "react-icons/pi";
 import { FaHeart, FaMapMarker } from "react-icons/fa";
 import { GrDocumentUser } from "react-icons/gr";
-import { IoIosCheckmarkCircleOutline, IoMdBed } from "react-icons/io";
+import { IoIosCheckmarkCircleOutline } from "react-icons/io";
 import { LuFence } from "react-icons/lu";
 import { useNavigate, useParams } from "react-router-dom";
 import InputField from "../components/InputField";
@@ -22,7 +22,6 @@ import {
   IoCarSportOutline,
   IoClose,
   IoConstructOutline,
-  IoDocument,
   IoLogoWhatsapp,
 } from "react-icons/io5";
 import { useUserStore } from "../zustand/UserStore";
@@ -30,7 +29,6 @@ import { useToastStore } from "../zustand/useToastStore";
 import HorizontalPropertyList from "../components/DashboardPropertyComponent/HorizontalPropertyList";
 import { FileStack, MapPinned, PhoneCall } from "lucide-react";
 import { MdOutlineLandscape } from "react-icons/md";
-import { useModalStore } from "../zustand/useModalStore";
 import { useState } from "react";
 const PropertyDetail = () => {
   const params = useParams();
