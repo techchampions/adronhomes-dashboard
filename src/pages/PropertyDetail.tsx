@@ -9,6 +9,7 @@ import InputField from "../components/InputField";
 import Button from "../components/Button";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
+import DOMPurify from "dompurify";
 import "swiper/css";
 import "swiper/css/navigation";
 import { GiGate, GiStreetLight } from "react-icons/gi";
@@ -80,6 +81,9 @@ const PropertyDetail = () => {
     (sum, item) => sum + item.value,
     0
   );
+  const description = data.data.properties[0].description;
+  const sanitizedHTML = DOMPurify.sanitize(description);
+  console.log(sanitizedHTML);
   return (
     <div className="flex flex-col w-full px-4 md:px-0 pb-0">
       <div className="w-full flex flex-col md:flex-row justify-between md:items-start my-5">
@@ -297,9 +301,20 @@ const PropertyDetail = () => {
 
                 <div className="flex flex-col gap-2">
                   <h4 className="font-bold text-md">Description</h4>
-                  <p className="text-sm ml-5 break-words">
-                    {item?.description}
-                  </p>
+                  <div className="text-sm ml-5 break-words text-left">
+                    {/* <div
+                      dangerouslySetInnerHTML={{ __html: sanitizedHTML }}
+                      className="rich-text-content"
+                      style={{
+                        contain: "content", // Isolates the content from parent styles
+                        all: "initial", // Reset all inherited styles
+                      }}
+                    /> */}
+                    <div
+                      dangerouslySetInnerHTML={{ __html: sanitizedHTML }}
+                      className="prose max-w-none rich-text-content"
+                    />{" "}
+                  </div>
                 </div>
                 <div className="flex flex-col gap-2">
                   <h4 className="font-bold text-md">Features</h4>

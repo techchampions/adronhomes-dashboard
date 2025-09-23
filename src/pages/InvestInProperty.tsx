@@ -116,7 +116,7 @@ export default function InvestmentForm() {
         infrastructureFees: infrastructureFees,
         otherFees: otherFees,
         numberOfUnits: values.units,
-        propertyId: id ? Number(id) : null,
+        propertyId: id ? id : null,
         propertyPurpose:
           property?.type.name === "Land" ? values.propertyPurpose : null,
       };
@@ -137,7 +137,7 @@ export default function InvestmentForm() {
         infrastructureFees: infrastructureFees,
         otherFees: otherFees,
         numberOfUnits: values.units,
-        propertyId: id ? Number(id) : null, // Convert string ID to number
+        propertyId: id ? id : null, // Convert string ID to number
         propertyPurpose:
           property?.type.name === "Land" ? values.propertyPurpose : null,
       };
