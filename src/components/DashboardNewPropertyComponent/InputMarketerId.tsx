@@ -11,7 +11,7 @@ const InputMarketerId = () => {
   const { setPaymentDetails, propertyId } = usePaymentBreakDownStore();
   const { closeModal } = useModalStore();
   const navigate = useNavigate();
-
+  console.log(propertyId);
   // Validation schema
   const validationSchema = Yup.object().shape({
     // marketerId: Yup.string().required("MarketerID is required"),

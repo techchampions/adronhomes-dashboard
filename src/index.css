@@ -121,6 +121,21 @@ h1, h2, h3 {
   line-height: 1.4;
 }
 
+ul, ol {
+  list-style: disc;
+  list-style-position: inside;
+}
+
+.rich-text-content h1,
+.rich-text-content h2,
+.rich-text-content h3,
+.rich-text-content h4 {
+  font-family: var(--font-adron-text-body);
+  font-weight: bold;
+  /* color: red; */
+  font-size: 1rem
+}
+
 button {
   cursor: pointer;
 }

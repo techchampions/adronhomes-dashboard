@@ -3,17 +3,16 @@ import { useNavigate, useParams } from "react-router-dom";
 import PropertySummary from "../components/PropertySummary";
 import { useGetPropertyByID } from "../data/hooks";
 import { usePaymentBreakDownStore } from "../zustand/PaymentBreakDownStore";
+import DOMPurify from "dompurify";
 
 const ProppertyAgreement = () => {
   const navigate = useNavigate();
   const params = useParams();
   const id = params?.id;
-  const { data, isError, isLoading } = useGetPropertyByID(id);
+  const { data } = useGetPropertyByID(id);
   const { numberOfUnits } = usePaymentBreakDownStore();
-  const agreementUrl = data?.data?.properties?.[0]?.property_agreement;
-  const viewerUrl = agreementUrl
-    ? `${agreementUrl}#toolbar=0&navpanes=0&scrollbar=0`
-    : "";
+  const agreement = data?.data.properties[0].property_agreement || "";
+  const sanitizedHTML = DOMPurify.sanitize(agreement);
 
   return (
     <div>
@@ -22,24 +21,12 @@ const ProppertyAgreement = () => {
       </div>
       <div className="flex flex-col gap-7 mt-20">
         <h4 className="text-2xl">Property Agreement</h4>
-        <p className="text-gray-500 bg-white p-6 rounded-2xl">
-          {data?.data.properties[0].property_agreement || ""}
-        </p>
-
-        {/* {viewerUrl ? (
-          <div className="w-full overflow-hidden scrollbar-hide">
-            <embed
-              src={viewerUrl}
-              type="application/pdf"
-              className="w-full h-[600px] scrollbar-hide"
-            />
-          </div>
-        ) : (
-          <p className="text-gray-500">
-            {data?.data.properties[0].property_agreement || ""}
-          </p>
-          // <p className="text-red-500">PDF not available.</p>
-        )} */}
+        <div className="text-gray-500 bg-white p-6 rounded-2xl">
+          <div
+            dangerouslySetInnerHTML={{ __html: sanitizedHTML }}
+            className="prose max-w-none rich-text-content"
+          />{" "}
+        </div>
 
         <div className="flex justify-end">
           <div className="w-full md:w-1/2">{/* <SignaturePad /> */}</div>
