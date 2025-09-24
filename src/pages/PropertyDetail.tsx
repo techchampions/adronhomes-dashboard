@@ -31,7 +31,10 @@ import HorizontalPropertyList from "../components/DashboardPropertyComponent/Hor
 import { FileStack, MapPinned, PhoneCall } from "lucide-react";
 import { MdOutlineLandscape } from "react-icons/md";
 import { useState } from "react";
+import { useModalStore } from "../zustand/useModalStore";
+// import DiscountBanner from "../components/DashboardPropertyComponent/DiscountBanner";
 const PropertyDetail = () => {
+  const modal = useModalStore();
   const params = useParams();
   const { user } = useUserStore();
   const navigate = useNavigate();
@@ -41,12 +44,19 @@ const PropertyDetail = () => {
   const { showToast } = useToastStore();
   const { data, isError, isLoading } = useGetPropertyByID(id ?? "");
   const { mutate: enquire, isPending } = useEnquireProperty();
+  const [showDiscountBanner, setshowDiscountBanner] = useState(
+    data?.data.properties[0].is_discount || false
+  );
   if (isError) return <ApiErrorBlock />;
   if (isLoading || !data) return <Loader />;
   const item = data?.data.properties[0];
   const photoLenght = item?.photos.length || 0;
   const features = item?.features || [];
-
+  // useEffect(() => {
+  //   if (item?.is_discount) {
+  //     setshowDiscountBanner(true);
+  //   }
+  // }, [item?.is_discount]);
   const isRented =
     item?.purpose?.includes("rent") || item?.purpose?.includes("Rent") || false;
 
@@ -83,9 +93,15 @@ const PropertyDetail = () => {
   );
   const description = data.data.properties[0].description;
   const sanitizedHTML = DOMPurify.sanitize(description);
-  console.log(sanitizedHTML);
   return (
     <div className="flex flex-col w-full px-4 md:px-0 pb-0">
+      {/* <DiscountBanner
+        discount_name={item.discount_name}
+        discount_percent={item.discount_percentage}
+        discount_unit={item.discount_percentage}
+        isOpen={showDiscountBanner}
+        close={() => setshowDiscountBanner(false)}
+      /> */}
       <div className="w-full flex flex-col md:flex-row justify-between md:items-start my-5">
         <div className="flex flex-col gap-4  md:w-[70%]">
           <h4 className="font-bold text-3xl md:text-6x">
@@ -312,8 +328,10 @@ const PropertyDetail = () => {
                     /> */}
                     <div
                       dangerouslySetInnerHTML={{ __html: sanitizedHTML }}
-                      className="prose max-w-none rich-text-content"
-                    />{" "}
+                      // className="prose max-w-none rich-text-content"
+                      className="prose  prose-lg
+                      max-w-none prose-headings:font-bold [&>*]:text-gray-700 [&>*]:text-xs prose-headings:text-gray-900 [&>h2]:!font-adron-bold [&>h1]:text-3xl [&>h2]:text-2xl [&>h3]:text-xl [&>p]:my-5 [&>p]:text-gray-700 [&>p]:leading-relaxed [&>p]:text-xs [&>a]:text-blue-600 [&>a]:no-underline [&>a]:border-b-2 [&>a]:border-blue-300 [&>a]:hover:border-blue-600 [&>strong]:text-gray-900 [&>ul]:list-disc [&>ol]:list-decimal [&>li]:my-1 blockquote:border-l-4 blockquote:border-gray-300 blockquote:pl-4 blockquote:italic [&>img]:rounded-lg [&>img]:shadow-md [&>table]:border [&>table]:border-gray-200 [&>th]:bg-gray-50 [&>th]:p-2 [&>td]:p-2 "
+                    />
                   </div>
                 </div>
                 <div className="flex flex-col gap-2">
