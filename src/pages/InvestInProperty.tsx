@@ -19,6 +19,7 @@ import { paymentTypeWatcher } from "../utils/PaymentTypeWatcher";
 import InputField from "../components/InputField";
 import { formatPrice } from "../data/utils";
 import NoPropertyFound from "../components/NoPropertyFound";
+import { BadgePercent } from "lucide-react";
 
 export default function InvestmentForm() {
   const { openModal } = useModalStore();
@@ -186,7 +187,21 @@ export default function InvestmentForm() {
           <Form className="space-y-10">
             <AutoEndDateUpdater /> {/* 👈 place this inside Formik form */}
             {/* Property Summary */}
-            <div className=" ">
+            <div className="space-y-4">
+              {/* {property?.is_discount && (
+                <div className=" bg-adron-green-200 px-4 py-2 rounded-2xl flex gap-4 text-adron-green">
+                  <BadgePercent size={30} />
+                  <div className="">
+                    <h3 className="!font-adron-bold">
+                      {property?.discount_name} Promo !
+                    </h3>
+                    <p className="text-sm">
+                      purchase {property.discount_units} units to get{" "}
+                      {property?.discount_percentage}% off
+                    </p>
+                  </div>
+                </div>
+              )} */}
               <PropertySummary id={id ?? ""} units={values.units} />
             </div>
             {/* Investment Section */}

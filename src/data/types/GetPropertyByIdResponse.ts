@@ -65,7 +65,8 @@ export interface Property {
   is_saved: boolean;
   is_discount: boolean;
   discount_name: string;
-  discount_percentage: number | string;
+  discount_percentage: number;
+  discount_units: number;
   no_of_bedroom: number;
   number_of_bathroom: number;
   year_built: string;
