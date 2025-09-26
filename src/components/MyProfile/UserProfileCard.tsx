@@ -22,7 +22,7 @@ const UserProfileCard: React.FC<Props> = ({
 }) => {
   return (
     <div className="bg-white py-6 px-12 rounded-3xl flex flex-col md:flex-row justify-between items-center md:items-end">
-      <div className="flex items-start gap-6 py-5">
+      <div className="flex flex-col sm:flex-row items-start gap-6 py-5">
         {imageUrl ? (
           <img
             src={imageUrl}

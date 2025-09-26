@@ -227,7 +227,7 @@ const ProfileSettings = () => {
           return (
             <Form className="space-y-6">
               {/* Profile Picture */}
-              <div className="bg-white rounded-3xl p-10 space-y-6">
+              <div className="bg-white rounded-3xl py-5 px-3 md:py-10 md:px-10 space-y-6">
                 <div className="flex items-center gap-4">
                   <label className="cursor-pointer relative">
                     <input
@@ -258,7 +258,7 @@ const ProfileSettings = () => {
                     />
                   </label>
                 </div>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-2 md:gap-4">
                   <div className="">
                     <label className="block text-gray-600 font-medium">
                       First Name
@@ -299,7 +299,7 @@ const ProfileSettings = () => {
                 </div>
 
                 {/* Address */}
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-2 md:gap-4">
                   <div>
                     <label className="block text-gray-600 text-sm">State</label>
                     <InputField

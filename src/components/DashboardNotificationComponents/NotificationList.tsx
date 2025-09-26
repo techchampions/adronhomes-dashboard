@@ -38,7 +38,7 @@ const NotificationList: React.FC<Props> = ({ data, isError, isLoading }) => {
       return <ApiErrorBlock />;
     }
     if (filteredData.length <= 0) {
-      return <NotFound />;
+      return <NotFound text="notifications" />;
     }
     return renderList();
   };
