@@ -26,7 +26,8 @@ import { useToastStore } from "../../zustand/useToastStore";
 import { Property, PropertyType } from "../../data/types/propertiesPageTypes";
 import { IoGiftOutline, IoLogoWhatsapp } from "react-icons/io5";
 import LinkButton from "../LinkButton";
-// import { useToggleSaveProperty } from "../../data/hooks";
+import { useToggleSaveProperty } from "../../data/hooks";
+import InlineLoader from "../InlineLoader";
 
 interface Props {
   property: Property;
@@ -35,6 +36,7 @@ interface Props {
 export default function SwiperPropertyCard({ property }: Props) {
   const navigate = useNavigate();
   const { showToast } = useToastStore();
+  const { mutate: toggleSave, isPending: isSaving } = useToggleSaveProperty();
   const features = property.features;
   const allowedFeatures = ["Gym", "Light"];
   const displayFeatures = features.filter((item) =>
@@ -45,12 +47,9 @@ export default function SwiperPropertyCard({ property }: Props) {
     property?.purpose?.includes("rent") ||
     property?.purpose?.includes("Rent") ||
     false;
-  console.log(isRented);
-  // const { mutate: toggleSavePropertyHook, isLoading } = useToggleSaveProperty();
 
   const prevRef = useRef<HTMLButtonElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
-  const [isSaved, setIsSaved] = useState(property.is_saved);
   const [swiper, setSwiper] = useState<SwiperType | null>(null);
 
   useEffect(() => {
@@ -74,43 +73,14 @@ export default function SwiperPropertyCard({ property }: Props) {
       swiper.navigation.update();
     }
   }, [swiper]);
-
-  // useEffect(() => {
-  //   if (swiper) {
-  //     swiper.params.navigation.prevEl = prevRef.current;
-  //     swiper.params.navigation.nextEl = nextRef.current;
-  //     swiper.navigation.update(); // Ensure the navigation buttons are updated after initialization
-  //   }
-  // }, [swiper]); // Ensure this effect runs when the swiper instance is available
   let address = "All Adron locations";
   if (property.street_address && property.state && property.country) {
     address = `${property.street_address}, ${property.state} ${property.country}`;
   }
   // const features = property.features;
   const toggleSaveProperty = async () => {
-    try {
-      const formData = new FormData();
-      formData.append("property_id", String(property.id));
-      const res = await apiClient.post("/user/save-property-toggle", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      showToast(res.data.message, "success");
-      setIsSaved(!isSaved);
-    } catch (error) {
-      showToast(`${error}`, "error");
-    }
+    toggleSave(property.id);
   };
-  // const toggleSaveProperty = async () => {
-  //   toggleSavePropertyHook(property.id, {
-  //     onSuccess: () => {
-  //       showToast("Property removed successfully", "success");
-
-  //       setIsSaved(!isSaved);
-  //     },
-  //   });
-  // };
 
   return (
     <div className="rounded-3xl">
@@ -183,13 +153,17 @@ export default function SwiperPropertyCard({ property }: Props) {
           <span className={`w-[70%] truncate ${isRented && "text-cyan-700"}`}>
             {isRented ? "for rent" : formatPrice(property.price ?? 0)}
           </span>
-          <div className="mr-2" onClick={toggleSaveProperty}>
-            {isSaved ? (
-              <FaHeart className="text-adron-green" size={20} />
-            ) : (
-              <FaRegHeart className="text-gray-500" size={20} />
-            )}
-          </div>
+          {isSaving ? (
+            <InlineLoader />
+          ) : (
+            <div className="mr-2 cursor-pointer" onClick={toggleSaveProperty}>
+              {property.is_saved ? (
+                <FaHeart className="text-adron-green" size={20} />
+              ) : (
+                <FaRegHeart className="text-gray-500" size={20} />
+              )}
+            </div>
+          )}
         </div>
 
         <div className="flex justify-between items-center">

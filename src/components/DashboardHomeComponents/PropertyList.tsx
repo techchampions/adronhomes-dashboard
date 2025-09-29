@@ -63,7 +63,7 @@ const PropertyPlanList: React.FC<Props> = ({ plans, isError, isLoading }) => {
     if (plans.length === 0) {
       return (
         <div className="text-center py-4">
-          <NotFound />
+          <NotFound text="properties" />
         </div>
       );
     }

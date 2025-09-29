@@ -1,13 +1,16 @@
 import CopyButton from "../CopyButton";
 import Button from "../Button";
-import { useGetTransactionByID } from "../../data/hooks";
+import { useGetPaymentReciept, useGetTransactionByID } from "../../data/hooks";
 import ApiErrorBlock from "../ApiErrorBlock";
 import { formatPrice } from "../../data/utils";
 import { TransactionStatus } from "../../data/types/userTransactionsTypes";
 import SmallLoader from "../SmallLoader";
+import LinkButton from "../LinkButton";
 
 const TransactionDetail = ({ id }: { id: number }) => {
   const { data, isLoading, isError } = useGetTransactionByID(id);
+  const { data: recieptData, isLoading: gettingReciept } =
+    useGetPaymentReciept(id);
   if (isLoading) {
     return <SmallLoader />;
   }
@@ -127,7 +130,15 @@ const TransactionDetail = ({ id }: { id: number }) => {
           label="Share"
           className="bg-transparent !text-black !w-fir px-6 text-xs"
         />
-        <Button label="Download" className="bg-black !w-fir px-6 text-xs" />
+        <LinkButton
+          download={true}
+          target={true}
+          href={recieptData?.download_url || ""}
+          label="Download"
+          className="bg-black !w-fir px-6 text-xs"
+          isLoading={gettingReciept}
+          loadingText="Getting Reciept"
+        />
       </div>
     </div>
   );

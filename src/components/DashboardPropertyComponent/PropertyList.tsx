@@ -20,7 +20,7 @@ const PropertyList: React.FC<PropertyListProps> = ({
       return <SmallLoader />;
     }
     if (properties.length <= 0) {
-      return <NotFound />;
+      return <NotFound text="properties" />;
     }
     if (isError) {
       return <ApiErrorBlock />;

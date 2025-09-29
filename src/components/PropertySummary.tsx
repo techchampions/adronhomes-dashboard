@@ -13,8 +13,8 @@ type Prop = {
 };
 const PropertySummary: React.FC<Prop> = ({ id, units }) => {
   const { data, isError, isLoading } = useGetPropertyByID(id);
-  const property = data?.data.properties[0];
-  const features = data?.data.properties[0].features || [];
+  const property = data?.data.properties;
+  const features = data?.data.properties.features || [];
   const allowedFeatures = ["Gym", "Light"];
   const displayFeatures = features.filter((item) =>
     allowedFeatures.includes(item)

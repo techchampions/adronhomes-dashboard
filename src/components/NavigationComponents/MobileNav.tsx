@@ -18,14 +18,21 @@ import { useUserStore } from "../../zustand/UserStore";
 import { Link, useNavigate } from "react-router-dom";
 import CopyButton from "../CopyButton";
 import { useGetNotifications } from "../../data/hooks";
+import { useQueryClient } from "@tanstack/react-query";
+import { useSearchStore } from "../../zustand/SearchStore";
+import { searchProperties } from "../../data/api";
 
 const MobileNav = () => {
   const { user } = useUserStore();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const { setSearchResults, setLoading } = useSearchStore();
+
   const { data: notificationData } = useGetNotifications(1);
   const unReadCount = notificationData?.unread || 0;
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [query, setQuery] = useState("");
   const goTpProfile = () => {
     navigate("/dashboard/my-profile");
   };
@@ -103,6 +110,21 @@ const MobileNav = () => {
             <input
               placeholder="Search..."
               className="px-6 bg-adron-body rounded-full py-2 text-xs"
+              onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={async () => {
+                try {
+                  const data = await queryClient.fetchQuery({
+                    queryKey: ["search-properties-results", query],
+                    queryFn: () => searchProperties({ search: query }),
+                  });
+
+                  setSearchResults(data);
+                  navigate("/dashboard/search-properties");
+                } catch (error) {
+                  console.error("Search error:", error);
+                  setLoading(false); // ✅ Stop loading on error
+                }
+              }}
             />
           </div>
 

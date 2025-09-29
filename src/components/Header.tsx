@@ -58,7 +58,7 @@ const Header = ({ pageTitle }: { pageTitle: string }) => {
               });
 
               setSearchResults(data);
-              navigate("/search-properties");
+              navigate("/dashboard/search-properties");
             } catch (error) {
               console.error("Search error:", error);
               setLoading(false); // ✅ Stop loading on error
