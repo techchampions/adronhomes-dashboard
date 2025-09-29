@@ -41,9 +41,11 @@ import { useToastStore } from "../zustand/useToastStore";
 import HorizontalPropertyList from "../components/DashboardPropertyComponent/HorizontalPropertyList";
 import { FileStack, LoaderCircle, MapPinned, PhoneCall } from "lucide-react";
 import { MdOutlineLandscape } from "react-icons/md";
+
 import { useEffect, useRef, useState } from "react";
 import { useModalStore } from "../zustand/useModalStore";
 import InlineLoader from "../components/InlineLoader";
+
 // import DiscountBanner from "../components/DashboardPropertyComponent/DiscountBanner";
 const PropertyDetail = () => {
   const modal = useModalStore();
@@ -57,6 +59,7 @@ const PropertyDetail = () => {
   const { data, isError, isLoading } = useGetPropertyByID(id ?? "");
   const { mutate: toggleSave, isPending: isSaving } = useToggleSaveProperty();
   const { mutate: enquire, isPending } = useEnquireProperty();
+
   // const [showDiscountBanner, setshowDiscountBanner] = useState(
   //   data?.data.properties[0].is_discount || false
   // );
@@ -87,11 +90,13 @@ const PropertyDetail = () => {
     }
   }, [swiper]);
 
+
   if (isError) return <ApiErrorBlock />;
   if (isLoading || !data) return <Loader />;
   const item = data?.data.properties;
   const photoLenght = item?.photos.length || 0;
   const features = item?.features || [];
+
   const isRented =
     item?.purpose?.includes("rent") || item?.purpose?.includes("Rent") || false;
 
@@ -392,6 +397,7 @@ const PropertyDetail = () => {
                       className="prose  prose-lg
                       max-w-none prose-headings:font-bold [&>*]:text-gray-700 [&>*]:text-xs prose-headings:text-gray-900 [&>h2]:!font-adron-bold [&>h1]:text-3xl [&>h2]:text-2xl [&>h3]:text-xl [&>p]:my-5 [&>p]:text-gray-700 [&>p]:leading-relaxed [&>p]:text-xs [&>a]:text-blue-600 [&>a]:no-underline [&>a]:border-b-2 [&>a]:border-blue-300 [&>a]:hover:border-blue-600 [&>strong]:text-gray-900 [&>ul]:list-disc [&>ol]:list-decimal [&>li]:my-1 blockquote:border-l-4 blockquote:border-gray-300 blockquote:pl-4 blockquote:italic [&>img]:rounded-lg [&>img]:shadow-md [&>table]:border [&>table]:border-gray-200 [&>th]:bg-gray-50 [&>th]:p-2 [&>td]:p-2 "
                     />
+
                   </div>
                 </div>
                 <div className="flex flex-col gap-2">
