@@ -28,10 +28,10 @@ export default function InvestmentForm() {
   const { setPaymentDetails } = usePaymentBreakDownStore();
   const [selectedPaymentType, setSelectedPaymentType] = useState("");
   const { data, isError, isLoading } = useGetPropertyByID(id || 0);
-  const number_of_unit = data?.data.properties[0].number_of_unit || 0;
-  const property = data?.data.properties[0];
+  const number_of_unit = data?.data.properties.number_of_unit || 0;
+  const property = data?.data.properties;
   let paymentTypeOptions = [];
-  if (data?.data.properties[0].payment_type === "full") {
+  if (data?.data.properties.payment_type === "full") {
     paymentTypeOptions = ["One Time"];
   } else {
     paymentTypeOptions = ["One Time", "Installment"];
@@ -46,8 +46,7 @@ export default function InvestmentForm() {
       />
     );
 
-  const PropertyDurationLimit =
-    data?.data.properties[0].property_duration_limit;
+  const PropertyDurationLimit = data?.data.properties.property_duration_limit;
   function generateOptions(max: number) {
     const options = [];
     for (let i = 2; i <= max; i++) {
@@ -78,7 +77,7 @@ export default function InvestmentForm() {
       : {
           paymentType: Yup.string().required("Required"),
           units: Yup.number()
-            .max(data?.data.properties[0].number_of_unit || 0)
+            .max(data?.data.properties.number_of_unit || 0)
             .required("Required"),
         }),
     ...(property?.type.name === "Land" && {

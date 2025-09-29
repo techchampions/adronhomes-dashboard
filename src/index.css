@@ -140,3 +140,11 @@ ul, ol {
 button {
   cursor: pointer;
 }
+
+.swiper-button-next {
+  background-color: white;
+  border-radius: 50px;
+  padding: 0px;
+  height: 50px !important;
+  width: 50px !important;
+}
