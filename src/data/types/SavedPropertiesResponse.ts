@@ -24,7 +24,7 @@ export interface SavedPropertyPagination {
 export interface SavedProperty {
   id: number;
   property_id: number;
-  property: Property;
+  property: Property | null;
 }
 
 export interface PropertyDetails {
