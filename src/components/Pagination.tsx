@@ -44,18 +44,31 @@ const Pagination: React.FC<PaginationProps> = ({
     <div
       className={`flex justify-center gap-2 items-center mt-10 ${className}`}
     >
-      <Button
+      {/* <Button
         label="Prev"
         icon={<IoArrowBack />}
-        onClick={handlePrev}
+        onClick={() => onPageChange(currentPage - 1)}
         className="!w-fit px-3 text-xs h-8"
         disabled={!hasPrev}
-      />
+      /> */}
+      <div
+        // disabled={!hasPrev}
+        className={`w-8 h-8 rounded-full flex justify-center items-center ${
+          !hasPrev && "opacity-50"
+        } bg-adron-green text-white`}
+        onClick={() => {
+          onPageChange(currentPage - 1);
+        }}
+      >
+        <IoArrowBack />
+      </div>
 
       {getVisiblePages().map((page) => (
         <button
           key={page}
-          onClick={() => onPageChange(page)}
+          onClick={() => {
+            onPageChange(page);
+          }}
           className={`w-8 h-8 flex items-center justify-center rounded-full text-xs transition-colors duration-200 ${
             page === currentPage
               ? "bg-black text-white"
@@ -65,14 +78,25 @@ const Pagination: React.FC<PaginationProps> = ({
           {page}
         </button>
       ))}
+      <div
+        // disabled={!hasNext}
+        className={`w-8 h-8 rounded-full flex justify-center items-center ${
+          !hasNext && "opacity-50"
+        } bg-adron-green text-white`}
+        onClick={() => {
+          onPageChange(currentPage + 1);
+        }}
+      >
+        <IoArrowForward />
+      </div>
 
-      <Button
+      {/* <Button
         label="Next"
         rightIcon={<IoArrowForward />}
-        onClick={handleNext}
+        onClick={() => onPageChange(currentPage + 1)}
         disabled={!hasNext}
         className="!w-fit px-3 text-xs h-8"
-      />
+      /> */}
     </div>
   );
 };
