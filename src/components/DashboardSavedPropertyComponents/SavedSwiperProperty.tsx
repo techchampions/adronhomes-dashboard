@@ -228,12 +228,14 @@ import Button from "../Button";
 import { formatPrice } from "../../data/utils";
 import { useToastStore } from "../../zustand/useToastStore";
 import { useToggleSaveProperty } from "../../data/hooks";
+
 import LinkButton from "../LinkButton";
 import { IoLogoWhatsapp } from "react-icons/io5";
 import { Property } from "../../data/types/propertiesPageTypes";
 
 interface Props {
   saved_property: Property | null;
+
 }
 
 export default function SavedSwiperPropertyCard({ saved_property }: Props) {
@@ -283,10 +285,12 @@ export default function SavedSwiperPropertyCard({ saved_property }: Props) {
     );
   }
 
+
   const isRented =
     saved_property?.purpose?.includes("rent") ||
     saved_property?.purpose?.includes("Rent") ||
     false;
+
 
   const address = `${saved_property?.street_address || ""}, ${
     saved_property?.lga || ""
@@ -294,6 +298,7 @@ export default function SavedSwiperPropertyCard({ saved_property }: Props) {
 
   const features = saved_property?.features || [];
   const hasFeatures = features.length > 0;
+
 
   const toggleSaveProperty = async () => {
     toggleSave(saved_property?.id || 0, {
