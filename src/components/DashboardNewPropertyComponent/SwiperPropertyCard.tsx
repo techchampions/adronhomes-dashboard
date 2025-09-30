@@ -81,6 +81,8 @@ export default function SwiperPropertyCard({ property }: Props) {
   const toggleSaveProperty = async () => {
     toggleSave(property.id);
   };
+  const photos = Array.isArray(property.photos) ? property.photos : [];
+  const hasPhotos = photos.length > 0;
 
   return (
     <div className="rounded-3xl">
@@ -97,15 +99,21 @@ export default function SwiperPropertyCard({ property }: Props) {
           modules={[Navigation]}
           className="w-full h-full rounded-[40px]"
         >
-          {property.photos.map((img, idx) => (
-            <SwiperSlide key={idx}>
-              <img
-                src={img}
-                alt={`Image ${idx + 1}`}
-                className="object-cover rounded-3xl h-full w-full"
-              />
+          {hasPhotos ? (
+            photos.map((img, idx) => (
+              <SwiperSlide key={idx}>
+                <img
+                  src={img}
+                  alt={`Image ${idx + 1}`}
+                  className="object-cover rounded-3xl h-full w-full"
+                />
+              </SwiperSlide>
+            ))
+          ) : (
+            <SwiperSlide>
+              <div className="bg-gray-300 h-full w-full"></div>
             </SwiperSlide>
-          ))}
+          )}
         </Swiper>
 
         {/* Navigation Buttons */}
