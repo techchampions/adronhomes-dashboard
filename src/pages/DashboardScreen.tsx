@@ -7,6 +7,7 @@ import { useToastStore } from "../zustand/useToastStore";
 import BottomNav from "../components/NavigationComponents/BottomNavBar";
 import CookieConsent from "../components/CookiesConsent";
 import { useUserStore } from "../zustand/UserStore";
+import { useEffect, useRef } from "react";
 
 const routeTitles = {
   "/": "Dashboard",
@@ -41,6 +42,7 @@ function getPageTitle(pathname: string) {
 }
 function DashboardScreen() {
   const location = useLocation();
+  const mainRef = useRef<HTMLElement>(null);
   const { acceptCookies } = useUserStore();
   const pageTitle = getPageTitle(location.pathname);
   const { showToast } = useToastStore();
@@ -52,7 +54,12 @@ function DashboardScreen() {
   }
   const userAgent = navigator.userAgent;
   const isMobileApp = userAgent.includes("WebViewApp/1.0");
-
+  useEffect(() => {
+    // Scroll the main element to top on route change
+    if (mainRef.current) {
+      mainRef.current.scrollTop = 0;
+    }
+  }, [location.pathname]);
   return (
     <div className="fixed inset-0 z-50 flex h-screen w-screen">
       {!acceptCookies && <CookieConsent />}
@@ -66,11 +73,12 @@ function DashboardScreen() {
 
       {/* Main Content */}
       <main
+        ref={mainRef}
         className={`pt-[70px] md:pt-24 lg:pt-2 flex-1 bg-adron-body overflow-y-auto py-5 px-4 md:px-2 lg:pr-4 scrollbar-hide`}
       >
         <Header pageTitle={pageTitle} />
         <div className={`${isMobileApp ? "mb-18 md:mb-4" : "mb-10"} `}>
-          <Outlet />
+          <Outlet context={{ scrollContainerRef: mainRef }} />{" "}
         </div>
       </main>
       {isMobileApp && (

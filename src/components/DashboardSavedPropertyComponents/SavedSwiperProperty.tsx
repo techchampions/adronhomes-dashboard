@@ -189,7 +189,7 @@ export default function SavedSwiperPropertyCard({ saved_property }: Props) {
               icon={<IoLogoWhatsapp className="h-4 w-4" />}
               className="text-xs py-3 !bg-transparent !text-green-700 border hover:!bg-green-700 hover:!text-white"
             />
-          ) : saved_property?.unit_available || 0 < 1 ? (
+          ) : (saved_property?.unit_available || 0) < 1 ? (
             <Button
               label="Sold out"
               className="!bg-transparent !text-red-500 border text-xs py-3"

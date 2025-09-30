@@ -3,12 +3,14 @@ import SwiperPropertyList from "../components/DashboardNewPropertyComponent/Swip
 import FilterBar from "../components/DashboardNewPropertyComponent/FilterBar";
 import { useFilterProperties, usePropertiespage } from "../data/hooks";
 import { PropertyFilters } from "../data/api";
-import Button from "../components/Button";
-import { IoArrowBack, IoArrowForward } from "react-icons/io5";
 import Pagination from "../components/Pagination";
-
+import { useOutletContext } from "react-router-dom";
+interface OutletContext {
+  scrollContainerRef: React.RefObject<HTMLElement>;
+}
 const NewPropertyScreen = () => {
   const [page, setPage] = useState(1);
+  const { scrollContainerRef } = useOutletContext<OutletContext>();
   // const [filters, setFilters] = useState<Record<string, any>>({});
   const [filters, setFilters] = useState<PropertyFilters>({});
 
@@ -19,20 +21,18 @@ const NewPropertyScreen = () => {
     isError: errorProperty,
   } = useFilterProperties(page, filters);
   const totalPages = propertyData?.last_page || 0;
-  const handleNext = () => {
-    setPage(page + 1);
-  };
-  const handlePrev = () => {
-    setPage(page - 1);
-  };
 
   const properties = propertyData?.data || [];
-  // const properties =
-  //   filters && Object.values(filters).some((v) => v !== "")
-  //     ? data?.data || []
-  //     : data?.properties?.data || [];
-
-  // const pagination = data?.properties;
+  const handlePageChange = (page: number) => {
+    setPage(page);
+    // Scroll the main container to top
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+  };
   return (
     <div className="">
       <div className="flex flex-col justify-center mx-auto text-center space-y-2 my-7">
@@ -72,7 +72,7 @@ const NewPropertyScreen = () => {
       <Pagination
         currentPage={page}
         totalPages={totalPages}
-        onPageChange={setPage}
+        onPageChange={handlePageChange}
         hasPrev={!!propertyData?.prev_page_url}
         hasNext={!!propertyData?.next_page_url}
       />
