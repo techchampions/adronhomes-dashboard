@@ -15,6 +15,7 @@ import ApiErrorBlock from "../components/ApiErrorBlock";
 import { UserProperty } from "../data/types/dashboardHomeTypes";
 import { formatPrice } from "../data/utils";
 import SmallLoader from "../components/SmallLoader";
+import WalletTransactionsList from "../components/DashboardHomeComponents/WalletTransactionList";
 
 const HomeScreen = () => {
   const openModal = useModalStore((state) => state.openModal);
@@ -121,7 +122,7 @@ const HomeScreen = () => {
           isError={isError}
           isLoading={isLoading}
         />
-        <TransactionsList
+        <WalletTransactionsList
           data={transactions}
           isLoading={isLoadingTransaction}
           isError={isErrorTransaction}
