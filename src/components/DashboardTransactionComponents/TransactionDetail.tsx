@@ -6,6 +6,7 @@ import { formatPrice } from "../../data/utils";
 import { TransactionStatus } from "../../data/types/userTransactionsTypes";
 import SmallLoader from "../SmallLoader";
 import LinkButton from "../LinkButton";
+import ShareButton from "../ShareButton";
 
 const TransactionDetail = ({ id }: { id: number }) => {
   const { data, isLoading, isError } = useGetTransactionByID(id);
@@ -126,16 +127,16 @@ const TransactionDetail = ({ id }: { id: number }) => {
         </div>
       </div>
       <div className="flex justify-between">
-        <Button
-          label="Share"
-          className="bg-transparent !text-black !w-fir px-6 text-xs"
+        <ShareButton
+          url={recieptData?.download_url}
+          className="text-xs bg-transparent !text-black hover:!bg-transparent"
         />
         <LinkButton
           download={true}
           target={true}
           href={recieptData?.download_url || ""}
           label="Download"
-          className="bg-black !w-fir px-6 text-xs"
+          className="bg-black !w-fit px-6 text-xs"
           isLoading={gettingReciept}
           loadingText="Getting Reciept"
         />
