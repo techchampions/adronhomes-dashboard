@@ -90,7 +90,6 @@ const PropertyDetail = () => {
     }
   }, [swiper]);
 
-
   if (isError) return <ApiErrorBlock />;
   if (isLoading || !data) return <Loader />;
   const item = data?.data.properties;
@@ -383,21 +382,10 @@ const PropertyDetail = () => {
                 <div className="flex flex-col gap-2">
                   <h4 className="font-bold text-md">Description</h4>
                   <div className="text-sm ml-5 break-words text-left">
-                    {/* <div
-                      dangerouslySetInnerHTML={{ __html: sanitizedHTML }}
-                      className="rich-text-content"
-                      style={{
-                        contain: "content", // Isolates the content from parent styles
-                        all: "initial", // Reset all inherited styles
-                      }}
-                    /> */}
                     <div
                       dangerouslySetInnerHTML={{ __html: sanitizedHTML }}
-                      // className="prose max-w-none rich-text-content"
-                      className="prose  prose-lg
-                      max-w-none prose-headings:font-bold [&>*]:text-gray-700 [&>*]:text-xs prose-headings:text-gray-900 [&>h2]:!font-adron-bold [&>h1]:text-3xl [&>h2]:text-2xl [&>h3]:text-xl [&>p]:my-5 [&>p]:text-gray-700 [&>p]:leading-relaxed [&>p]:text-xs [&>a]:text-blue-600 [&>a]:no-underline [&>a]:border-b-2 [&>a]:border-blue-300 [&>a]:hover:border-blue-600 [&>strong]:text-gray-900 [&>ul]:list-disc [&>ol]:list-decimal [&>li]:my-1 blockquote:border-l-4 blockquote:border-gray-300 blockquote:pl-4 blockquote:italic [&>img]:rounded-lg [&>img]:shadow-md [&>table]:border [&>table]:border-gray-200 [&>th]:bg-gray-50 [&>th]:p-2 [&>td]:p-2 "
+                      className="prose prose-lg max-w-none prose-headings:font-bold [&>*]:text-gray-700 [&>*]:text-xs prose-headings:text-gray-900 [&>h2]:!font-adron-bold [&>h1]:text-3xl [&>h2]:text-2xl [&>h3]:text-xl [&>p]:my-5 [&>p]:text-gray-700 [&>p]:leading-relaxed [&>p]:text-xs [&>a]:text-blue-600 [&>a]:no-underline [&>a]:border-b-2 [&>a]:border-blue-300 [&>a]:hover:border-blue-600 [&>strong]:text-gray-900 [&>ul]:list-disc [&>ol]:list-decimal [&>ul]:list-inside [&>ol]:list-inside [&>li]:my-1 blockquote:border-l-4 blockquote:border-gray-300 blockquote:pl-4 blockquote:italic [&>img]:rounded-lg [&>img]:shadow-md [&>table]:border [&>table]:border-gray-200 [&>th]:bg-gray-50 [&>th]:p-2 [&>td]:p-2 "
                     />
-
                   </div>
                 </div>
                 <div className="flex flex-col gap-2">
@@ -453,7 +441,7 @@ const PropertyDetail = () => {
                         </div>
                       </div>
                     </div>
-                    {item.nearby_landmarks && (
+                    {/* {item.nearby_landmarks && (
                       <div className="relative overflow-x-hidden">
                         <div className="w-full text-sm text-left rtl:text-right text-gray-500">
                           <div>
@@ -466,7 +454,7 @@ const PropertyDetail = () => {
                           </div>
                         </div>
                       </div>
-                    )}
+                    )} */}
                   </div>
                 </div>
 
