@@ -43,7 +43,7 @@ const AddFundAmount = ({ goBack }: { goBack: () => void }) => {
               <div className="flex flex-col gap-4">
                 <InputField
                   name="amount"
-                  type="text"
+                  type="number"
                   placeholder="₦0.00"
                   className="text-2xl font-bold"
                 />
