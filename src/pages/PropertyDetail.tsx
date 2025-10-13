@@ -441,7 +441,7 @@ const PropertyDetail = () => {
                         </div>
                       </div>
                     </div>
-                    {item.nearby_landmarks && (
+                    {/* {item.nearby_landmarks && (
                       <div className="relative overflow-x-hidden">
                         <div className="w-full text-sm text-left rtl:text-right text-gray-500">
                           <div>
@@ -454,7 +454,7 @@ const PropertyDetail = () => {
                           </div>
                         </div>
                       </div>
-                    )}
+                    )} */}
                   </div>
                 </div>
 
