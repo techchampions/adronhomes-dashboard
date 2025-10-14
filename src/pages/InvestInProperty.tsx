@@ -117,8 +117,7 @@ export default function InvestmentForm() {
         otherFees: otherFees,
         numberOfUnits: values.units,
         propertyId: id ? id : null,
-        propertyPurpose:
-          property?.type.name === "Land" ? values.propertyPurpose : null,
+        propertyPurpose: values.propertyPurpose,
       };
       setPaymentDetails(planDetails);
       openModal(<InputMarketerId />);
@@ -138,8 +137,7 @@ export default function InvestmentForm() {
         otherFees: otherFees,
         numberOfUnits: values.units,
         propertyId: id ? id : null, // Convert string ID to number
-        propertyPurpose:
-          property?.type.name === "Land" ? values.propertyPurpose : null,
+        propertyPurpose: values.propertyPurpose,
       };
       setPaymentDetails(planDetails);
       openModal(<InputMarketerId />);
