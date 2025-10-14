@@ -84,7 +84,11 @@ export const NextofKinForm: React.FC<Props> = ({ activeTab, setActiveTab }) => {
               >
                 Next of Kin Phone.No
               </label>
-              <InputField name="phone" placeholder="Phone number" />
+              <InputField
+                name="phone"
+                placeholder="Phone number"
+                type="number"
+              />
             </div>
             <div className="">
               <label

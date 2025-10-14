@@ -152,7 +152,11 @@ export const CustomerForm: React.FC<Props> = ({ activeTab, setActiveTab }) => {
               >
                 SMS Phone.No
               </label>
-              <InputField name="phoneSMS" placeholder="Phone No. (for SMS)" />
+              <InputField
+                name="phoneSMS"
+                type="number"
+                placeholder="Phone No. (for SMS)"
+              />
             </div>
             <div className="">
               <label
