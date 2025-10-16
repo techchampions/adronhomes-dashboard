@@ -84,8 +84,8 @@ const AllRoutes = () => {
                   path="saved-properties"
                   element={<SavedPropertyScreen />}
                 />
-                <Route path="my-profile" element={<MyProfileScreen />} />
-                <Route path="settings" element={<ProfileSettings />} />
+                <Route path="settings" element={<MyProfileScreen />} />
+                {/* <Route path="settings2" element={<ProfileSettings />} /> */}
                 <Route path="support" element={<SupportScreen />} />
                 <Route
                   path="properties/:id"
@@ -113,7 +113,6 @@ const AllRoutes = () => {
                   element={<MyPropertyPaymentList />}
                 />
                 <Route path="FAQs" element={<FAQAccordion />} />
-
               </Route>
             </Route>
 

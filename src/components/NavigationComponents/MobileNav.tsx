@@ -34,7 +34,7 @@ const MobileNav = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [query, setQuery] = useState("");
   const goTpProfile = () => {
-    navigate("/dashboard/my-profile");
+    navigate("/dashboard/settings");
   };
 
   return (
@@ -180,12 +180,12 @@ const MobileNav = () => {
               <h4 className="text-adron-gray-400 font-bold px-7 mt-7 text-[13px]">
                 PROFILE
               </h4>
-              <NavItem
+              {/* <NavItem
                 onSlideBack={setIsMobileMenuOpen}
                 label="My Profile"
                 icon={<FaUserAlt className=" w-4 h-4" />}
                 path="/dashboard/my-profile"
-              />
+              /> */}
               <NavItem
                 onSlideBack={setIsMobileMenuOpen}
                 label="Account Settings"

@@ -26,7 +26,7 @@ const Header = ({ pageTitle }: { pageTitle: string }) => {
   const match = useMatch("/my-property/:id");
 
   const goToProfile = () => {
-    navigate("/dashboard/my-profile");
+    navigate("/dashboard/settings");
   };
   const goBack = () => {
     if (match) {

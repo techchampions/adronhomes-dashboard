@@ -69,11 +69,11 @@ function NavigationContainer() {
           <h4 className="text-adron-gray-400 font-bold px-7 mt-7 text-[13px]">
             PROFILE
           </h4>
-          <NavItem
+          {/* <NavItem
             label="My Profile"
             icon={<FaUserAlt className=" w-4 h-4" />}
             path="/dashboard/my-profile"
-          />
+          /> */}
           <NavItem
             label="Account Settings"
             icon={<IoSettingsSharp className=" w-4 h-4" />}
