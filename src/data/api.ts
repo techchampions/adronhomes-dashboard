@@ -631,3 +631,9 @@ export const getSettings = async (type: string): Promise<SettingsResponse> => {
   const response = await apiClient.get(`/settings?type=${type}`);
   return response.data;
 };
+export const updateProfile = async (formData: FormData) => {
+  const response = await apiClient.post(`/update-profile`, formData, {
+    headers: { "Content-Type": "application/json" },
+  });
+  return response.data;
+};

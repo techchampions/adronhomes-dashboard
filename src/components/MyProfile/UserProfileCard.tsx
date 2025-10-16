@@ -2,6 +2,10 @@ import React from "react";
 import { FaMapMarkerAlt, FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { formatDate } from "../../data/utils";
+import Button from "../Button";
+import { useModalStore } from "../../zustand/useModalStore";
+import EditProfile from "./UpdateProfile";
+import ChangePassword from "./ChangePassword";
 
 interface Props {
   firstName: string;
@@ -20,8 +24,9 @@ const UserProfileCard: React.FC<Props> = ({
   location,
   imageUrl,
 }) => {
+  const { openModal } = useModalStore();
   return (
-    <div className="bg-white py-6 px-12 rounded-3xl flex flex-col md:flex-row justify-between items-center md:items-end">
+    <div className="bg-white py-6 px-4 md:px-12 rounded-3xl flex flex-col md:flex-row justify-between items-center md:items-end">
       <div className="flex flex-col sm:flex-row items-start gap-6 py-5">
         {imageUrl ? (
           <img
@@ -46,12 +51,24 @@ const UserProfileCard: React.FC<Props> = ({
           </div>
         </div>
       </div>
-      <Link
+      <div className="flex items-center gap-2">
+        <Button
+          label="Edit Profile"
+          onClick={() => openModal(<EditProfile />)}
+          className="text-xs !w-fit px-5 !bg-black"
+        />
+        <Button
+          label="Change Password"
+          onClick={() => openModal(<ChangePassword />)}
+          className="text-xs !w-fit px-5 !bg-black"
+        />
+      </div>
+      {/* <Link
         to="/dashboard/settings"
-        className="text-sm font-semibold text-black"
+        className="text-sm font-semibold text-white bg-black hover:bg-black/10 hover:text-black transition duration-500 px-5 py-2 rounded-full"
       >
-        Account Settings
-      </Link>
+        Edit Profile
+      </Link> */}
     </div>
   );
 };

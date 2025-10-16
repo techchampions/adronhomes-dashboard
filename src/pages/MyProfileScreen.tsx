@@ -8,6 +8,7 @@ import { useGetUser, useGetUserPropertiesPlan } from "../data/hooks";
 import ApiErrorBlock from "../components/ApiErrorBlock";
 import { formatPrice } from "../data/utils";
 import SupportScreen from "./SupportScreen";
+import NotificationSettings from "../components/MyProfile/EditNotifications";
 
 const MyProfileScreen = () => {
   const { openModal } = useModalStore();
@@ -53,6 +54,20 @@ const MyProfileScreen = () => {
         </p>
       </div>
 
+      <div className="col-span-2 md:col-span-3 flex flex-col md:flex-row justify-between gap-3 md:items-center bg-white py-4 px-4 md:px-12 rounded-3xl">
+        <div className="flex flex-col w-full md:w-[60%]">
+          <h4 className=" font-bold text-md">Account Notifications</h4>
+          <p className="text-gray-400 text-xs">
+            Recieve Notification and alert on New Products, bonuses, Promo and
+            Event on this account, you can turn off or on anytime.{" "}
+          </p>
+        </div>
+        <Button
+          label="Notification Settings"
+          className="bg-black text-white font-bold !w-[155px] text-xs"
+          onClick={() => openModal(<NotificationSettings />)}
+        />
+      </div>
       <div className="col-span-2 md:col-span-3 flex flex-col md:flex-row justify-between gap-3 md:items-center bg-white py-4 px-4 md:px-12 rounded-3xl">
         <div className="flex flex-col w-full md:w-[60%]">
           <h4 className=" font-bold text-md">Account Statement</h4>

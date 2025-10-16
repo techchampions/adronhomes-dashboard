@@ -38,6 +38,7 @@ import {
   StatementPayload,
   StatementResponse,
   toggleSaveProperty,
+  updateProfile,
 } from "./api";
 import {
   PaginatedProperties,
@@ -464,5 +465,18 @@ export const useGetEquiryInfo = () => {
   return useQuery<SettingsResponse>({
     queryKey: ["settings", "enquiry"],
     queryFn: () => getSettings("enquiry"),
+  });
+};
+
+export const useUpdateProfile = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: updateProfile,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["user-profile"],
+      });
+    },
   });
 };
