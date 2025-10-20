@@ -4,6 +4,13 @@ export const formatPrice = (amount: number): string => {
     currency: "NGN",
   }).format(amount);
 };
+export const formatInputPrice = (amount: number): string => {
+  return new Intl.NumberFormat("en-NG", {
+    style: "currency",
+    currency: "NGN",
+    maximumFractionDigits: 0,
+  }).format(amount);
+};
 export const formatToNaira = (amount: number) => {
   if (!amount) return "";
   // const number = parseInt(amount.replace(/,/g, ""), 10);

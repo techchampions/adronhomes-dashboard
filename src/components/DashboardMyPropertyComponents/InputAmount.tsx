@@ -6,6 +6,7 @@ import InputField from "../InputField";
 import { usePaymentBreakDownStore } from "../../zustand/PaymentBreakDownStore";
 import { formatPrice } from "../../data/utils";
 import InfrastructureBankTransfer from "../DashboardNewPropertyComponent/InfrastructureBankTransfer";
+import InputFieldFormatted from "../InputField+Format";
 
 const InputInfrastructureAmount = ({
   goBack,
@@ -60,9 +61,10 @@ const InputInfrastructureAmount = ({
           {({ isValid }) => (
             <Form className="flex flex-col justify-between min-h-[200px]">
               <div className="flex flex-col gap-4">
-                <InputField
+                <InputFieldFormatted
                   name="amount"
                   type="text"
+                  formatAsNaira
                   placeholder="₦0.00"
                   className="text-2xl font-bold"
                 />

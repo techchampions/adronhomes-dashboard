@@ -5,6 +5,8 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import InputField from "../InputField";
 import AmountInputField from "../AmountInput";
+import FormattedInputField from "../InputField+Format";
+import InputFieldFormatted from "../InputField+Format";
 
 const AddFundAmount = ({ goBack }: { goBack: () => void }) => {
   const { openModal, closeModal } = useModalStore();
@@ -41,10 +43,11 @@ const AddFundAmount = ({ goBack }: { goBack: () => void }) => {
           {({ isValid, dirty, setFieldValue, values, touched, errors }) => (
             <Form className="flex flex-col justify-between min-h-[200px]">
               <div className="flex flex-col gap-4">
-                <InputField
+                <InputFieldFormatted
                   name="amount"
                   type="number"
                   placeholder="₦0.00"
+                  formatAsNaira
                   className="text-2xl font-bold"
                 />
                 <p className="text-xs text-gray-400 w-[80%]"></p>
