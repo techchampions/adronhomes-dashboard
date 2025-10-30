@@ -7,6 +7,7 @@ import SelectPaymentMethod from "../DashboardNewPropertyComponent/SelectPaymentM
 import { usePaymentBreakDownStore } from "../../zustand/PaymentBreakDownStore";
 import { formatDate, formatPrice } from "../../data/utils";
 import React from "react";
+import InputFieldFormatted from "../InputField+Format";
 type Props = {
   goBack: () => void;
   repaymentAmount: number;
@@ -28,7 +29,7 @@ const InputAmount: React.FC<Props> = ({ goBack, repaymentAmount, dueDate }) => {
   });
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col max-w-sm">
       <div className="flex flex-col">
         <div className="text-2xl font-bold">Make Payment</div>
         <p className="text-gray-400 text-xs w-[80%]">
@@ -56,7 +57,8 @@ const InputAmount: React.FC<Props> = ({ goBack, repaymentAmount, dueDate }) => {
           {({ isValid }) => (
             <Form className="flex flex-col justify-between min-h-[350px]">
               <div className="flex flex-col gap-4">
-                <InputField
+                <InputFieldFormatted
+                  formatAsNaira
                   name="amount"
                   type="text"
                   placeholder="₦0.00"
