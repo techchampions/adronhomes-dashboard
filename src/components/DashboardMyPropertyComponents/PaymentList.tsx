@@ -172,24 +172,6 @@ const PaymentList: React.FC<Props> = ({ data, isLoading, isError }) => {
             </button>
           ))}
         </div>
-        {/* <div>
-          <button className="border border-gray-300 text-xs px-4 py-1 rounded-3xl flex items-center gap-1">
-            Latest
-            <svg
-              className="w-3 h-3"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
-          </button>
-        </div> */}
       </div>
 
       {/* List */}

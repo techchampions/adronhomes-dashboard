@@ -18,7 +18,7 @@ const InputMarketerId = () => {
   });
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col max-w-xs">
       <div className="flex flex-col">
         <div className="text-2xl font-bold">Input Marketer ID</div>
         <p className="text-gray-400 text-xs w-[80%]"></p>
