@@ -120,6 +120,8 @@ const register = async (
       if (navigate) {
         navigate("/verify-Otp");
       }
+    } else if (!response.data.success) {
+      showToast("Internal Server Error", "error");
     } else if (response.data.errors) {
       const errorMessages = Object.values(response.data.errors)
         .flat()
