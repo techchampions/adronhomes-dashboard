@@ -637,3 +637,7 @@ export const updateProfile = async (formData: FormData) => {
   });
   return response.data;
 };
+export const resolveVirtualAccount = async () => {
+  const response = await apiClient.post(`/resolve-virtual-account`);
+  return response.data;
+};

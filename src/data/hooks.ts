@@ -33,6 +33,7 @@ import {
   PropertyFilters,
   propertyPlanRepayment,
   requestStatement,
+  resolveVirtualAccount,
   SearchParam,
   searchProperties,
   StatementPayload,
@@ -439,6 +440,23 @@ export const useInfrastructurePayment = () => {
       queryClient.invalidateQueries({
         queryKey: ["user-properties-plan-payment-history"],
       });
+    },
+  });
+};
+export const useResolveVirtualAccount = () => {
+  const { showToast } = useToastStore();
+
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: resolveVirtualAccount,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["user-wallet"],
+      });
+      showToast("Generated Account successfully", "success");
+    },
+    onError: () => {
+      showToast("Virtual Account Resolve Failed.", "error");
     },
   });
 };
