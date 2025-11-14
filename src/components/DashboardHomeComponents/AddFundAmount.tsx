@@ -15,7 +15,7 @@ const AddFundAmount = ({ goBack }: { goBack: () => void }) => {
   const validationSchema = Yup.object().shape({
     amount: Yup.number()
       .typeError("Amount must be a number")
-      .min(1001, "Amount must be greater than ₦1,000")
+      // .min(1001, "Amount must be greater than ₦1,000")
       .required("Amount is required"),
   });
 
