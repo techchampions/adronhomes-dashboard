@@ -194,7 +194,7 @@ const PropertyDetail = () => {
         <div className="w-full mx-auto">
           {/* Main slider */}
 
-          {photoLenght > 0 && (
+          {photoLenght > 0 ? (
             <div className="relative w-full h-[300px] rounded-xl overflow-hidden mt-4">
               <Swiper
                 spaceBetween={10}
@@ -235,6 +235,14 @@ const PropertyDetail = () => {
               >
                 <FaChevronRight size={30} />
               </button>
+            </div>
+          ) : (
+            <div className="relative w-full h-[300px] rounded-xl overflow-hidden mt-4">
+              <img
+                src={item.display_image}
+                className="w-full h-full object-cover"
+                alt=""
+              />
             </div>
           )}
 

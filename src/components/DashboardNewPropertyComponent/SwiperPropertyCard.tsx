@@ -111,7 +111,15 @@ export default function SwiperPropertyCard({ property }: Props) {
             ))
           ) : (
             <SwiperSlide>
-              <div className="bg-gray-300 h-full w-full"></div>
+              {property.display_image ? (
+                <img
+                  src={property.display_image}
+                  alt=""
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <div className="bg-gray-300 h-full w-full"></div>
+              )}
             </SwiperSlide>
           )}
         </Swiper>

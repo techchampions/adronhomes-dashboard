@@ -108,7 +108,15 @@ export default function SavedSwiperPropertyCard({ saved_property }: Props) {
             ))
           ) : (
             <SwiperSlide>
-              <div className="bg-gray-300 h-full w-full"></div>
+              {saved_property?.display_image ? (
+                <img
+                  src={saved_property.display_image}
+                  alt=""
+                  className="w-full h-full"
+                />
+              ) : (
+                <div className="bg-gray-300 h-full w-full"></div>
+              )}
             </SwiperSlide>
           )}
         </Swiper>
