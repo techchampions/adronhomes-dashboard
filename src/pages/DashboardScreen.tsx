@@ -48,7 +48,7 @@ function DashboardScreen() {
   const { showToast } = useToastStore();
   const { isError } = useGetUser();
   const { isError: AccountDetailsError } = useGetAccounts();
-  if (isError) console.log("error");
+  if (isError) console.log("couldn't get user");
   if (AccountDetailsError) {
     showToast("Error fetching account details", "error");
   }
