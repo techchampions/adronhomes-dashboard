@@ -25,7 +25,7 @@ export type FundWalletResponse = {
   success: boolean;
   message: string;
   merchant_code: string;
-  payment_item_id: string;
+  payable_code: string;
   reference: string;
   payment: {
     user_id: number;
@@ -109,15 +109,14 @@ const SelectPaymentMethod = ({
           onSuccess(res) {
             interswitch({
               email: user?.email || "",
-              customerName: user?.last_name,
+              customerName: `${user?.last_name} ${user?.first_name}`,
               amount: Number(amount), // in Naira
               reference: res.reference,
               merchant_code: res.merchant_code,
-              payment_item_id: res.payment_item_id,
+              payment_item_id: res.payable_code,
               onSuccess: (ref) => {
                 showToast("Payment successful!", "success");
                 console.log("Payment successful!", ref);
-                // TODO: call your backend API to confirm payment
               },
               onClose: () => {
                 showToast("Payment Canceled", "error");
