@@ -6,6 +6,7 @@ import Button from "../Button";
 import { useModalStore } from "../../zustand/useModalStore";
 import EditProfile from "./UpdateProfile";
 import ChangePassword from "./ChangePassword";
+import { Info } from "lucide-react";
 
 interface Props {
   firstName: string;
@@ -46,8 +47,17 @@ const UserProfileCard: React.FC<Props> = ({
             Joined {formatDate(joinedDate)}
           </p>
           <div className="flex items-center text-xs text-gray-500 mt-1">
-            <FaMapMarkerAlt className="mr-1 h-3 w-3" />
-            {location}
+            {location ? (
+              <>
+                <FaMapMarkerAlt className="mr-1 h-3 w-3" />
+                {location}
+              </>
+            ) : (
+              <>
+                <Info className="h-3 w-3 mr-1" />
+                <span>No address... update your profile</span>
+              </>
+            )}
           </div>
         </div>
       </div>

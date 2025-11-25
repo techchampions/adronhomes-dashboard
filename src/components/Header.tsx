@@ -43,7 +43,12 @@ const Header = ({ pageTitle }: { pageTitle: string }) => {
   };
   return (
     <div className="hidden lg:flex justify-between items-center bg-white rounded-3xl p-8 mb-5">
-      <FaArrowLeft className="cursor-pointer" onClick={goBack} />
+      <div
+        className="flex justify-center items-center border border-gray-200 hover:bg-gray-200 cursor-pointer rounded-full p-3"
+        onClick={goBack}
+      >
+        <FaArrowLeft className="cursor-pointer" />
+      </div>
       <div className="text-2xl">{pageTitle}</div>
       <div className="">
         <Formik
