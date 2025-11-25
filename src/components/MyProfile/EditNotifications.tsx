@@ -128,7 +128,7 @@ const NotificationSettings = () => {
               {/* Save Button */}
               <div className="flex items-center gap-5 justify-center">
                 <Button
-                  label="Cancle"
+                  label="Cancel"
                   className="bg-gray-500 text-sm "
                   onClick={closeModal}
                 />

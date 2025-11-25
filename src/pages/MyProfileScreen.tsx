@@ -18,7 +18,10 @@ const MyProfileScreen = () => {
   const userData = data?.user;
   if (isLoading) return <Loader />;
   if (isError) return <ApiErrorBlock />;
-
+  const location =
+    userData?.address && userData.lga && userData.state
+      ? `${userData?.address || ""}, ${userData?.lga}, ${userData?.state}`
+      : "";
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
       <div className="col-span-2 md:col-span-3">
@@ -27,7 +30,8 @@ const MyProfileScreen = () => {
           lastName={userData?.last_name || ""}
           email={userData?.email || ""}
           joinedDate={userData?.created_at || ""}
-          location={`${userData?.address}, ${userData?.lga}, ${userData?.state}`}
+          location={location}
+          // location={`${userData?.address||""}, ${userData?.lga}, ${userData?.state}`}
           imageUrl={userData?.profile_picture || ""}
         />
       </div>
