@@ -15,6 +15,7 @@ const routeTitles = {
   "/transactions": "Transactions",
   "/my-properties": "My Properties",
   "/my-property": "My Property",
+  "/my-contracts": "My Contracts",
   "/my-properties/:id/payment-list": "My Properties",
   "/new-properties": "New Properties",
   "/saved-properties": "Saved Properties",
@@ -24,17 +25,30 @@ const routeTitles = {
   "/support": "Support",
 };
 function getPageTitle(pathname: string) {
-  if (pathname.startsWith("/my-properties/")) {
+  console.log(pathname);
+  if (pathname.startsWith("/dashboard/my-properties")) {
     return "My Property";
   }
   if (
-    pathname.startsWith("/my-property/") &&
-    pathname.includes("/payment-list")
+    pathname.startsWith("/dashboard/my-property") &&
+    pathname.includes("/dashboard/payment-list")
   ) {
     return "Payment List";
   }
-  if (pathname.startsWith("/my-property/")) {
+  if (pathname.startsWith("/dashboard/my-property")) {
     return "My Property";
+  }
+  if (pathname.startsWith("/dashboard/wallet")) {
+    return "Wallet";
+  }
+  if (pathname.startsWith("/dashboard/notifications")) {
+    return "Notifications";
+  }
+  if (pathname.startsWith("/dashboard/wallet")) {
+    return "Wallet";
+  }
+  if (pathname.startsWith("/dashboard/my-contracts")) {
+    return "My Contracts";
   }
 
   // return routeTitles[pathname] || "Dashboard";

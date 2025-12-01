@@ -39,6 +39,7 @@ import AuthRoutes from "./authRoutes";
 import OTPScreen from "../pages/OTPScreen";
 import ForgotPassword from "../pages/ForgotPassword";
 import ResetPassword from "../pages/ResetPassword";
+import ContractsPage from "../pages/ContractsScreen";
 
 const DashboardScreen = lazy(() => import("../pages/DashboardScreen"));
 
@@ -76,6 +77,7 @@ const AllRoutes = () => {
                 <Route path="notifications" element={<NotificationsPage />} />
                 <Route path="my-properties" element={<MyPropertyScreen />} />
                 <Route path="new-properties" element={<NewPropertyScreen />} />
+                <Route path="my-contracts" element={<ContractsPage />} />
                 <Route
                   path="search-properties"
                   element={<PropertySearchResultScreen />}
