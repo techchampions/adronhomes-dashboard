@@ -10,6 +10,7 @@ import {
   getAllPropertyLocations,
   getAllPropertyType,
   getDashboardHomeData,
+  getERPContracts,
   getFAQs,
   getNotificationByID,
   getNotifications,
@@ -74,6 +75,10 @@ import { useToastStore } from "../zustand/useToastStore";
 import { useModalStore } from "../zustand/useModalStore";
 import { FAQResponse } from "./types/FAQTypes";
 import { SettingsResponse } from "./types/SettingsTypes";
+import {
+  ContractApiResponse,
+  PaginatedContractsResponse,
+} from "./types/ContractTypes";
 
 //Query hook for User profile
 export const useGetUser = () => {
@@ -496,5 +501,13 @@ export const useUpdateProfile = () => {
         queryKey: ["user-profile"],
       });
     },
+  });
+};
+
+//Query hook to get ERP contracts
+export const useGetERPContracts = (page: number) => {
+  return useQuery<ContractApiResponse>({
+    queryKey: ["erp-contracts", page],
+    queryFn: () => getERPContracts(page),
   });
 };

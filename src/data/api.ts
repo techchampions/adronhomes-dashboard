@@ -35,6 +35,10 @@ import { PropertiesRequestResponse } from "./types/PropertyRequestTypes";
 import { SliderByTypeResponse } from "./types/SliderByTypeTypes";
 import { FAQResponse } from "./types/FAQTypes";
 import { SettingsResponse } from "./types/SettingsTypes";
+import {
+  ContractApiResponse,
+  PaginatedContractsResponse,
+} from "./types/ContractTypes";
 
 export type ApiError = {
   response?: {
@@ -639,5 +643,14 @@ export const updateProfile = async (formData: FormData) => {
 };
 export const resolveVirtualAccount = async () => {
   const response = await apiClient.post(`/resolve-virtual-account`);
+  return response.data;
+};
+
+//get Notifications
+export const getERPContracts = async (
+  page: number
+): Promise<ContractApiResponse> => {
+  const response = await apiClient.get(`/user/erp-contracts?page=${page}`);
+  // const response = await apiClient.get(`/notifications?page=${page}`);
   return response.data;
 };

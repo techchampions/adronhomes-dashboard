@@ -6,11 +6,13 @@ import ApiErrorBlock from "../ApiErrorBlock";
 import NotFound from "../NotFound";
 import SmallLoader from "../SmallLoader";
 import { Eye, Trash, Trash2 } from "lucide-react";
+import { Contract } from "../../data/types/ContractTypes";
+import CopyButton from "../CopyButton";
 
 // export type NotificationStatus = "All" | "Read" | "Unread";
 
 type Props = {
-  data: Notification[];
+  data: Contract[];
   isError: boolean;
   isLoading: boolean;
 };
@@ -22,14 +24,6 @@ const ContractsList: React.FC<Props> = ({ data, isError, isLoading }) => {
   const { openModal } = useModalStore();
   const [activeTab, setActiveTab] = useState<Tab>("All");
 
-  const filteredData =
-    activeTab === "All"
-      ? data
-      : data.filter((item) => {
-          if (activeTab === "Read") return item.is_read === 1;
-          if (activeTab === "Unread") return item.is_read === 0;
-          return false;
-        });
   const renderContent = () => {
     if (isLoading) {
       return <SmallLoader />;
@@ -37,7 +31,7 @@ const ContractsList: React.FC<Props> = ({ data, isError, isLoading }) => {
     if (isError) {
       return <ApiErrorBlock />;
     }
-    if (filteredData.length <= 0) {
+    if (data.length <= 0) {
       return <NotFound text="notifications" />;
     }
     return renderList();
@@ -46,33 +40,33 @@ const ContractsList: React.FC<Props> = ({ data, isError, isLoading }) => {
   const renderList = () => {
     return (
       <div className="">
-        <div className="grid grid-cols-4 font-adron-bold text-sm p-4 rounded-3xl">
-          <div className="">Contract ID</div>
-          <div className="">Property</div>
-          <div className="">Date</div>
-          <div className="">Action</div>
+        <div className="grid grid-cols-4 font-adron-bold text-sm py-4 px-4 md:px-10 rounded-3xl gap-4">
+          <div className=" min-w-[100px] max-w-[200px]">Contract ID</div>
+          <div className=" min-w-[100px] max-w-[200px]">Property</div>
+          <div className="hidden md:block min-w-[100px] max-w-[200px]">
+            Date
+          </div>
+          <div className=" min-w-[100px] max-w-[200px]">Action</div>
         </div>
-        {filteredData.map((item) => (
+        {data.map((item) => (
           <div
             key={item.id}
-            className="cursor-pointer grid grid-cols-4 items-center p-4 even:bg-gray-100 rounded-3xl"
+            className="cursor-pointer grid grid-cols-3 md:grid-cols-4 gap-4 items-center py-4 px-4 md:py-4 md:px-10 even:bg-gray-100 rounded-3xl"
           >
-            <div className="text-xs truncate">{item.title}</div>
-            <div className="text-xs text-gray-400 truncate">{item.content}</div>
-            <div className="text-xs text-gray-400 truncate">
+            <div className="text-xs min-w-[100px] flex items-center gap-2">
+              <span className="truncate">{item.contractId}</span>
+              <CopyButton text={item.contractId} />
+            </div>
+            <div className="text-xs text-gray-400 truncate min-w-[100px] hover:underline">
+              {item.propertyEstate}
+            </div>
+            <div className="text-xs text-gray-400 truncate min-w-[100px] hidden md:block">
               {formatDate(item.created_at ?? "")}
             </div>
-            <div className="flex item-center justify-between gap-2 text-xs">
+            <div className="flex item-center justify-between gap-2 text-xs min-w-[100px]">
               <div className="flex items-center gap-2 text-cyan-800">
                 <Eye size={15} />
-                View
-              </div>
-              <div
-                className="flex items-center gap-2 text-red-800
-              "
-              >
-                <Trash2 size={15} />
-                Delete
+                View Transaction
               </div>
             </div>
           </div>
@@ -83,23 +77,6 @@ const ContractsList: React.FC<Props> = ({ data, isError, isLoading }) => {
 
   return (
     <div className="bg-white p-2 md:p-6 rounded-3xl">
-      {/* Tabs & Sort */}
-      <div className="flex justify-between items-center mb-4 p-4 md:p-0">
-        <div className="flex gap-4 text-sm font-medium">
-          {tabs.map((tab) => (
-            <button
-              key={tab}
-              className={`${
-                activeTab === tab ? "text-black" : "text-gray-400"
-              } transition`}
-              onClick={() => setActiveTab(tab)}
-            >
-              {tab}
-            </button>
-          ))}
-        </div>
-      </div>
-
       {/* List */}
       {renderContent()}
     </div>
