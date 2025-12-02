@@ -37,6 +37,7 @@ import { FAQResponse } from "./types/FAQTypes";
 import { SettingsResponse } from "./types/SettingsTypes";
 import {
   ContractApiResponse,
+  ContractTransactionApiResponse,
   PaginatedContractsResponse,
 } from "./types/ContractTypes";
 
@@ -652,5 +653,20 @@ export const getERPContracts = async (
 ): Promise<ContractApiResponse> => {
   const response = await apiClient.get(`/user/erp-contracts?page=${page}`);
   // const response = await apiClient.get(`/notifications?page=${page}`);
+  return response.data;
+};
+export const getERPContractTransaction = async (
+  contractID: number
+): Promise<ContractTransactionApiResponse> => {
+  const response = await apiClient.get(
+    `/user/erp-contract/${contractID}/transactions`
+  );
+  // const response = await apiClient.get(`/notifications?page=${page}`);
+  return response.data;
+};
+export const linkExistingContracts = async (formData: FormData) => {
+  const response = await apiClient.post(`/user/erp-contracts-link`, formData, {
+    headers: { "Content-Type": "application/json" },
+  });
   return response.data;
 };

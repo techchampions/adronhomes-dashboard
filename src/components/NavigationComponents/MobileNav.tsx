@@ -160,6 +160,12 @@ const MobileNav = () => {
               </h4>
               <NavItem
                 onSlideBack={setIsMobileMenuOpen}
+                label="My Contracts"
+                icon={<IoDocumentAttach className=" w-4 h-4" />}
+                path="/dashboard/my-contracts"
+              />
+              <NavItem
+                onSlideBack={setIsMobileMenuOpen}
                 label="My Properties"
                 icon={<MdAddHome className=" w-4 h-4" />}
                 path="/dashboard/my-properties"
@@ -175,12 +181,6 @@ const MobileNav = () => {
                 label="Saved Properties"
                 icon={<RiHomeHeartFill className=" w-4 h-4" />}
                 path="/dashboard/saved-properties"
-              />
-              <NavItem
-                onSlideBack={setIsMobileMenuOpen}
-                label="My Contracts"
-                icon={<IoDocumentAttach className=" w-4 h-4" />}
-                path="/dashboard/my-contracts"
               />
               {/* Profile Nav */}
               <h4 className="text-adron-gray-400 font-bold px-7 mt-7 text-[13px]">

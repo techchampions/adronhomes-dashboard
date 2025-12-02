@@ -40,6 +40,7 @@ import OTPScreen from "../pages/OTPScreen";
 import ForgotPassword from "../pages/ForgotPassword";
 import ResetPassword from "../pages/ResetPassword";
 import ContractsPage from "../pages/ContractsScreen";
+import ContractTransactionList from "../components/ContractsDashboardComponents/TransactionListModal";
 
 const DashboardScreen = lazy(() => import("../pages/DashboardScreen"));
 
@@ -113,6 +114,10 @@ const AllRoutes = () => {
                 <Route
                   path="my-property/payment-list/:id"
                   element={<MyPropertyPaymentList />}
+                />
+                <Route
+                  path="my-contracts/:id/transactions"
+                  element={<ContractTransactionList />}
                 />
                 <Route path="FAQs" element={<FAQAccordion />} />
               </Route>

@@ -62,3 +62,40 @@ export interface PaginationLink {
   label: string;
   active: boolean;
 }
+
+export interface ContractTransactionApiResponse {
+  success: boolean;
+  data: PaginatedTransactionsResponse;
+}
+
+// Paginated Transactions Response
+export interface PaginatedTransactionsResponse {
+  current_page: number;
+  data: Transaction[];
+  first_page_url: string;
+  from: number;
+  last_page: number;
+  last_page_url: string;
+  links: PaginationLink[];
+  next_page_url: string | null;
+  path: string;
+  per_page: number;
+  prev_page_url: string | null;
+  to: number;
+  total: number;
+}
+
+// Individual Transaction Type
+export interface Transaction {
+  id: number;
+  propertyId: number;
+  userId: number;
+  ContractId: string; // Note: capital C in ContractId
+  TransactionDate: string; // Format: "YYYY-MM-DD"
+  TransactionAmount: number;
+  TransactionDRCR: "C" | "D"; // Credit or Debit
+  TransactionDescription: string;
+  created_at: string; // ISO 8601 format
+  updated_at: string; // ISO 8601 format
+  TransactionReference: string;
+}

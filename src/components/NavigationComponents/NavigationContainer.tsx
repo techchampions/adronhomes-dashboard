@@ -51,6 +51,11 @@ function NavigationContainer() {
             LISTINGS
           </h4>
           <NavItem
+            label="My Contracts"
+            icon={<IoDocumentAttach className=" w-4 h-4" />}
+            path="/dashboard/my-contracts"
+          />
+          <NavItem
             label="My Properties"
             icon={<MdAddHome className=" w-4 h-4" />}
             path="/dashboard/my-properties"
@@ -64,11 +69,6 @@ function NavigationContainer() {
             label="Saved Properties"
             icon={<RiHomeHeartFill className=" w-4 h-4" />}
             path="/dashboard/saved-properties"
-          />
-          <NavItem
-            label="My Contracts"
-            icon={<IoDocumentAttach className=" w-4 h-4" />}
-            path="/dashboard/my-contracts"
           />
           {/* Profile Nav */}
           <h4 className="text-adron-gray-400 font-bold px-7 mt-7 text-[13px]">

@@ -11,6 +11,7 @@ import {
   getAllPropertyType,
   getDashboardHomeData,
   getERPContracts,
+  getERPContractTransaction,
   getFAQs,
   getNotificationByID,
   getNotifications,
@@ -29,6 +30,7 @@ import {
   getWalletTransactionReciept,
   infrastructurePayment,
   InitiatePropertyPurchaseResponse,
+  linkExistingContracts,
   makeEnquire,
   makePendingPropertyPlanPayment,
   PropertyFilters,
@@ -77,6 +79,7 @@ import { FAQResponse } from "./types/FAQTypes";
 import { SettingsResponse } from "./types/SettingsTypes";
 import {
   ContractApiResponse,
+  ContractTransactionApiResponse,
   PaginatedContractsResponse,
 } from "./types/ContractTypes";
 
@@ -509,5 +512,24 @@ export const useGetERPContracts = (page: number) => {
   return useQuery<ContractApiResponse>({
     queryKey: ["erp-contracts", page],
     queryFn: () => getERPContracts(page),
+  });
+};
+export const useGetERPContractTransactions = (contractID: number) => {
+  return useQuery<ContractTransactionApiResponse>({
+    queryKey: ["erp-contract-transaction", contractID],
+    queryFn: () => getERPContractTransaction(contractID),
+  });
+};
+
+export const useLinkExistingContracts = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: linkExistingContracts,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["erp-contracts"],
+      });
+    },
   });
 };
