@@ -7,7 +7,7 @@ interface Props {
 }
 const ContractDetail: React.FC<Props> = ({ item }) => {
   return (
-    <div className="w-xs max-w-sm max-h-80 overflow-x-scroll scrollbar-hide">
+    <div className="w-sm max-w-sm max-h-80 overflow-x-scroll scrollbar-hide">
       <h4 className="text-2xl font-adron-bold">Contract Detail</h4>
       <div className="text-xs divide-y divide-gray-300 space-y-2 mt-4">
         <div className="grid grid-cols-3 gap-4 pb-2">

@@ -6,11 +6,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import SmallLoader from "../SmallLoader";
 import ApiErrorBlock from "../ApiErrorBlock";
 import { useToastStore } from "../../zustand/useToastStore";
-import {
-  useGetUser,
-  useLinkExistingContracts,
-  useUpdateProfile,
-} from "../../data/hooks";
+import { useGetUser, useLinkExistingContracts } from "../../data/hooks";
 import InputField from "../InputField";
 import Button from "../Button";
 import { useModalStore } from "../../zustand/useModalStore";
@@ -27,7 +23,7 @@ const LinkExistingContracts = () => {
   if (isError) return <ApiErrorBlock />;
 
   const initialValues = {
-    customer_code: `${userData?.unique_customer_id}`,
+    customer_code: `${userData?.unique_customer_id || ""}`,
     dob: ``,
   };
 
@@ -49,7 +45,7 @@ const LinkExistingContracts = () => {
         showToast("Existing contracts link successfully", "success");
         closeModal();
       },
-      onError(error, variables, onMutateResult, context) {
+      onError() {
         showToast("Invalid Credentials", "error");
       },
     });
@@ -76,7 +72,7 @@ const LinkExistingContracts = () => {
                   </label>
                   <InputField
                     name="customer_code"
-                    placeholder={initialValues.customer_code}
+                    placeholder={"Customer code"}
                   />
                 </div>
                 <CustomDateInput
