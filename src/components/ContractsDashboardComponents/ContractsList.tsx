@@ -12,6 +12,7 @@ import ContractTransactionList from "./TransactionListModal";
 import { Link } from "react-router-dom";
 import Button from "../Button";
 import LinkExistingContracts from "./LinkExistingContracts";
+import ContractDetail from "./ContractDetail";
 
 // export type NotificationStatus = "All" | "Read" | "Unread";
 
@@ -60,38 +61,56 @@ const ContractsList: React.FC<Props> = ({ data, isError, isLoading }) => {
             key={item.id}
             className="cursor-pointer grid grid-cols-12 gap-4 items-center py-4 px-4 md:py-4 md:px-10 even:bg-gray-100 rounded-3xl text-xs"
           >
-            <div className=" col-span-1">{i + 1}</div>
+            <div
+              className=" col-span-1"
+              onClick={() => openModal(<ContractDetail item={item} />)}
+            >
+              {i + 1}
+            </div>
             <div className="text-xs col-span-2 flex items-center gap-2">
               <span className="truncate">{item.contractId}</span>
               <CopyButton text={item.contractId} />
             </div>
-            <div className=" col-span-2">
+            <div
+              className=" col-span-2"
+              onClick={() => openModal(<ContractDetail item={item} />)}
+            >
               {formatDate(item.contractDate || "")}
             </div>
             {item.propertyId ? (
               <Link
                 to={`/dashboard/properties/${item.propertyId}`}
-                className="text-xs text-gray-400 truncate col-span-2 hover:underline"
+                className="text-xs text-blue-500 truncate col-span-2 hover:underline"
               >
                 {item.propertyEstate}
               </Link>
             ) : (
-              <div className="text-xs text-gray-400 truncate col-span-2 hover:underline">
+              <div
+                className="text-xs text-gray-400 truncate col-span-2 hover:underline"
+                onClick={() => openModal(<ContractDetail item={item} />)}
+              >
                 {item.propertyEstate}
               </div>
             )}
-            <div className="col-span-2">
+            <div
+              className="col-span-2"
+              onClick={() => openModal(<ContractDetail item={item} />)}
+            >
               {formatPrice(Number(item.propertyNetValue) || 0)}
             </div>
-            <div className="col-span-1">{item.propertyTenor}</div>
+            <div
+              className="col-span-1"
+              onClick={() => openModal(<ContractDetail item={item} />)}
+            >
+              {item.propertyTenor}
+            </div>
             <div className="flex item-center justify-between gap-2 text-xs col-span-2">
               <Link
-                // to={`/`}
                 to={`/dashboard/my-contracts/${item.contractId}/transactions`}
                 className="flex items-center gap-2 text-cyan-800"
               >
                 <Eye size={15} />
-                View Transaction
+                Transaction history
               </Link>
             </div>
           </div>

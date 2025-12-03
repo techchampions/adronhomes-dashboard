@@ -5,8 +5,11 @@ import ApiErrorBlock from "../ApiErrorBlock";
 import SmallLoader from "../SmallLoader";
 import { useGetERPContractTransactions } from "../../data/hooks";
 import { useParams } from "react-router-dom";
+import { useModalStore } from "../../zustand/useModalStore";
+import ContractTransactionSummary from "./ContractTransactionSummary";
 
 const ContractTransactionList = () => {
+  const modal = useModalStore();
   const params = useParams();
   const contractID = params.id;
   const {
@@ -19,6 +22,9 @@ const ContractTransactionList = () => {
     return data?.map((item, i) => (
       <div
         key={item.id}
+        onClick={() =>
+          modal.openModal(<ContractTransactionSummary item={item} />)
+        }
         className={`cursor-pointer grid grid-cols-9 justify-between items-center p-4 even:bg-gray-100 rounded-3xl`}
       >
         <div className="border rounded-full flex justify-center items-center h-4 w-4 p-2 text-sm">
