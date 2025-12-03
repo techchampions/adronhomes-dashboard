@@ -93,6 +93,7 @@ const register = async (
     phone: string;
     password: string;
     marketerReferralCode: string;
+    dob: string;
   },
   { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void },
   navigate?: (path: string) => void
@@ -110,6 +111,7 @@ const register = async (
       email: values.email,
       phone_number: values.phone,
       password: values.password,
+      dob: values.dob,
       referral_code: values.marketerReferralCode,
     });
 

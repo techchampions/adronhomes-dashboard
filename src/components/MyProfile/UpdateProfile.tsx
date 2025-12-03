@@ -11,6 +11,7 @@ import InputField from "../InputField";
 import Button from "../Button";
 import ProfilePictureField from "./ProfilePictureField";
 import { useModalStore } from "../../zustand/useModalStore";
+import DatePickerInput from "../DatePickerInput";
 
 const EditProfile = () => {
   const { showToast } = useToastStore();
@@ -30,6 +31,7 @@ const EditProfile = () => {
     state: `${userData?.state || ""}`,
     country: `${userData?.country || ""}`,
     lga: `${userData?.lga || ""}`,
+    dob: ``,
     address: `${userData?.address || ""}`,
     password: "",
     passwordConfirmation: "",
@@ -45,6 +47,7 @@ const EditProfile = () => {
     phone: Yup.string().required("Phone is required"),
     state: Yup.string().required("State is required"),
     lga: Yup.string().required("LGA is required"),
+    dob: Yup.string().required("required"),
     country: Yup.string().required("Country is required"),
     address: Yup.string().required("Address is required"),
   });
@@ -68,6 +71,9 @@ const EditProfile = () => {
     }
     if (values.lga) {
       formData.append("lga", values.lga);
+    }
+    if (values.dob) {
+      formData.append("dob", values.dob);
     }
     if (values.address) {
       formData.append("address", values.address);
@@ -176,6 +182,16 @@ const EditProfile = () => {
                   </div>
                 </div>
 
+                <div>
+                  <label className="block text-sm text-gray-600 ">
+                    Address
+                  </label>
+                  <InputField
+                    name="address"
+                    placeholder={initialValues.address}
+                  />
+                </div>
+
                 {/* Address */}
                 <div className="grid grid-cols-2 gap-2 md:gap-4">
                   <div>
@@ -190,16 +206,7 @@ const EditProfile = () => {
                     <InputField name="lga" placeholder={initialValues.lga} />
                   </div>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm text-gray-600 ">
-                      Address
-                    </label>
-                    <InputField
-                      name="address"
-                      placeholder={initialValues.address}
-                    />
-                  </div>
+                <div className="grid grid-cols-2 gap-2 md:gap-4">
                   <div>
                     <label className="block text-sm text-gray-600">
                       Country
@@ -207,6 +214,15 @@ const EditProfile = () => {
                     <InputField
                       name="country"
                       placeholder={initialValues.country}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm text-gray-600 ">
+                      Date of Birth
+                    </label>
+                    <DatePickerInput
+                      name="dob"
+                      // placeholder={initialValues.address}
                     />
                   </div>
                 </div>

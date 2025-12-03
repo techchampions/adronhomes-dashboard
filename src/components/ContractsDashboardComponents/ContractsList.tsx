@@ -49,7 +49,7 @@ const ContractsList: React.FC<Props> = ({ data, isError, isLoading }) => {
           <div className="line-clamp-1 col-span-2">Contract Date</div>
           <div className="line-clamp-1 col-span-2">Property</div>
           <div className="line-clamp-1 col-span-2">Contract Net.Val</div>
-          <div className="line-clamp-1 col-span-1">Tenure</div>
+          <div className="line-clamp-1 col-span-1">Tenor</div>
           <div className="line-clamp-1 col-span-2 min-w-[100px] max-w-[200px]">
             Action
           </div>
@@ -61,7 +61,7 @@ const ContractsList: React.FC<Props> = ({ data, isError, isLoading }) => {
           >
             <div className=" col-span-1">{i + 1}</div>
             <div className="text-xs col-span-2 flex items-center gap-2">
-              <span className="truncate">{item.contractId}</span>
+              <span className="">{item.contractId}</span>
               <CopyButton text={item.contractId} />
             </div>
             <div className=" col-span-2">
@@ -71,12 +71,12 @@ const ContractsList: React.FC<Props> = ({ data, isError, isLoading }) => {
             {item.propertyId ? (
               <Link
                 to={`/dashboard/properties/${item.propertyId}`}
-                className="text-xs text-blue-500 truncate col-span-2 hover:underline"
+                className="text-xs text-blue-500  col-span-2 hover:underline"
               >
                 {item.propertyEstate}
               </Link>
             ) : (
-              <div className="text-xs text-gray-400 truncate col-span-2 hover:underline">
+              <div className="text-xs text-gray-400  col-span-2 hover:underline">
                 {item.propertyEstate}
               </div>
             )}
@@ -84,7 +84,7 @@ const ContractsList: React.FC<Props> = ({ data, isError, isLoading }) => {
               {formatPrice(Number(item.propertyNetValue) || 0)}
             </div>
             <div className="col-span-1">{item.propertyTenor}</div>
-            <div className="flex item-center justify-between gap-2 text-xs col-span-2">
+            <div className="flex item-center gap-2 text-xs col-span-2">
               <Link
                 to={`/dashboard/my-contracts/${item.contractId}/transactions`}
                 className="flex items-center gap-2 text-cyan-800 border rounded-lg text-[8px] text-center p-1 hover:bg-cyan-800 hover:text-white"
@@ -109,11 +109,11 @@ const ContractsList: React.FC<Props> = ({ data, isError, isLoading }) => {
     <div className="bg-white p-2 md:p-6 rounded-3xl">
       <div className="flex items-center justify-between w-full">
         <h4 className="text-2xl font-adron-bold pb-4">Contracts</h4>
-        <Button
+        {/* <Button
           label="Link Existing Contracts"
           className="!w-fit px-7 bg-gray-700 !rounded-xl"
           onClick={() => openModal(<LinkExistingContracts />)}
-        />
+        /> */}
       </div>
 
       {/* List */}

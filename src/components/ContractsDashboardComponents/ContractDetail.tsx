@@ -2,10 +2,13 @@ import React from "react";
 import { Contract } from "../../data/types/ContractTypes";
 import CopyButton from "../CopyButton";
 import { formatDate, formatPrice } from "../../data/utils";
+import { Link } from "react-router-dom";
+import { useModalStore } from "../../zustand/useModalStore";
 interface Props {
   item: Contract;
 }
 const ContractDetail: React.FC<Props> = ({ item }) => {
+  const modal = useModalStore();
   return (
     <div className="w-sm max-w-sm max-h-80 overflow-x-scroll scrollbar-hide">
       <h4 className="text-2xl font-adron-bold">Contract Detail</h4>
@@ -20,14 +23,24 @@ const ContractDetail: React.FC<Props> = ({ item }) => {
         <div className="grid grid-cols-3 gap-4 pb-2">
           <div className="text-gray-500">Contract Date:</div>
           <div className="flex items-center gap-2 col-span-2">
-            {formatDate(item.contractDate || "")}
+            {item.contractDate || "..."}
           </div>
         </div>
         <div className="grid grid-cols-3 gap-4 pb-2">
           <div className="text-gray-500">Property :</div>
-          <div className="flex items-center gap-2 col-span-2">
-            {item.propertyEstate || "..."}
-          </div>
+          {item.propertyId ? (
+            <Link
+              to={`/dashboard/properties/${item.propertyId}`}
+              onClick={() => modal.closeModal()}
+              className="flex items-center gap-2 col-span-2 text-cyan-700 hover:underline"
+            >
+              {item.propertyEstate || "..."}
+            </Link>
+          ) : (
+            <div className="flex items-center gap-2 col-span-2">
+              {item.propertyEstate || "..."}
+            </div>
+          )}
         </div>
         <div className="grid grid-cols-3 gap-4 pb-2">
           <div className="text-gray-500">Branch:</div>
@@ -113,20 +126,20 @@ const ContractDetail: React.FC<Props> = ({ item }) => {
         <div className="grid grid-cols-3 gap-4 pb-2">
           <div className="text-gray-500">First payment:</div>
           <div className="gap-2 col-span-2">
-            {formatDate(item.firstPaymentDate || "...")}
+            {item.firstPaymentDate || "..."}
           </div>
         </div>
         <div className="grid grid-cols-3 gap-4 pb-2">
           <div className="text-gray-500">Last payment:</div>
           <div className="gap-2 col-span-2">
-            {formatDate(item.lastPaymentDate || "...")}
+            {item.lastPaymentDate || "..."}
           </div>
         </div>
         <div className="grid grid-cols-3 gap-4 pb-2">
           <div className="text-gray-500">Full payment:</div>
           <div className="gap-2 col-span-2">
             {formatPrice(Number(item.fullPayment) || 0)} on{" "}
-            {formatDate(item.fullPaymentDate || "...")}
+            {item.fullPaymentDate || "..."}
           </div>
         </div>
       </div>
