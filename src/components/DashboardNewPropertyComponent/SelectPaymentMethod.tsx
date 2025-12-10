@@ -247,12 +247,16 @@ const SelectPaymentMethod = ({
               });
             },
             onError: (error: ApiError) => {
+              if (error.response?.data?.message) {
+                showToast(error.response.data.message, "error");
+              } else {
+                showToast("Failed to complete payment", "error");
+              }
               // const message =
               //   error?.response?.data?.message ||
               //   error?.message ||
               //   "Something went wrong";
               // showToast(message, "error");
-              showToast("Failed to complete payment", "error");
             },
           });
         } else {
