@@ -333,7 +333,7 @@ const SelectPaymentMethod = ({
             </div>
           </div>
 
-          {/* <div
+          <div
             className={`flex items-center gap-4 p-4 rounded-xl cursor-pointer transition-all ${
               selectedPaymentMethod === "Paystack"
                 ? "bg-adron-green text-white border-none "
@@ -358,7 +358,7 @@ const SelectPaymentMethod = ({
                 Pay through Paystack
               </p>
             </div>
-          </div> */}
+          </div>
 
           <div
             className={`flex items-center gap-4 p-4 rounded-xl cursor-pointer transition-all ${
