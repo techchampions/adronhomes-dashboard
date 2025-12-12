@@ -104,7 +104,10 @@ const MyPropertyDetail = () => {
     });
     openModal(
       <SelectPaymentMethod
-        amount={data?.plan_properties.paid_amount || 0}
+        amount={
+          (data?.plan_properties.paid_amount || 0) +
+          (data?.plan_properties.property.initial_deposit || 0)
+        }
         user_property_id={data?.user_property.id || 0}
         payment_type={Number(data?.plan_properties.payment_type)}
         goBack={closeModal}
@@ -416,6 +419,13 @@ const MyPropertyDetail = () => {
                       {data?.contract?.unique_contract_id || "No contract ID"}
                     </p>
                   </div>
+                </div>
+                <div className="bg-white/50 rounded-lg px-5 py-1 w-fit text-sm text-white flex items-center">
+                  +{" "}
+                  {formatPrice(
+                    Number(data?.plan_properties.property.initial_deposit)
+                  )}{" "}
+                  Subscription-form
                 </div>
 
                 <div className="flex justify-between items-baseline text-sm mt-2 w-fit text-white">

@@ -30,6 +30,7 @@ const PropertyList: React.FC<PropertyListProps> = ({
         {properties.map((plan) => (
           <PropertyCardProgress
             payment_type={plan.plan?.payment_type}
+            subscription_form={plan.property.initial_deposit}
             // transactionRef ={plan.plan.ref}
             createdAt={plan.created_at}
             key={plan.id}

@@ -10,6 +10,7 @@ export interface Property {
   lga: string;
   state: string;
   slug: String;
+  initial_deposit: number;
 }
 
 // export interface PlanProperty {

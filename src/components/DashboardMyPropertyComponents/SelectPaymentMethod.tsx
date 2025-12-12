@@ -18,6 +18,7 @@ import { usePaystackPayment } from "../../hooks/usePaystackPayment";
 import { useUserStore } from "../../zustand/UserStore";
 import { ApiError } from "../DashboardHomeComponents/SelectPaymentMethod";
 import BankTransfer from "./BankTransferMethod";
+import { Info } from "lucide-react";
 
 const SelectPaymentMethod = ({
   goBack,
@@ -134,8 +135,15 @@ const SelectPaymentMethod = ({
         <div className="text-2xl font-bold">Select Payment Method</div>
         <p className="text-gray-400 text-xs w-[80%]">
           Select your preferred payment method for your plan{" "}
-          <b className="text-black">({formatPrice(amount)})</b>.
+          {/* <b className="text-black">({formatPrice(amount)})</b>. */}
         </p>
+        <div className="mt-2 flex items-center text-gray-500 gap-1">
+          <Info size={16} />
+          <div className="text-xs">
+            You are paying a total of{" "}
+            <b className="text-black text-sm">({formatPrice(amount)})</b>.
+          </div>
+        </div>
       </div>
 
       <div className="flex flex-col gap-4 mt-4 min-h-[300px] justify-between">
