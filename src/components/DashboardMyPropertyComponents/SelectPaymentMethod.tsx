@@ -4,6 +4,7 @@ import { useModalStore } from "../../zustand/useModalStore";
 import { FaWallet } from "react-icons/fa";
 import {
   useCreatePropertyPlan,
+  useGenerateNewRef,
   useGetUserWalletdata,
   useMakePropertyPlanPendingPayment,
   usePropertyPlanRepayment,
@@ -25,11 +26,13 @@ const SelectPaymentMethod = ({
   amount,
   payment_type,
   user_property_id,
+  payment_id,
 }: {
   goBack: () => void;
   amount: number;
   payment_type?: number;
   user_property_id: number;
+  payment_id: number;
 }) => {
   const { showToast } = useToastStore();
   const { user } = useUserStore();
@@ -39,6 +42,7 @@ const SelectPaymentMethod = ({
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<
     string | null
   >(null);
+  const { data, isLoading: gettingNewRef } = useGenerateNewRef(payment_id);
   const { openModal } = useModalStore();
   const { mutate: makePayment, isPending: isPaying } =
     useMakePropertyPlanPendingPayment();
@@ -62,6 +66,9 @@ const SelectPaymentMethod = ({
   };
 
   const handleContinue = () => {
+    if (gettingNewRef) {
+      return <SmallLoader />;
+    }
     if (selectedPaymentMethod == "Bank Transfer") {
       openModal(
         <BankTransfer
@@ -71,11 +78,11 @@ const SelectPaymentMethod = ({
           user_property_id={user_property_id}
         />
       );
-    } else if (selectedPaymentMethod == "Paystack") {
+    } else if (selectedPaymentMethod == "Paystack" && data?.payment.reference) {
       paystack({
         email: user?.email || "",
         amount: amount, // in Naira
-        reference: "ffh9f0e9fhe9f",
+        reference: data?.payment.reference,
         onSuccess: (ref) => {
           payload = {
             payment_type: payment_type,

@@ -24,6 +24,7 @@ import { BsFillExclamationCircleFill } from "react-icons/bs";
 import MyPlanPaymentHistory from "../components/DashboardMyPropertyComponents/MyPropertyPaymentHistory";
 import SelectPaymentMethod from "../components/DashboardMyPropertyComponents/SelectPaymentMethod";
 import DownloadPropertyDocuments from "../components/DashboardMyPropertyComponents/DownloadPropertyDocuments";
+import { useToastStore } from "../zustand/useToastStore";
 
 const MyPropertyDetail = () => {
   // const { data, isLoading, isError } = useGetUserTransactions();
@@ -59,6 +60,7 @@ const MyPropertyDetail = () => {
   const { setPaymentDetails, resetPaymentDetails, planId } =
     usePaymentBreakDownStore();
   const { openModal, closeModal } = useModalStore();
+  const { showToast } = useToastStore();
   const navigate = useNavigate();
   const params = useParams();
   const id = params?.id;
@@ -102,17 +104,22 @@ const MyPropertyDetail = () => {
     setPaymentDetails({
       planId: data?.plan_properties.id,
     });
-    openModal(
-      <SelectPaymentMethod
-        amount={
-          (data?.plan_properties.paid_amount || 0) +
-          (data?.plan_properties.property.initial_deposit || 0)
-        }
-        user_property_id={data?.user_property.id || 0}
-        payment_type={Number(data?.plan_properties.payment_type)}
-        goBack={closeModal}
-      />
-    );
+    if (data?.payment.id) {
+      openModal(
+        <SelectPaymentMethod
+          amount={
+            (data?.plan_properties.paid_amount || 0) +
+            (data?.plan_properties.property.initial_deposit || 0)
+          }
+          user_property_id={data?.user_property.id || 0}
+          payment_id={data?.payment.id}
+          payment_type={Number(data?.plan_properties.payment_type)}
+          goBack={closeModal}
+        />
+      );
+    } else {
+      showToast("No Payment ID found", "error");
+    }
   };
   const makePaymentForProperty = () => {
     resetPaymentDetails();
