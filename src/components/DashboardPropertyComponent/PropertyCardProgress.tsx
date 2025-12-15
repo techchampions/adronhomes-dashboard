@@ -21,11 +21,13 @@ type PropertyCardProps = {
   status: number;
   payment_method: string;
   payment_type: number;
+  subscription_form: number;
 };
 
 const PropertyCard: React.FC<PropertyCardProps> = ({
   id,
   user_property_id,
+  subscription_form,
   createdAt,
   imageUrl,
   title,
@@ -52,7 +54,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
     openModal(
       <SelectPaymentMethod
         goBack={closeModal}
-        amount={raisedAmount}
+        amount={raisedAmount + subscription_form}
         user_property_id={user_property_id}
         payment_type={payment_type}
       />
