@@ -194,13 +194,13 @@ const SelectPaymentMethod = ({
             <div className="">{formatPrice(subscription_form || 0)}</div>
           </div>
           <div className="flex items-center justify-between py-[2px] px-2">
-            <div className="">Amount:</div>
+            <div className="">Initial deposit:</div>
             <div className="">
               {formatPrice(amount - (subscription_form || 0))}
             </div>
           </div>
           <div className="flex justify-end font-bold text-sm items-end pt-1 px-2">
-            <div className="flex items-center justify-between w-2/3 ">
+            <div className="flex items-center gap-2 ">
               <div className="">Total:</div>
               <div className="">{formatPrice(amount)}</div>
             </div>
@@ -244,7 +244,9 @@ const SelectPaymentMethod = ({
             </div>
           </div>
 
-          <div
+          {/* PAYSTACK METHOD */}
+
+          {/* <div
             className={`flex items-center gap-4 p-4 rounded-xl cursor-pointer transition-all ${
               selectedPaymentMethod === "Paystack"
                 ? "bg-adron-green text-white border-none "
@@ -269,7 +271,7 @@ const SelectPaymentMethod = ({
                 Pay through Paystack
               </p>
             </div>
-          </div>
+          </div> */}
 
           <div
             className={`flex items-center gap-4 p-4 rounded-xl cursor-pointer transition-all ${

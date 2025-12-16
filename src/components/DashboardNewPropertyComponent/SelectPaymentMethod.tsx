@@ -365,7 +365,7 @@ const SelectPaymentMethod = ({
     <div className="flex flex-col">
       <div className="flex flex-col">
         <div className="text-2xl font-bold">Select Payment Method</div>
-        <p className="text-gray-400 text-xs w-[80%]">
+        <p className="text-gray-400 text-xs">
           Select your preferred method of making payment to your plan.{" "}
         </p>
       </div>
@@ -399,7 +399,9 @@ const SelectPaymentMethod = ({
             </div>
           </div>
 
-          <div
+          {/* PAYSTACK METHOD */}
+
+          {/* <div
             className={`flex items-center gap-4 p-4 rounded-xl cursor-pointer transition-all ${
               selectedPaymentMethod === "Paystack"
                 ? "bg-adron-green text-white border-none "
@@ -424,7 +426,7 @@ const SelectPaymentMethod = ({
                 Pay through Paystack
               </p>
             </div>
-          </div>
+          </div> */}
 
           <div
             className={`flex items-center gap-4 p-4 rounded-xl cursor-pointer transition-all ${

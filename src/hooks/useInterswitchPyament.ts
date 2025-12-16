@@ -43,9 +43,10 @@ export const useInterswitchPayment = () => {
           onSuccess(response);
         }
       },
-      onAbort: () => {
-        alert("Transaction aborted!");
-      },
+      onclose: onClose,
+      oncancel: onclose,
+      onAbort: onclose,
+      onended: onclose,
     };
 
     const interswitch = window as any;
