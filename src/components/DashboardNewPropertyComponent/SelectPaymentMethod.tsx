@@ -20,6 +20,7 @@ import { useUserStore } from "../../zustand/UserStore";
 import { ApiError } from "../DashboardHomeComponents/SelectPaymentMethod";
 import { useContractDeatilStore } from "../../zustand/ContractDetailsStore";
 import { NewPropertyPlanPayload } from "../../data/types/CreatePropertyPayload";
+import { useInterswitchPayment } from "../../hooks/useInterswitchPyament";
 
 const SelectPaymentMethod = ({
   goBack,
@@ -36,6 +37,7 @@ const SelectPaymentMethod = ({
   const { user } = useUserStore();
   const contractDetails = useContractDeatilStore();
   const paystack = usePaystackPayment();
+  const interswitch = useInterswitchPayment();
   const { data: userWalletData, isLoading, isError } = useGetUserWalletdata();
   const { data: propertyData, isLoading: gettingProperty } =
     useGetPropertyByID(id);
@@ -206,6 +208,70 @@ const SelectPaymentMethod = ({
           }
         );
       }
+    } else if (selectedPaymentMethod == "Interswitch") {
+      if (isBuyNow) {
+        if (paymentType === "One Time") {
+          payload = {
+            ...contractDetailPayload,
+            payment_method: "interswitch",
+            payment_type: 1,
+            property_id: Number(property?.id),
+            paid_amount: totalAmount,
+            marketer_code: marketerId,
+            number_of_unit: numberOfUnits,
+            purpose: propertyPurpose,
+          };
+        } else {
+          payload = {
+            ...contractDetailPayload,
+            payment_method: "interswitch",
+            payment_type: 2,
+            monthly_duration: Number(paymentDuration),
+            property_id: Number(property?.id),
+            start_date: startDate,
+            end_date: endDate,
+            repayment_schedule: paymentSchedule,
+            paid_amount: totalAmount,
+            marketer_code: marketerId,
+            number_of_unit: numberOfUnits,
+            purpose: propertyPurpose,
+          };
+        }
+        makePayment(payload, {
+          onSuccess: (res) => {
+            interswitch({
+              email: user?.email || "",
+              customerName: `${user?.last_name} ${user?.first_name}`,
+              amount: Number(amount), // in Naira
+              reference: res.payment.reference,
+              merchant_code: res.merchant_code,
+              payment_item_id: res.payable_code,
+              onSuccess: (ref) => {
+                openModal(
+                  <PaymentSuccessfull text="Payment received successfully." />
+                );
+                navigate(`/dashboard/my-property/${res.plan?.id}`, {
+                  replace: true,
+                });
+              },
+              onClose: () => {
+                showToast("Payment cancel...Please try again. ", "error");
+                navigate(`/dashboard/my-property/${res.plan?.id}`, {
+                  replace: true,
+                });
+              },
+            });
+          },
+          onError: (error: ApiError) => {
+            // const message =
+            //   error?.response?.data?.message ||
+            //   error?.message ||
+            //   "Something went wrong";
+            // showToast(message, "error");
+            showToast("Failed to complete payment", "error");
+          },
+        });
+      }
     } else if (selectedPaymentMethod == "Virtual Wallet") {
       // Check if payment is to buy property or Recuring payment
       if (isBuyNow) {
@@ -356,6 +422,33 @@ const SelectPaymentMethod = ({
                 } `}
               >
                 Pay through Paystack
+              </p>
+            </div>
+          </div>
+
+          <div
+            className={`flex items-center gap-4 p-4 rounded-xl cursor-pointer transition-all ${
+              selectedPaymentMethod === "Interswitch"
+                ? "bg-adron-green text-white border-none "
+                : "bg-transparent border  border-gray-300"
+            }`}
+            onClick={() => setSelectedPaymentMethod("Interswitch")}
+          >
+            <img
+              src="/Interswitch.svg"
+              alt="paystack"
+              className="h-10 w-10 rounded-full bg-white p-2"
+            />
+            <div>
+              <p className="font-adron-mid text-sm">Interswitch</p>
+              <p
+                className={`text-xs ${
+                  selectedPaymentMethod == "Interswitch"
+                    ? `text-white`
+                    : `text-gray-500`
+                } `}
+              >
+                Pay through Interswitch
               </p>
             </div>
           </div>
