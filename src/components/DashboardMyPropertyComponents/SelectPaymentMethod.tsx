@@ -93,9 +93,11 @@ const SelectPaymentMethod = ({
           };
           makePayment(payload, {
             onSuccess: (res) => {
-              <PaymentSuccessfull text="Payment received successfully." />;
+              openModal(
+                <PaymentSuccessfull text="Payment received successfully." />
+              );
 
-              navigate(`/my-property/${res.plan?.id}`);
+              navigate(`/dashboard/my-property/${res.plan?.id}`);
             },
             onError: (error: ApiError) => {
               const message =
@@ -129,9 +131,11 @@ const SelectPaymentMethod = ({
           };
           makePayment(payload, {
             onSuccess: (res) => {
-              <PaymentSuccessfull text="Payment received successfully." />;
+              openModal(
+                <PaymentSuccessfull text="Payment received successfully." />
+              );
 
-              navigate(`/my-property/${res.plan?.id}`);
+              navigate(`/dashboard/my-property/${res.plan?.id}`);
             },
             onError: (error: ApiError) => {
               const message =
