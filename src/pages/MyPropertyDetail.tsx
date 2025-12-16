@@ -107,6 +107,7 @@ const MyPropertyDetail = () => {
     if (data?.payment.id) {
       openModal(
         <SelectPaymentMethod
+          subscription_form={data.plan_properties.property.initial_deposit}
           amount={
             (data?.plan_properties.paid_amount || 0) +
             (data?.plan_properties.property.initial_deposit || 0)
@@ -193,7 +194,10 @@ const MyPropertyDetail = () => {
           </div>
         );
       }
-      if (data.payment.payment_type === "Paystack") {
+      if (
+        data.payment.payment_type === "Paystack" ||
+        data.payment.payment_type === "Interswitch"
+      ) {
         return (
           <div className="space-y-1">
             <Button
@@ -204,7 +208,8 @@ const MyPropertyDetail = () => {
             <div className="flex items-center gap-1 text-white/50">
               <BsFillExclamationCircleFill />
               <span className="text-xs">
-                Your Paystack Payment was not completed... Try again.
+                Your {data.payment.payment_type} Payment was not completed...
+                Try again.
               </span>
             </div>
           </div>

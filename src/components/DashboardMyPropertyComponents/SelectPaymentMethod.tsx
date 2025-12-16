@@ -28,12 +28,14 @@ const SelectPaymentMethod = ({
   payment_type,
   user_property_id,
   payment_id,
+  subscription_form,
 }: {
   goBack: () => void;
   amount: number;
   payment_type?: number;
   user_property_id: number;
   payment_id: number;
+  subscription_form?: number;
 }) => {
   const { showToast } = useToastStore();
   const { user } = useUserStore();
@@ -121,8 +123,8 @@ const SelectPaymentMethod = ({
         customerName: `${user?.last_name} ${user?.first_name}`,
         amount: Number(amount), // in Naira
         reference: data.payment.reference,
-        merchant_code: data.payment.merchant_code,
-        payment_item_id: data.payment.payable_code,
+        merchant_code: data.merchant_code,
+        payment_item_id: data.payable_code,
         onSuccess: (ref) => {
           payload = {
             payment_type: payment_type,
@@ -179,20 +181,38 @@ const SelectPaymentMethod = ({
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col min-w-sm">
       <div className="flex flex-col">
         <div className="text-2xl font-bold">Select Payment Method</div>
         <p className="text-gray-400 text-xs w-[80%]">
           Select your preferred payment method for your plan{" "}
           {/* <b className="text-black">({formatPrice(amount)})</b>. */}
         </p>
-        <div className="mt-2 flex items-center text-gray-500 gap-1">
+        <div className="border border-gray-200 rounded-lg p-2 text-xs text-gray-700 mt-2 divide divide-y-1 divide-gray-200">
+          <div className="flex items-center justify-between py-[2px] px-2">
+            <div className="">Subscription form:</div>
+            <div className="">{formatPrice(subscription_form || 0)}</div>
+          </div>
+          <div className="flex items-center justify-between py-[2px] px-2">
+            <div className="">Amount:</div>
+            <div className="">
+              {formatPrice(amount - (subscription_form || 0))}
+            </div>
+          </div>
+          <div className="flex justify-end font-bold text-sm items-end pt-1 px-2">
+            <div className="flex items-center justify-between w-2/3 ">
+              <div className="">Total:</div>
+              <div className="">{formatPrice(amount)}</div>
+            </div>
+          </div>
+        </div>
+        {/* <div className="mt-2 flex items-center text-gray-500 gap-1">
           <Info size={16} />
           <div className="text-xs">
             You are paying a total of{" "}
             <b className="text-black text-sm">({formatPrice(amount)})</b>.
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="flex flex-col gap-4 mt-4 min-h-[300px] justify-between">

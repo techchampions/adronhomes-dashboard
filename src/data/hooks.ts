@@ -525,6 +525,8 @@ interface PaymentUpdateResponse {
   success: boolean;
   message: string;
   payment: Payment;
+  merchant_code: string;
+  payable_code: string;
 }
 
 export const useGenerateNewRef = (payment_id: number) => {

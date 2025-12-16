@@ -244,8 +244,8 @@ const SelectPaymentMethod = ({
               customerName: `${user?.last_name} ${user?.first_name}`,
               amount: Number(amount), // in Naira
               reference: res.payment.reference,
-              merchant_code: res.payment.merchant_code,
-              payment_item_id: res.payment.payable_code,
+              merchant_code: res.merchant_code,
+              payment_item_id: res.payable_code,
               onSuccess: (ref) => {
                 openModal(
                   <PaymentSuccessfull text="Payment received successfully." />
