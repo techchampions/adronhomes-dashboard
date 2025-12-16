@@ -20,6 +20,7 @@ import { useUserStore } from "../../zustand/UserStore";
 import { ApiError } from "../DashboardHomeComponents/SelectPaymentMethod";
 import BankTransfer from "./BankTransferMethod";
 import { Info } from "lucide-react";
+import { useInterswitchPayment } from "../../hooks/useInterswitchPyament";
 
 const SelectPaymentMethod = ({
   goBack,
@@ -37,6 +38,7 @@ const SelectPaymentMethod = ({
   const { showToast } = useToastStore();
   const { user } = useUserStore();
   const paystack = usePaystackPayment();
+  const interswitch = useInterswitchPayment();
   const { data: userWalletData, isLoading, isError } = useGetUserWalletdata();
   const navigate = useNavigate();
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<
@@ -106,6 +108,42 @@ const SelectPaymentMethod = ({
         },
         onClose: () => {
           showToast("Payment popup closed", "error");
+        },
+      });
+    } else if (
+      selectedPaymentMethod == "Interswitch" &&
+      data?.payment.reference
+    ) {
+      interswitch({
+        email: user?.email || "",
+        customerName: `${user?.last_name} ${user?.first_name}`,
+        amount: Number(amount), // in Naira
+        reference: data.payment.reference,
+        merchant_code: data.payment.merchant_code,
+        payment_item_id: data.payment.payable_code,
+        onSuccess: (ref) => {
+          payload = {
+            payment_type: payment_type,
+            user_property_id: user_property_id,
+            payment_method: "interswitch",
+          };
+          makePayment(payload, {
+            onSuccess: (res) => {
+              <PaymentSuccessfull text="Payment received successfully." />;
+
+              navigate(`/my-property/${res.plan?.id}`);
+            },
+            onError: (error: ApiError) => {
+              const message =
+                error?.response?.data?.message ||
+                error?.message ||
+                "Something went wrong";
+              showToast(message, "error");
+            },
+          });
+        },
+        onClose: () => {
+          showToast("Payment cancel...Please try again. ", "error");
         },
       });
     } else if (selectedPaymentMethod == "Virtual Wallet") {
@@ -205,6 +243,33 @@ const SelectPaymentMethod = ({
                 } `}
               >
                 Pay through Paystack
+              </p>
+            </div>
+          </div>
+
+          <div
+            className={`flex items-center gap-4 p-4 rounded-xl cursor-pointer transition-all ${
+              selectedPaymentMethod === "Interswitch"
+                ? "bg-adron-green text-white border-none "
+                : "bg-transparent border  border-gray-300"
+            }`}
+            onClick={() => setSelectedPaymentMethod("Interswitch")}
+          >
+            <img
+              src="/Interswitch.svg"
+              alt="Interswitch"
+              className="h-10 w-10 rounded-full bg-white p-2"
+            />
+            <div>
+              <p className="font-adron-mid text-sm">Interswitch</p>
+              <p
+                className={`text-xs ${
+                  selectedPaymentMethod == "Interswitch"
+                    ? `text-white`
+                    : `text-gray-500`
+                } `}
+              >
+                Pay through Interswitch
               </p>
             </div>
           </div>
