@@ -261,6 +261,9 @@ const SelectPaymentMethod = ({
                 });
               },
             });
+            navigate(`/dashboard/my-property/${res.plan?.id}`, {
+              replace: true,
+            });
           },
           onError: (error: ApiError) => {
             // const message =
