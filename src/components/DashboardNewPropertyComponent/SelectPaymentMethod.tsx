@@ -460,33 +460,6 @@ const SelectPaymentMethod = ({
 
           <div
             className={`flex items-center gap-4 p-4 rounded-xl cursor-pointer transition-all ${
-              selectedPaymentMethod === "Interswitch"
-                ? "bg-adron-green text-white border-none "
-                : "bg-transparent border  border-gray-300"
-            }`}
-            onClick={() => setSelectedPaymentMethod("Interswitch")}
-          >
-            <img
-              src="/Interswitch.svg"
-              alt="paystack"
-              className="h-10 w-10 rounded-full bg-white p-2"
-            />
-            <div>
-              <p className="font-adron-mid text-sm">Interswitch</p>
-              <p
-                className={`text-xs ${
-                  selectedPaymentMethod == "Interswitch"
-                    ? `text-white`
-                    : `text-gray-500`
-                } `}
-              >
-                Pay through Interswitch
-              </p>
-            </div>
-          </div>
-
-          <div
-            className={`flex items-center gap-4 p-4 rounded-xl cursor-pointer transition-all ${
               selectedPaymentMethod === "Virtual Wallet"
                 ? "bg-adron-green text-white border-none "
                 : "bg-transparent border  border-gray-300"
