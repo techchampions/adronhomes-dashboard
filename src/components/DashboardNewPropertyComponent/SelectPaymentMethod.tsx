@@ -108,7 +108,12 @@ const SelectPaymentMethod = ({
     let payload = {};
     if (selectedPaymentMethod == "Bank Transfer") {
       openModal(
-        <BankTransfer goBack={goBack} amount={amount} isBuyNow={isBuyNow} />
+        <BankTransfer
+          id={property?.id}
+          goBack={goBack}
+          amount={amount}
+          isBuyNow={isBuyNow}
+        />
       );
     } else if (selectedPaymentMethod == "Paystack") {
       if (isBuyNow) {

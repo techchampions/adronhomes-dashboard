@@ -22,14 +22,18 @@ const BankTransfer = ({
   goBack,
   amount,
   isBuyNow = true,
+  id,
 }: {
   goBack: () => void;
   amount: number;
   isBuyNow?: boolean;
+  id?: number;
 }) => {
   const params = useParams();
-  const id = params?.id;
-  const { data: propertyData, isLoading } = useGetPropertyByID(id);
+  const { data: propertyData, isLoading: gettingProperty } =
+    useGetPropertyByID(id);
+  const property = propertyData?.data.properties;
+
   const initialValues = { proof: null as File | null, bank_name: "" };
   const { accounts } = useUserStore();
   const propertyAccount = accounts.find((item) => item.type === "property");
@@ -56,6 +60,7 @@ const BankTransfer = ({
   const { showToast } = useToastStore();
   const { openModal } = useModalStore();
   const contractDetails = useContractDeatilStore();
+  console.log(propertyData?.data.properties.id);
 
   const contractDetailPayload = {
     contract_business_type: contractDetails.contract_business_type,
@@ -96,7 +101,7 @@ const BankTransfer = ({
             payment_method: "bank_transfer",
             payment_type: 1,
             monthly_duration: Number(paymentDuration),
-            property_id: Number(propertyData?.data.properties.id),
+            property_id: Number(property?.id),
             start_date: startDate,
             end_date: endDate,
             repayment_schedule: paymentSchedule,
@@ -113,7 +118,7 @@ const BankTransfer = ({
             payment_method: "bank_transfer",
             payment_type: 2,
             monthly_duration: Number(paymentDuration),
-            property_id: Number(propertyData?.data.properties.id),
+            property_id: Number(property?.id),
             start_date: startDate,
             end_date: endDate,
             repayment_schedule: paymentSchedule,
@@ -170,16 +175,18 @@ const BankTransfer = ({
       }
     }
   };
-  if (isLoading) {
+  if (gettingProperty) {
     return <SmallLoader />;
   }
+  console.log(propertyData?.data.properties.id);
+
   return (
     <div className="flex flex-col">
       <div className="flex flex-col gap-4 mt-4 min-h-[400px] justify-between">
         <div className="flex flex-col gap-2">
           <div className="w-full bg-adron-green rounded-2xl flex gap-3 items-center p-3">
             <img src="/bank-transfer-icon.svg" alt="" className="h-6 w-6" />
-            <p className="text-sm text-white">Bank Transfer</p>
+            <p className="text-sm text-white">Bank Transfer {property?.name}</p>
           </div>
           <p className="text-sm text-gray-500">
             Transfer{" "}
@@ -251,7 +258,9 @@ const BankTransfer = ({
                     type="submit"
                     loadingText="Sending"
                     isLoading={isPendingPayment || isPendingRepayment}
-                    disabled={isPendingPayment || isPendingRepayment}
+                    disabled={
+                      isPendingPayment || isPendingRepayment || gettingProperty
+                    }
                     className="!w-fit px-12 py-2 text-xs bg-black text-white"
                   />
                 </div>
