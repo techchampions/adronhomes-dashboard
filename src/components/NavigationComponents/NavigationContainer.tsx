@@ -2,7 +2,7 @@ import NavItem from "./NavItem";
 import { FaUserAlt } from "react-icons/fa";
 import { FaArrowRightArrowLeft } from "react-icons/fa6";
 import { MdAddHome, MdDashboardCustomize, MdOutlineHelp } from "react-icons/md";
-import { IoSettingsSharp } from "react-icons/io5";
+import { IoDocumentAttach, IoSettingsSharp } from "react-icons/io5";
 import {
   RiHomeHeartFill,
   RiLogoutBoxRFill,
@@ -50,6 +50,11 @@ function NavigationContainer() {
           <h4 className="text-adron-gray-400 font-bold px-7 mt-7 text-[13px]">
             LISTINGS
           </h4>
+            <NavItem
+            label="My Contracts"
+            icon={<IoDocumentAttach className=" w-4 h-4" />}
+            path="/dashboard/my-contracts"
+          />
           <NavItem
             label="My Properties"
             icon={<MdAddHome className=" w-4 h-4" />}
