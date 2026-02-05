@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FaUserAlt, FaUserCircle } from "react-icons/fa";
 import { FaArrowRightArrowLeft } from "react-icons/fa6";
 import { MdAddHome, MdDashboardCustomize, MdOutlineHelp } from "react-icons/md";
-import { IoSettingsSharp } from "react-icons/io5";
+import { IoDocumentAttach, IoSettingsSharp } from "react-icons/io5";
 import {
   RiHomeHeartFill,
   RiLogoutBoxRFill,
@@ -158,6 +158,12 @@ const MobileNav = () => {
               <h4 className="text-adron-gray-400 font-bold px-7 mt-7 text-[13px]">
                 LISTINGS
               </h4>
+                <NavItem
+                onSlideBack={setIsMobileMenuOpen}
+                label="My Contracts"
+                icon={<IoDocumentAttach className=" w-4 h-4" />}
+                path="/dashboard/my-contracts"
+              />
               <NavItem
                 onSlideBack={setIsMobileMenuOpen}
                 label="My Properties"
