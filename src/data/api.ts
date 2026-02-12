@@ -36,6 +36,7 @@ import { SliderByTypeResponse } from "./types/SliderByTypeTypes";
 import { FAQResponse } from "./types/FAQTypes";
 import { SettingsResponse } from "./types/SettingsTypes";
 import { ContractApiResponse, ContractTransactionApiResponse } from "./types/ContractTypes";
+import { ERPContractsSyncState } from "./types/ERPContractsSyncState";
 
 export type ApiError = {
   response?: {
@@ -660,7 +661,7 @@ export const getERPContractTransaction = async (
   contractID: number
 ): Promise<ContractTransactionApiResponse> => {
   const response = await apiClient.get(
-    `/user/erp-contract/${contractID}/transactions`
+    `/erp-contract/${contractID}/transactions`
   );
   // const response = await apiClient.get(`/notifications?page=${page}`);
   return response.data;
@@ -672,3 +673,17 @@ export const getERPContracts = async (
   // const response = await apiClient.get(`/notifications?page=${page}`);
   return response.data;
 };
+
+
+
+
+export const fetchERPContract=async(
+  userId:string
+):Promise<ERPContractsSyncState>=>{
+const response =await apiClient.get(`/api/erp-contracts-sync/${userId}`)
+return response.data;
+}
+
+
+
+
