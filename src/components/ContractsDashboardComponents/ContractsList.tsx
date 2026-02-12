@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ReactNode, useState } from "react";
 import { useModalStore } from "../../zustand/useModalStore";
 import { Notification } from "../../data/types/notificationTypes";
 import { formatDate, formatPrice } from "../../data/utils";
@@ -19,12 +19,15 @@ type Props = {
   data: Contract[];
   isError: boolean;
   isLoading: boolean;
+  iscontract?:boolean
+  headerComponent?: React.ReactNode;
+  
 };
 
 const tabs = ["All", "Read", "Unread"] as const;
 type Tab = (typeof tabs)[number];
 
-const ContractsList: React.FC<Props> = ({ data, isError, isLoading }) => {
+const ContractsList: React.FC<Props> = ({ data, isError, isLoading,iscontract=false,headerComponent }) => {
   const { openModal } = useModalStore();
 
   const renderContent = () => {
@@ -109,6 +112,12 @@ const ContractsList: React.FC<Props> = ({ data, isError, isLoading }) => {
     <div className="bg-white p-2 md:p-6 rounded-3xl">
       <div className="flex items-center justify-between w-full">
         <h4 className="text-2xl font-adron-bold pb-4">Contracts</h4>
+
+    {  iscontract&&(
+      <div className="flex ">
+          {headerComponent}
+        </div>
+      )}
         {/* <Button
           label="Link Existing Contracts"
           className="!w-fit px-7 bg-gray-700 !rounded-xl"

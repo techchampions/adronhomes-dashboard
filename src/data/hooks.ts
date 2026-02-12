@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   ApiError,
   createPropertyPlan,
+  fetchERPContract,
   fetchPropertiesPageData,
   fetchSavedProperties,
   filterProperties,
@@ -566,5 +567,20 @@ export const useGetERPContracts = (page: number) => {
   return useQuery<ContractApiResponse>({
     queryKey: ["erp-contracts", page],
     queryFn: () => getERPContracts(page),
+  });
+};
+
+
+export const useSyncERPContracts = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (userId: string) => fetchERPContract(userId),
+    onSuccess: () => {
+      // Refetch ALL erp-contracts queries (any page)
+      queryClient.invalidateQueries({
+        queryKey: ["erp-contracts"],
+      });
+    },
   });
 };
