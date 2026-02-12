@@ -680,7 +680,7 @@ export const getERPContracts = async (
 export const fetchERPContract=async(
   userId:string
 ):Promise<ERPContractsSyncState>=>{
-const response =await apiClient.get(`/api/erp-contracts-sync/${userId}`)
+const response =await apiClient.get(`/erp-contracts-sync/${userId}`)
 return response.data;
 }
 
