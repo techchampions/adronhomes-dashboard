@@ -1,6 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useEffect } from "react";
+import { useUserStore } from "../zustand/UserStore";
+import { useToastStore } from "../zustand/useToastStore";
 import {
-  ApiError,
   createPropertyPlan,
   fetchERPContract,
   fetchPropertiesPageData,
@@ -31,7 +33,6 @@ import {
   getWalletTransactionByID,
   getWalletTransactionReciept,
   infrastructurePayment,
-  InitiatePropertyPurchaseResponse,
   linkExistingContracts,
   makeEnquire,
   makePendingPropertyPlanPayment,
@@ -46,40 +47,37 @@ import {
   toggleSaveProperty,
   updateProfile,
 } from "./api";
+import { AccountDetailsResponse } from "./types/AccountDetailsTypes";
+import {
+  ContractApiResponse,
+  ContractTransactionApiResponse,
+} from "./types/ContractTypes";
+import { UserDashboardResponseData } from "./types/dashboardHomeTypes";
+import { FAQResponse } from "./types/FAQTypes";
+import { GetPropertyByIdResponse } from "./types/GetPropertyByIdResponse";
+import { NotificationByIDResponse } from "./types/NotificationByIDTypes";
+import { NotificationsResponse } from "./types/notificationTypes";
 import {
   PaginatedProperties,
   PropertiesResponse,
 } from "./types/propertiesPageTypes";
-import { GetPropertyByIdResponse } from "./types/GetPropertyByIdResponse";
 import { PropertyLocationResponse } from "./types/PropertyLocationTypes";
-import { PropertiesTypeResponse } from "./types/propertyTypes";
-import { GetUserResponse } from "./types/UserProfileTypes";
-import { useUserStore } from "../zustand/UserStore";
-import { UserTransactionResponse } from "./types/userTransactionsTypes";
-import { UserDashboardResponseData } from "./types/dashboardHomeTypes";
-import { UserWalletResponse } from "./types/userWalletTypes";
-import { UserPropertyPlanResponse } from "./types/userPropertiesTypes";
 import { PlanPropertiesDetailResponse } from "./types/PropertyPlanDetailTypes";
-import { NotificationsResponse } from "./types/notificationTypes";
+import { PropertyPlanPaymentResponse } from "./types/PropertyPlanPaymentListTypes";
+import { PropertiesTypeResponse } from "./types/propertyTypes";
+import { SavedPropertiesResponse } from "./types/SavedPropertiesResponse";
+import { PropertiesSearchResultResponse } from "./types/SearchPropertiesResultTypes";
+import { SettingsResponse } from "./types/SettingsTypes";
+import { SliderByTypeResponse } from "./types/SliderByTypeTypes";
+import { GetUserResponse } from "./types/UserProfileTypes";
+import { UserPropertyPlanResponse } from "./types/userPropertiesTypes";
 import {
   TransactionByIDResponse,
   TransactionRecieptResponse,
   WalletTransactionByIDResponse,
 } from "./types/userTransactionByIDTypes";
-import { NotificationByIDResponse } from "./types/NotificationByIDTypes";
-import { PropertyPlanPaymentResponse } from "./types/PropertyPlanPaymentListTypes";
-import { PropertiesSearchResultResponse } from "./types/SearchPropertiesResultTypes";
-import { useEffect } from "react";
-import { SavedPropertiesResponse } from "./types/SavedPropertiesResponse";
-import { AccountDetailsResponse } from "./types/AccountDetailsTypes";
-import { EnquirePayload } from "./types/EnquirePayload";
-import { SliderByTypeResponse } from "./types/SliderByTypeTypes";
-import { PropertyPlanPayload } from "./types/CreatePropertyPayload";
-import { useToastStore } from "../zustand/useToastStore";
-import { useModalStore } from "../zustand/useModalStore";
-import { FAQResponse } from "./types/FAQTypes";
-import { SettingsResponse } from "./types/SettingsTypes";
-import { ContractApiResponse, ContractTransactionApiResponse } from "./types/ContractTypes";
+import { UserTransactionResponse } from "./types/userTransactionsTypes";
+import { UserWalletResponse } from "./types/userWalletTypes";
 
 //Query hook for User profile
 export const useGetUser = () => {
@@ -491,6 +489,12 @@ export const useGetEquiryInfo = () => {
     queryFn: () => getSettings("enquiry"),
   });
 };
+export const useGetClientInfo = () => {
+  return useQuery<SettingsResponse>({
+    queryKey: ["settings", "client"],
+    queryFn: () => getSettings("client"),
+  });
+};
 
 export const useUpdateProfile = () => {
   const queryClient = useQueryClient();
@@ -555,7 +559,6 @@ export const useLinkExistingContracts = () => {
   });
 };
 
-
 export const useGetERPContractTransactions = (contractID: number) => {
   return useQuery<ContractTransactionApiResponse>({
     queryKey: ["erp-contract-transaction", contractID],
@@ -569,7 +572,6 @@ export const useGetERPContracts = (page: number) => {
     queryFn: () => getERPContracts(page),
   });
 };
-
 
 export const useSyncERPContracts = () => {
   const queryClient = useQueryClient();
