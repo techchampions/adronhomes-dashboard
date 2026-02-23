@@ -35,6 +35,8 @@ import { PropertiesRequestResponse } from "./types/PropertyRequestTypes";
 import { SliderByTypeResponse } from "./types/SliderByTypeTypes";
 import { FAQResponse } from "./types/FAQTypes";
 import { SettingsResponse } from "./types/SettingsTypes";
+import { ContractApiResponse, ContractTransactionApiResponse } from "./types/ContractTypes";
+import { ERPContractsSyncState } from "./types/ERPContractsSyncState";
 
 export type ApiError = {
   response?: {
@@ -647,3 +649,41 @@ export const generateNewRef = async (payment_id: number) => {
   const response = await apiClient.get(`/payment-retry/${payment_id}`);
   return response.data;
 };
+export const linkExistingContracts = async (formData: FormData) => {
+  const response = await apiClient.post(`/user/erp-contracts-link`, formData, {
+    headers: { "Content-Type": "application/json" },
+  });
+  return response.data;
+};
+
+
+export const getERPContractTransaction = async (
+  contractID: number
+): Promise<ContractTransactionApiResponse> => {
+  const response = await apiClient.get(
+    `/erp-contract/${contractID}/transactions`
+  );
+  // const response = await apiClient.get(`/notifications?page=${page}`);
+  return response.data;
+};
+export const getERPContracts = async (
+  page: number
+): Promise<ContractApiResponse> => {
+  const response = await apiClient.get(`/user/erp-contracts?page=${page}`);
+  // const response = await apiClient.get(`/notifications?page=${page}`);
+  return response.data;
+};
+
+
+
+
+export const fetchERPContract=async(
+  userId:string
+):Promise<ERPContractsSyncState>=>{
+const response =await apiClient.get(`/erp-contracts-sync/${userId}`)
+return response.data;
+}
+
+
+
+

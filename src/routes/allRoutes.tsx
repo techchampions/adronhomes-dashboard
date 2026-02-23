@@ -39,6 +39,8 @@ import AuthRoutes from "./authRoutes";
 import OTPScreen from "../pages/OTPScreen";
 import ForgotPassword from "../pages/ForgotPassword";
 import ResetPassword from "../pages/ResetPassword";
+import ContractsPage from "../pages/ContractsScreen";
+import ContractTransactionList from "../components/ContractsDashboardComponents/TransactionListModal";
 
 const DashboardScreen = lazy(() => import("../pages/DashboardScreen"));
 
@@ -85,7 +87,11 @@ const AllRoutes = () => {
                   element={<SavedPropertyScreen />}
                 />
                 <Route path="settings" element={<MyProfileScreen />} />
-                {/* <Route path="settings2" element={<ProfileSettings />} /> */}
+               <Route path="my-contracts" element={<ContractsPage />} />
+                <Route
+                  path="my-contracts/:id/transactions"
+                  element={<ContractTransactionList />}
+                />
                 <Route path="support" element={<SupportScreen />} />
                 <Route
                   path="properties/:id"

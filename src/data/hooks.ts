@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   ApiError,
   createPropertyPlan,
+  fetchERPContract,
   fetchPropertiesPageData,
   fetchSavedProperties,
   filterProperties,
@@ -11,6 +12,8 @@ import {
   getAllPropertyLocations,
   getAllPropertyType,
   getDashboardHomeData,
+  getERPContracts,
+  getERPContractTransaction,
   getFAQs,
   getNotificationByID,
   getNotifications,
@@ -29,6 +32,7 @@ import {
   getWalletTransactionReciept,
   infrastructurePayment,
   InitiatePropertyPurchaseResponse,
+  linkExistingContracts,
   makeEnquire,
   makePendingPropertyPlanPayment,
   PropertyFilters,
@@ -75,6 +79,7 @@ import { useToastStore } from "../zustand/useToastStore";
 import { useModalStore } from "../zustand/useModalStore";
 import { FAQResponse } from "./types/FAQTypes";
 import { SettingsResponse } from "./types/SettingsTypes";
+import { ContractApiResponse, ContractTransactionApiResponse } from "./types/ContractTypes";
 
 //Query hook for User profile
 export const useGetUser = () => {
@@ -534,5 +539,48 @@ export const useGenerateNewRef = (payment_id: number) => {
     queryKey: ["new-payment-ref", payment_id],
     queryFn: () => generateNewRef(payment_id),
     enabled: !!payment_id,
+  });
+};
+
+export const useLinkExistingContracts = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: linkExistingContracts,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["erp-contracts"],
+      });
+    },
+  });
+};
+
+
+export const useGetERPContractTransactions = (contractID: number) => {
+  return useQuery<ContractTransactionApiResponse>({
+    queryKey: ["erp-contract-transaction", contractID],
+    queryFn: () => getERPContractTransaction(contractID),
+  });
+};
+
+export const useGetERPContracts = (page: number) => {
+  return useQuery<ContractApiResponse>({
+    queryKey: ["erp-contracts", page],
+    queryFn: () => getERPContracts(page),
+  });
+};
+
+
+export const useSyncERPContracts = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (userId: string) => fetchERPContract(userId),
+    onSuccess: () => {
+      // Refetch ALL erp-contracts queries (any page)
+      queryClient.invalidateQueries({
+        queryKey: ["erp-contracts"],
+      });
+    },
   });
 };
