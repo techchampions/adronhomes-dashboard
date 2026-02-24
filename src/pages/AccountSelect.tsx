@@ -1,11 +1,15 @@
 import { ArrowLeft, User2 } from "lucide-react";
 import React from "react";
 import { Link } from "react-router-dom";
+import Auth from "../utils/Auth";
 interface Prop {
   users: UserAccount[];
   values: { email: string; password: string };
 }
-const AccountSelect: React.FC<Prop> = ({ users }) => {
+const AccountSelect: React.FC<Prop> = ({ users, values }) => {
+  const handleClick = (customer_code: string) => {
+    Auth.loginStep2(values, customer_code);
+  };
   return (
     <div>
       <div className="p-5">
@@ -24,6 +28,7 @@ const AccountSelect: React.FC<Prop> = ({ users }) => {
             <div
               key={i}
               className="flex items-center gap-4 p-4 hover:bg-gray-200 cursor-pointer"
+              onClick={() => handleClick(user.customer_code)}
             >
               <div className="bg-adron-green text-white h-15 w-15 rounded-full flex items-center justify-center">
                 <User2 />
