@@ -23,6 +23,7 @@ function App() {
   return (
     <ErrorBoundary>
       <Providers>
+        
         <AllRoutes />
         <NetworkStatusBar />
       </Providers>
