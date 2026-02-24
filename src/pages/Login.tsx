@@ -20,13 +20,16 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const [lodaing, setlodaing] = useState(false);
   const handleSubmit = async (values: typeof initialValues) => {
+    setlodaing(true);
     const accounts = await Auth.login(values);
 
     if (accounts) {
       setuserAccounts(accounts);
       setauthvalues(values);
     }
+    setlodaing(false);
   };
   const LoginContainer = () => {
     return (
@@ -41,8 +44,8 @@ const Login = () => {
               <LoginForm />
               <Button
                 type="submit"
-                isLoading={false}
-                disabled={false}
+                isLoading={lodaing}
+                disabled={lodaing}
                 loadingText="Loading..."
                 label={"Log In"}
                 className={`bg-adron-green text-white w-full py-2 rounded-full mt-10`}
