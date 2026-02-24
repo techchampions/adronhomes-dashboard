@@ -1,10 +1,11 @@
 import { useEffect } from "react";
-import "./App.css";
-import AllRoutes from "./routes/allRoutes";
-import { Providers } from "./data/Provider";
 import "react-datepicker/dist/react-datepicker.css";
-import NetworkStatusBar from "./components/NetworkStatus";
+import "./App.css";
 import ErrorBoundary from "./components/ErrorBoundary";
+import NetworkStatusBar from "./components/NetworkStatus";
+import { Providers } from "./data/Provider";
+import AllRoutes from "./routes/allRoutes";
+import AnalyticsTracker from "./utils/GoogleAnalyticsTracker";
 function App() {
   useEffect(() => {
     const script = document.createElement("script");
@@ -23,6 +24,7 @@ function App() {
   return (
     <ErrorBoundary>
       <Providers>
+        <AnalyticsTracker />
         <AllRoutes />
         <NetworkStatusBar />
       </Providers>
