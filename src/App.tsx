@@ -5,7 +5,6 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import NetworkStatusBar from "./components/NetworkStatus";
 import { Providers } from "./data/Provider";
 import AllRoutes from "./routes/allRoutes";
-import AnalyticsTracker from "./utils/GoogleAnalyticsTracker";
 function App() {
   useEffect(() => {
     const script = document.createElement("script");
@@ -24,7 +23,7 @@ function App() {
   return (
     <ErrorBoundary>
       <Providers>
-        <AnalyticsTracker />
+        
         <AllRoutes />
         <NetworkStatusBar />
       </Providers>
