@@ -1,46 +1,40 @@
 import { Suspense, lazy } from "react";
-import {
-  BrowserRouter,
-  Navigate,
-  Route,
-  Routes,
-  useLocation,
-} from "react-router-dom";
-import { useOnboardingStore } from "../zustand/OnboardingStore";
-import { useUserStore } from "../zustand/UserStore";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import ContractTransactionList from "../components/ContractsDashboardComponents/TransactionListModal";
 import Loader from "../components/Loader";
-import OnboardingScreen from "../pages/AuthScreen";
-import ProtectedRoutes from "./protectedRoutes";
-import HomeScreen from "../pages/HomeScreen";
-import WalletScreen from "../pages/WalletScreen";
-import Toast from "../components/Toast";
-import { useToastStore } from "../zustand/useToastStore";
-import TransactionsPage from "../pages/TransactionScreen";
-import NotificationsPage from "../pages/NotificationScreen";
-import MyPropertyScreen from "../pages/MyPropertyScreen";
-import NewPropertyScreen from "../pages/NewPropertyScreen";
-import SavedPropertyScreen from "../pages/SavedPropertyScreen";
-import MyProfileScreen from "../pages/MyProfileScreen";
-import SupportScreen from "../pages/SupportScreen";
 import Modal from "../components/Modal2";
-import ProfileSettings from "../pages/AccountSettings";
-import PropertyDetail from "../pages/PropertyDetail";
-import InvestmentForm from "../pages/InvestInProperty";
-import ProppertyAgreement from "../pages/ProppertyAgreement";
-import PropertyPaymentMethod from "../pages/PropertyPaymentMethod";
-import MyPropertyDetail from "../pages/MyPropertyDetail";
-import MyPropertyPaymentList from "../pages/MyPropertyPaymentList";
+import Toast from "../components/Toast";
+import OnboardingScreen from "../pages/AuthScreen";
+import ContractsPage from "../pages/ContractsScreen";
 import FAQAccordion from "../pages/FAQScreen";
-import PropertySearchResultScreen from "../pages/PropertySearchResult";
+import ForgotPassword from "../pages/ForgotPassword";
+import HomeScreen from "../pages/HomeScreen";
+import InvestmentForm from "../pages/InvestInProperty";
 import InvestmentDetailForm from "../pages/InvestmentDetailForm";
 import Login from "../pages/Login";
-import SignUp from "../pages/SignUp";
-import AuthRoutes from "./authRoutes";
+import MyProfileScreen from "../pages/MyProfileScreen";
+import MyPropertyDetail from "../pages/MyPropertyDetail";
+import MyPropertyPaymentList from "../pages/MyPropertyPaymentList";
+import MyPropertyScreen from "../pages/MyPropertyScreen";
+import NewPropertyScreen from "../pages/NewPropertyScreen";
+import NotificationsPage from "../pages/NotificationScreen";
 import OTPScreen from "../pages/OTPScreen";
-import ForgotPassword from "../pages/ForgotPassword";
+import PropertyDetail from "../pages/PropertyDetail";
+import PropertyPaymentMethod from "../pages/PropertyPaymentMethod";
+import PropertySearchResultScreen from "../pages/PropertySearchResult";
+import ProppertyAgreement from "../pages/ProppertyAgreement";
 import ResetPassword from "../pages/ResetPassword";
-import ContractsPage from "../pages/ContractsScreen";
-import ContractTransactionList from "../components/ContractsDashboardComponents/TransactionListModal";
+import SavedPropertyScreen from "../pages/SavedPropertyScreen";
+import SignUp from "../pages/SignUp";
+import SupportScreen from "../pages/SupportScreen";
+import TransactionsPage from "../pages/TransactionScreen";
+import WalletScreen from "../pages/WalletScreen";
+import AnalyticsTracker from "../utils/GoogleAnalyticsTracker";
+import { useOnboardingStore } from "../zustand/OnboardingStore";
+import { useUserStore } from "../zustand/UserStore";
+import { useToastStore } from "../zustand/useToastStore";
+import AuthRoutes from "./authRoutes";
+import ProtectedRoutes from "./protectedRoutes";
 
 const DashboardScreen = lazy(() => import("../pages/DashboardScreen"));
 
@@ -53,6 +47,8 @@ const AllRoutes = () => {
     <>
       <BrowserRouter>
         <Suspense fallback={<Loader className="h-[100px] w-[100px]" />}>
+          <AnalyticsTracker />
+
           <Routes>
             <Route
               path="/"
@@ -87,7 +83,7 @@ const AllRoutes = () => {
                   element={<SavedPropertyScreen />}
                 />
                 <Route path="settings" element={<MyProfileScreen />} />
-               <Route path="my-contracts" element={<ContractsPage />} />
+                <Route path="my-contracts" element={<ContractsPage />} />
                 <Route
                   path="my-contracts/:id/transactions"
                   element={<ContractTransactionList />}
