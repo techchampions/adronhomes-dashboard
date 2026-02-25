@@ -1,5 +1,6 @@
 import { Form, Formik } from "formik";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import LoginForm from "../components/AuthComponents/LoginForm";
 import Button from "../components/Button";
@@ -15,7 +16,9 @@ const Login = () => {
     email: Yup.string().email("Invalid email").required("Required"),
     password: Yup.string().required("Required"),
   });
+  const navigate = useNavigate();
   const [userAccounts, setuserAccounts] = useState<UserAccount[]>([]);
+  const [step, setStep] = useState<"login" | "select">("login");
   const [authvalues, setauthvalues] = useState({
     email: "",
     password: "",
@@ -23,43 +26,51 @@ const Login = () => {
   const [lodaing, setlodaing] = useState(false);
   const handleSubmit = async (values: typeof initialValues) => {
     setlodaing(true);
-    const accounts = await Auth.login(values);
+    const accounts = await Auth.login(values, navigate);
 
     if (accounts) {
       setuserAccounts(accounts);
       setauthvalues(values);
+      setStep("select");
     }
     setlodaing(false);
   };
-  const LoginContainer = () => {
-    return (
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-      >
-        {() => (
-          <>
+
+  return (
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      validateOnMount
+      onSubmit={handleSubmit}
+    >
+      {({ isValid }) => (
+        <div className="">
+          <h1 className="font-black text-3xl text-center mb-5">
+            Login to Adron Homes
+          </h1>
+          {step === "login" && (
             <Form>
               <LoginForm />
               <Button
                 type="submit"
                 isLoading={lodaing}
-                disabled={lodaing}
+                disabled={lodaing || !isValid}
                 loadingText="Loading..."
                 label={"Log In"}
-                className={`bg-adron-green text-white w-full py-2 rounded-full mt-10`}
+                className={`bg-adron-green text-white w-full py-2 rounded-full mt-3`}
               />
             </Form>
-          </>
-        )}
-      </Formik>
-    );
-  };
-  if (userAccounts.length > 0) {
-    return <AccountSelect users={userAccounts} values={authvalues} />;
-  }
-  return <LoginContainer />;
+          )}
+          {step === "select" && (
+            <AccountSelect users={userAccounts} values={authvalues} />
+          )}
+        </div>
+      )}
+    </Formik>
+  );
 };
+// if (step === "select") {
+//   return <AccountSelect users={userAccounts} values={authvalues} />;
+// }
 
 export default Login;

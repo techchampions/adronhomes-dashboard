@@ -10,7 +10,7 @@ const LoginForm = () => {
   const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
 
   return (
-    <>
+    <div className="space-y-4">
       <div className="">
         <label htmlFor="" className="text-gray-400 text-sm">
           Email
@@ -19,7 +19,7 @@ const LoginForm = () => {
           name="email"
           type="email"
           placeholder="Email Address"
-          className="input"
+          className="p-4!"
         />
       </div>
       <div className="">
@@ -31,7 +31,7 @@ const LoginForm = () => {
           name="password"
           type={showPassword ? "text" : "password"}
           placeholder="Password"
-          className="input"
+          className="p-4!"
           rightIcon={
             showPassword ? (
               <Eye
@@ -47,7 +47,7 @@ const LoginForm = () => {
           }
         />
       </div>
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center mt-5">
         <div className="flex items-center space-x-2 text-xs px-6">
           <input type="checkbox" id="remember" className="text-adron-green" />
           <label htmlFor="remember">Remember me</label>
@@ -61,7 +61,7 @@ const LoginForm = () => {
           Forgot password?
         </span>
       </div>
-      <div className="text-sm flex gap-1 items-center text-center justify-center">
+      <div className="text-sm flex gap-1 items-center text-center justify-center mt-10">
         Are you new?{" "}
         <Button
           label="Create an Account"
@@ -71,7 +71,7 @@ const LoginForm = () => {
           }}
         />
       </div>
-    </>
+    </div>
   );
 };
 export default LoginForm;
