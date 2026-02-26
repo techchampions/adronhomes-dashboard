@@ -1,14 +1,15 @@
 import { ArrowLeft, User2 } from "lucide-react";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Auth from "../utils/Auth";
 interface Prop {
   users: UserAccount[];
   values: { email: string; password: string };
 }
 const AccountSelect: React.FC<Prop> = ({ users, values }) => {
+  const navigate = useNavigate();
   const handleClick = (customer_code: string) => {
-    Auth.loginStep2(values, customer_code);
+    Auth.loginStep2(values, customer_code, navigate);
   };
   return (
     <div>
@@ -37,7 +38,9 @@ const AccountSelect: React.FC<Prop> = ({ users, values }) => {
                 <div className="">
                   {user.first_name} {user.last_name}
                 </div>
-                <div className="text-gray-700">{user.customer_code}</div>
+                <em className="text-gray-700">
+                  {user.customer_code || "No customer code assigned!"}
+                </em>
               </div>
             </div>
           ))}

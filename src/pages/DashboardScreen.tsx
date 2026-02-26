@@ -1,13 +1,12 @@
+import { useEffect, useRef } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import NavigationContainer from "../components/NavigationComponents/NavigationContainer";
+import CookieConsent from "../components/CookiesConsent";
 import Header from "../components/Header";
+import BottomNav from "../components/NavigationComponents/BottomNavBar";
 import MobileNav from "../components/NavigationComponents/MobileNav";
+import NavigationContainer from "../components/NavigationComponents/NavigationContainer";
 import { useGetAccounts, useGetUser } from "../data/hooks";
 import { useToastStore } from "../zustand/useToastStore";
-import BottomNav from "../components/NavigationComponents/BottomNavBar";
-import CookieConsent from "../components/CookiesConsent";
-import { useUserStore } from "../zustand/UserStore";
-import { useEffect, useRef } from "react";
 
 const routeTitles = {
   "/": "Dashboard",
@@ -43,7 +42,6 @@ function getPageTitle(pathname: string) {
 function DashboardScreen() {
   const location = useLocation();
   const mainRef = useRef<HTMLElement>(null);
-  const { acceptCookies } = useUserStore();
   const pageTitle = getPageTitle(location.pathname);
   const { showToast } = useToastStore();
   const { isError } = useGetUser();
@@ -62,7 +60,7 @@ function DashboardScreen() {
   }, [location.pathname]);
   return (
     <div className="fixed inset-0 z-50 flex h-screen w-screen">
-      {!acceptCookies && <CookieConsent />}
+      <CookieConsent />
       {/* Sidebar */}
       <aside className="hidden lg:w-[300px] bg-adron-body text-adron-black lg:flex flex-col">
         <NavigationContainer />
