@@ -1,12 +1,12 @@
-import { Formik, Form } from "formik";
-import * as Yup from "yup";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { Form, Formik } from "formik";
 import { useState } from "react";
-import InputField from "../InputField";
-import Button from "../Button";
-import { useOnboardingStore } from "../../zustand/OnboardingStore";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import * as Yup from "yup";
 import Auth from "../../utils/Auth";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useOnboardingStore } from "../../zustand/OnboardingStore";
+import Button from "../Button";
+import InputField from "../InputField";
 
 type AuthFormProps = {
   isLogin?: boolean;
@@ -102,7 +102,7 @@ const AuthForm = ({
       );
       console.log("Resetting password:", values.password);
     } else if (isLogin) {
-      Auth.login(values, { setSubmitting }, navigate);
+      Auth.login(values, navigate);
     } else if (isSignup) {
       // handleSignup(values, { setSubmitting });
       Auth.register(values, { setSubmitting }, navigate);
