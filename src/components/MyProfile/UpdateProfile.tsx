@@ -215,13 +215,13 @@ const EditProfile = () => {
               {/* Save Button */}
               <div className="flex items-center gap-4 justify-center">
                 <Button
-                  label="Cancle"
+                  label="Cancel"
                   className="bg-gray-500 text-sm "
                   onClick={closeModal}
                 />
                 <Button
                   label={isPending ? `Saving...` : `Save Changes`}
-                  className="bg-black text-sm "
+                  className="bg-black text-sm"
                   type="submit"
                   isLoading={isPending}
                   disabled={isPending}
