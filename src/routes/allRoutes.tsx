@@ -34,6 +34,11 @@ import { useOnboardingStore } from "../zustand/OnboardingStore";
 import { useUserStore } from "../zustand/UserStore";
 import { useToastStore } from "../zustand/useToastStore";
 import AuthRoutes from "./authRoutes";
+import OTPScreen from "../pages/OTPScreen";
+import ForgotPassword from "../pages/ForgotPassword";
+import ResetPassword from "../pages/ResetPassword";
+import ContractsPage from "../pages/ContractsScreen";
+import ContractTransactionList from "../components/ContractsDashboardComponents/TransactionListModal";
 import ProtectedRoutes from "./protectedRoutes";
 
 const DashboardScreen = lazy(() => import("../pages/DashboardScreen"));
@@ -83,7 +88,7 @@ const AllRoutes = () => {
                   element={<SavedPropertyScreen />}
                 />
                 <Route path="settings" element={<MyProfileScreen />} />
-                <Route path="my-contracts" element={<ContractsPage />} />
+               <Route path="my-contracts" element={<ContractsPage />} />
                 <Route
                   path="my-contracts/:id/transactions"
                   element={<ContractTransactionList />}
