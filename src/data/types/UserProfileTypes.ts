@@ -7,6 +7,7 @@ export interface User {
   first_name: string;
   last_name: string;
   role: number;
+  date_of_birth: string;
   country: string | null;
   state: string | null;
   lga: string | null;

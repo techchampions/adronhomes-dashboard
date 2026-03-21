@@ -1,16 +1,12 @@
-import React, { ReactNode, useState } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
+import { Contract } from "../../data/types/ContractTypes";
+import { formatPrice } from "../../data/utils";
 import { useModalStore } from "../../zustand/useModalStore";
-import { Notification } from "../../data/types/notificationTypes";
-import { formatDate, formatPrice } from "../../data/utils";
 import ApiErrorBlock from "../ApiErrorBlock";
+import CopyButton from "../CopyButton";
 import NotFound from "../NotFound";
 import SmallLoader from "../SmallLoader";
-import { Eye, Trash, Trash2 } from "lucide-react";
-import { Contract } from "../../data/types/ContractTypes";
-import CopyButton from "../CopyButton";
-import { Link } from "react-router-dom";
-import Button from "../Button";
-import LinkExistingContracts from "./LinkExistingContracts";
 import ContractDetail from "./ContractDetail";
 
 // export type NotificationStatus = "All" | "Read" | "Unread";
@@ -19,15 +15,20 @@ type Props = {
   data: Contract[];
   isError: boolean;
   isLoading: boolean;
-  iscontract?:boolean
+  iscontract?: boolean;
   headerComponent?: React.ReactNode;
-  
 };
 
 const tabs = ["All", "Read", "Unread"] as const;
 type Tab = (typeof tabs)[number];
 
-const ContractsList: React.FC<Props> = ({ data, isError, isLoading,iscontract=false,headerComponent }) => {
+const ContractsList: React.FC<Props> = ({
+  data,
+  isError,
+  isLoading,
+  iscontract = false,
+  headerComponent,
+}) => {
   const { openModal } = useModalStore();
 
   const renderContent = () => {
@@ -45,7 +46,7 @@ const ContractsList: React.FC<Props> = ({ data, isError, isLoading,iscontract=fa
 
   const renderList = () => {
     return (
-      <div className="">
+      <div className="w-full overflow-x-auto">
         <div className="grid grid-cols-12 font-adron-bold text-sm py-4 px-4 md:px-10 rounded-3xl gap-4">
           <div className="line-clamp-1 col-span-1">S/N</div>
           <div className="line-clamp-1 col-span-2">Contract ID</div>
@@ -113,11 +114,7 @@ const ContractsList: React.FC<Props> = ({ data, isError, isLoading,iscontract=fa
       <div className="flex items-center justify-between w-full">
         <h4 className="text-2xl font-adron-bold pb-4">Contracts</h4>
 
-    {  iscontract&&(
-      <div className="flex ">
-          {headerComponent}
-        </div>
-      )}
+        {iscontract && <div className="flex ">{headerComponent}</div>}
         {/* <Button
           label="Link Existing Contracts"
           className="!w-fit px-7 bg-gray-700 !rounded-xl"
