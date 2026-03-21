@@ -1,16 +1,14 @@
-import { useState } from "react";
-import { Formik, Form } from "formik";
+import { Form, Formik } from "formik";
 import * as Yup from "yup";
-import { TbCameraPlus } from "react-icons/tb";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
-import SmallLoader from "../SmallLoader";
-import ApiErrorBlock from "../ApiErrorBlock";
-import { useToastStore } from "../../zustand/useToastStore";
 import { useGetUser, useUpdateProfile } from "../../data/hooks";
-import InputField from "../InputField";
-import Button from "../Button";
-import ProfilePictureField from "./ProfilePictureField";
 import { useModalStore } from "../../zustand/useModalStore";
+import { useToastStore } from "../../zustand/useToastStore";
+import ApiErrorBlock from "../ApiErrorBlock";
+import Button from "../Button";
+import DatePickerInput from "../DatePickerInput";
+import InputField from "../InputField";
+import SmallLoader from "../SmallLoader";
+import ProfilePictureField from "./ProfilePictureField";
 
 const EditProfile = () => {
   const { showToast } = useToastStore();
@@ -26,6 +24,7 @@ const EditProfile = () => {
     firstName: `${userData?.first_name}`,
     lastName: ` ${userData?.last_name}`,
     email: `${userData?.email}`,
+    date_of_birth: `${userData?.date_of_birth}`,
     phone: `${userData?.phone_number}`,
     state: `${userData?.state || ""}`,
     country: `${userData?.country || ""}`,
@@ -47,6 +46,7 @@ const EditProfile = () => {
     lga: Yup.string().required("LGA is required"),
     country: Yup.string().required("Country is required"),
     address: Yup.string().required("Address is required"),
+    date_of_birth: Yup.string().required("required"),
   });
 
   const handleSubmit = async (values: typeof initialValues) => {
@@ -69,6 +69,9 @@ const EditProfile = () => {
     if (values.lga) {
       formData.append("lga", values.lga);
     }
+    if (values.date_of_birth) {
+      formData.append("date_of_birth", values.date_of_birth);
+    }
     if (values.address) {
       formData.append("address", values.address);
     }
@@ -84,7 +87,7 @@ const EditProfile = () => {
   };
 
   return (
-    <div className="md:w-md">
+    <div className="md:w-md max-h-[75vh] overflow-y-auto scrollbar-hide">
       <h4 className="text-2xl font-adron-bold text-center">Edit Profile</h4>
       <Formik
         initialValues={initialValues}
@@ -190,16 +193,16 @@ const EditProfile = () => {
                     <InputField name="lga" placeholder={initialValues.lga} />
                   </div>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm text-gray-600 ">
-                      Address
-                    </label>
-                    <InputField
-                      name="address"
-                      placeholder={initialValues.address}
-                    />
-                  </div>
+                <div>
+                  <label className="block text-sm text-gray-600 ">
+                    Address
+                  </label>
+                  <InputField
+                    name="address"
+                    placeholder={initialValues.address}
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm text-gray-600">
                       Country
@@ -209,13 +212,22 @@ const EditProfile = () => {
                       placeholder={initialValues.country}
                     />
                   </div>
+                  <div>
+                    <label className="block text-sm text-gray-600 ">
+                      Date of Birth
+                    </label>
+                    <DatePickerInput
+                      name="date_of_birth"
+                      // placeholder={initialValues.address}
+                    />
+                  </div>
                 </div>
               </div>
 
               {/* Save Button */}
               <div className="flex items-center gap-4 justify-center">
                 <Button
-                  label="Cancle"
+                  label="Cancel"
                   className="bg-gray-500 text-sm "
                   onClick={closeModal}
                 />
