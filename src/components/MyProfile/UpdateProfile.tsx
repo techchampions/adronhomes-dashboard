@@ -233,7 +233,7 @@ const EditProfile = () => {
                 />
                 <Button
                   label={isPending ? `Saving...` : `Save Changes`}
-                  className="bg-black text-sm "
+                  className="bg-black text-sm"
                   type="submit"
                   isLoading={isPending}
                   disabled={isPending}
