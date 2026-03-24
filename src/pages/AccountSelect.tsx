@@ -1,16 +1,35 @@
-import { ArrowLeft, User2 } from "lucide-react";
+import { ArrowLeft, User2, UserCircle } from "lucide-react";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Auth from "../utils/Auth";
+import SmallLoader from "../components/SmallLoader";
+import { useSelectAccount } from "../data/hooks";
 interface Prop {
   users: UserAccount[];
   values: { email: string; password: string };
 }
 const AccountSelect: React.FC<Prop> = ({ users, values }) => {
   const navigate = useNavigate();
+  const { mutate, isPending } = useSelectAccount();
   const handleClick = (customer_code: string) => {
-    Auth.loginStep2(values, customer_code, navigate);
+    const payload = {
+      email: values.email,
+      password: values.password,
+      customer_code: customer_code,
+    };
+    mutate(payload);
+    // Auth.loginStep2(values, customer_code, navigate);
   };
+  if (isPending) {
+    return (
+      <div className="md:w-sm min-h-50 flex gap-4 flex-col items-center justify-center text-center mx-auto">
+        <SmallLoader classname="w-fit! h-fit!" />
+        <div className="flex items-center gap-1 animate-pulse text-gray-600">
+          <UserCircle size={15} />
+          <div className="">Loging in User...</div>
+        </div>
+      </div>
+    );
+  }
   return (
     <div>
       <div className="p-5">
@@ -28,19 +47,19 @@ const AccountSelect: React.FC<Prop> = ({ users, values }) => {
           {users.map((user, i) => (
             <div
               key={i}
-              className="flex items-center gap-4 p-4 hover:bg-gray-200 cursor-pointer"
+              className="flex items-center gap-2 px-4 py-2 hover:bg-gray-200 cursor-pointer"
               onClick={() => handleClick(user.customer_code)}
             >
-              <div className="bg-adron-green text-white h-15 w-15 rounded-full flex items-center justify-center">
+              <div className="bg-adron-green text-white h-10 w-10 rounded-full flex items-center justify-center">
                 <User2 />
               </div>
-              <div className="">
-                <div className="">
+              <div className="text-xs text-gray-800">
+                <div className="font-adron-mid">
                   {user.first_name} {user.last_name}
                 </div>
-                <em className="text-gray-700">
-                  {user.customer_code || "No customer code assigned!"}
-                </em>
+                <div className="">
+                  #{user.customer_code || "No customer code assigned!"}
+                </div>
               </div>
             </div>
           ))}

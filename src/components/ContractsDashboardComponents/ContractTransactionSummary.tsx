@@ -6,7 +6,7 @@ interface Props {
 }
 const ContractTransactionSummary: React.FC<Props> = ({ item }) => {
   return (
-    <div className="w-sm">
+    <div className="md:w-sm">
       <h4 className="text-xl font-adron-bold">Transaction Summary</h4>
       <div className="mt-4 space-y-2 divide-y divide-gray-200 text-sm">
         <div className="grid grid-cols-3 pb-2">

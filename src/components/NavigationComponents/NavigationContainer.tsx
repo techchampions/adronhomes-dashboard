@@ -1,17 +1,16 @@
-import NavItem from "./NavItem";
-import { FaUserAlt } from "react-icons/fa";
 import { FaArrowRightArrowLeft } from "react-icons/fa6";
-import { MdAddHome, MdDashboardCustomize, MdOutlineHelp } from "react-icons/md";
 import { IoDocumentAttach, IoSettingsSharp } from "react-icons/io5";
+import { MdAddHome, MdDashboardCustomize, MdOutlineHelp } from "react-icons/md";
 import {
   RiHomeHeartFill,
   RiLogoutBoxRFill,
   RiNotificationBadgeFill,
   RiWallet3Fill,
 } from "react-icons/ri";
-import NavbarAddorder from "./NavbarAddorder";
-import Auth from "../../utils/Auth";
 import { useGetNotifications } from "../../data/hooks";
+import Auth from "../../utils/Auth";
+import { SwitchAccountButton } from "../UserButton";
+import NavItem from "./NavItem";
 
 function NavigationContainer() {
   const { data: notificationData } = useGetNotifications(1);
@@ -50,7 +49,7 @@ function NavigationContainer() {
           <h4 className="text-adron-gray-400 font-bold px-7 mt-7 text-[13px]">
             LISTINGS
           </h4>
-            <NavItem
+          <NavItem
             label="My Contracts"
             icon={<IoDocumentAttach className=" w-4 h-4" />}
             path="/dashboard/my-contracts"
@@ -84,6 +83,7 @@ function NavigationContainer() {
             icon={<IoSettingsSharp className=" w-4 h-4" />}
             path="/dashboard/settings"
           />
+          <SwitchAccountButton />
 
           <NavItem
             label="Support"

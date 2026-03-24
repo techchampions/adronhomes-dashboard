@@ -9,7 +9,7 @@ import { useModalStore } from "../zustand/useModalStore";
 import { useUserStore } from "../zustand/UserStore";
 import AddFundAmount from "./DashboardHomeComponents/AddFundAmount";
 import InputField from "./InputField";
-import UserButton from "./UserButton";
+import { UserButton } from "./UserButton";
 
 const Header = ({ pageTitle }: { pageTitle: string }) => {
   const navigate = useNavigate();

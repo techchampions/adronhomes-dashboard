@@ -18,7 +18,7 @@ import { useGetNotifications } from "../../data/hooks";
 import Auth from "../../utils/Auth";
 import { useSearchStore } from "../../zustand/SearchStore";
 import { useUserStore } from "../../zustand/UserStore";
-import UserButton from "../UserButton";
+import { SwitchAccountButton, UserButton } from "../UserButton";
 import NavItem from "./NavItem";
 
 const MobileNav = () => {
@@ -187,6 +187,7 @@ const MobileNav = () => {
                 icon={<IoSettingsSharp className=" w-4 h-4" />}
                 path="/dashboard/settings"
               />
+              <SwitchAccountButton />
 
               <NavItem
                 onSlideBack={setIsMobileMenuOpen}

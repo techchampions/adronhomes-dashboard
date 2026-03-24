@@ -4,7 +4,7 @@ import { useModalStore } from "../zustand/useModalStore";
 import { useUserStore } from "../zustand/UserStore";
 import SwitchAccount from "./NavigationComponents/SwitchAccount";
 
-const UserButton = () => {
+export const UserButton = () => {
   const { user } = useUserStore();
   const modal = useModalStore();
 
@@ -43,4 +43,27 @@ const UserButton = () => {
   );
 };
 
-export default UserButton;
+export const SwitchAccountButton = () => {
+  const { user } = useUserStore();
+  const modal = useModalStore();
+
+  const { data, isLoading, isError } = useFetchMutipleAccounts();
+  const accounts = data?.accounts || [];
+  const switchAccount = () => {
+    modal.openModal(<SwitchAccount users={accounts} />);
+  };
+
+  return (
+    <div
+      onClick={switchAccount}
+      className={`${
+        accounts.length < 1 && isLoading
+          ? "hidden"
+          : "flex items-center gap-2 py-2 px-7 text-xs cursor-pointer text-adron-gray-400 hover:bg-gray-200 rounded-xl"
+      }`}
+    >
+      <RefreshCcw size={15} />
+      <div className="">Switch Account</div>
+    </div>
+  );
+};
