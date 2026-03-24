@@ -36,4 +36,11 @@ interface SwitchAccountResponse {
 }
 interface SwitchAccountPayload {
   customer_code: string;
+  email?: string;
+  password?: string;
+}
+interface LoginSelectAccountPayload {
+  customer_code: string;
+  email: string;
+  password: string;
 }

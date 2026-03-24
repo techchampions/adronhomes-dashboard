@@ -621,11 +621,95 @@ export const useSwitchAccount = () => {
       queryClient.invalidateQueries({
         queryKey: ["user-profile"],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["erp-contracts"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["erp-contract-transaction"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["property-plan-details"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["user-properties-plan"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["dashboard-data"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["user-wallet"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["user-transactions"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["user-properties-plan-payment-history"],
+      });
+
       modal.closeModal();
       showToast("User switched successfully", "success");
     },
     onError() {
       showToast("Failed to switch user", "error");
+    },
+  });
+};
+export const useSelectAccount = () => {
+  const { setToken, setIsLoggedIn } = useUserStore();
+  const { showToast } = useToastStore();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (
+      payload: LoginSelectAccountPayload
+    ): Promise<SwitchAccountResponse> => {
+      const res = await apiClient.post(
+        `/login?type=customer&customer_code=${payload.customer_code}`,
+        payload
+      );
+      return res.data;
+    },
+    onSuccess: (data) => {
+      // Refetch ALL erp-contracts queries (any page)
+      setToken(data.token);
+      showToast("User LoggedIn successfully!", "success");
+      setIsLoggedIn(true); // Set logged-in state in store
+
+      queryClient.invalidateQueries({
+        queryKey: ["user-multiple-accounts"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["user"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["user-profile"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["erp-contracts"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["erp-contract-transaction"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["property-plan-details"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["user-properties-plan"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["dashboard-data"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["user-wallet"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["user-transactions"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["user-properties-plan-payment-history"],
+      });
+    },
+    onError() {
+      showToast("Failed to select user", "error");
     },
   });
 };
