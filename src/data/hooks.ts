@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
+import { useModalStore } from "../zustand/useModalStore";
 import { useUserStore } from "../zustand/UserStore";
 import { useToastStore } from "../zustand/useToastStore";
 import {
@@ -598,6 +599,8 @@ export const useFetchMutipleAccounts = () => {
 };
 export const useSwitchAccount = () => {
   const { setToken } = useUserStore();
+  const modal = useModalStore();
+  const { showToast } = useToastStore();
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (
@@ -618,6 +621,11 @@ export const useSwitchAccount = () => {
       queryClient.invalidateQueries({
         queryKey: ["user-profile"],
       });
+      modal.closeModal();
+      showToast("User switched successfully", "success");
+    },
+    onError() {
+      showToast("Failed to switch user", "error");
     },
   });
 };

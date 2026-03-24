@@ -17,7 +17,7 @@ const SwitchAccount: React.FC<Prop> = ({ users }) => {
   };
   if (isPending) {
     return (
-      <div className="w-sm min-h-50 flex gap-4 flex-col items-center justify-center text-center">
+      <div className="md:w-sm min-h-50 flex gap-4 flex-col items-center justify-center text-center">
         <SmallLoader classname="w-fit! h-fit!" />
         <div className="flex items-center gap-1 animate-pulse text-gray-600">
           <UserCircle size={15} />
