@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import apiClient from "../utils/AxiosInstance";
 import { AccountDetail } from "../data/types/AccountDetailsTypes";
+import apiClient from "../utils/AxiosInstance";
 
 export type User = {
   id: number;
@@ -29,6 +29,7 @@ export type User = {
 
 type UserState = {
   user: User | null;
+  users: UserAccount[];
   accounts: AccountDetail[];
   acceptCookies: boolean;
   token: string;
@@ -36,6 +37,7 @@ type UserState = {
   setToken: (token: string) => void;
   setIsLoggedIn: (status: boolean) => void;
   setUser: (user: User) => void; // 👈 add this  getUser: () => Promise<void>;
+  setUsers: (users: UserAccount[]) => void; // 👈 add this  getUser: () => Promise<void>;
   setAccounts: (accounts: AccountDetail[]) => void;
   setAcceptCookies: (accept: boolean) => void;
   reset: () => void;
@@ -45,6 +47,11 @@ export const useUserStore = create<UserState>()(
   persist(
     (set) => ({
       user: null,
+      users: [],
+      setUsers(users) {
+        set({ users });
+      },
+
       token: "",
       isLoggedIn: false,
       acceptCookies: false,

@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
+import { useModalStore } from "../zustand/useModalStore";
 import { useUserStore } from "../zustand/UserStore";
 import { useToastStore } from "../zustand/useToastStore";
 import {
@@ -33,7 +34,6 @@ import {
   getWalletTransactionByID,
   getWalletTransactionReciept,
   infrastructurePayment,
-  InitiatePropertyPurchaseResponse,
   linkExistingContracts,
   makeEnquire,
   makePendingPropertyPlanPayment,
@@ -48,6 +48,7 @@ import {
   toggleSaveProperty,
   updateProfile,
 } from "./api";
+import apiClient from "./apiClient";
 import { AccountDetailsResponse } from "./types/AccountDetailsTypes";
 import {
   ContractApiResponse,
@@ -77,20 +78,6 @@ import {
   TransactionRecieptResponse,
   WalletTransactionByIDResponse,
 } from "./types/userTransactionByIDTypes";
-import { NotificationByIDResponse } from "./types/NotificationByIDTypes";
-import { PropertyPlanPaymentResponse } from "./types/PropertyPlanPaymentListTypes";
-import { PropertiesSearchResultResponse } from "./types/SearchPropertiesResultTypes";
-import { useEffect } from "react";
-import { SavedPropertiesResponse } from "./types/SavedPropertiesResponse";
-import { AccountDetailsResponse } from "./types/AccountDetailsTypes";
-import { EnquirePayload } from "./types/EnquirePayload";
-import { SliderByTypeResponse } from "./types/SliderByTypeTypes";
-import { PropertyPlanPayload } from "./types/CreatePropertyPayload";
-import { useToastStore } from "../zustand/useToastStore";
-import { useModalStore } from "../zustand/useModalStore";
-import { FAQResponse } from "./types/FAQTypes";
-import { SettingsResponse } from "./types/SettingsTypes";
-import { ContractApiResponse, ContractTransactionApiResponse } from "./types/ContractTypes";
 import { UserTransactionResponse } from "./types/userTransactionsTypes";
 import { UserWalletResponse } from "./types/userWalletTypes";
 
@@ -574,7 +561,6 @@ export const useLinkExistingContracts = () => {
   });
 };
 
-
 export const useGetERPContractTransactions = (contractID: number) => {
   return useQuery<ContractTransactionApiResponse>({
     queryKey: ["erp-contract-transaction", contractID],
@@ -589,7 +575,6 @@ export const useGetERPContracts = (page: number) => {
   });
 };
 
-
 export const useSyncERPContracts = () => {
   const queryClient = useQueryClient();
 
@@ -600,6 +585,47 @@ export const useSyncERPContracts = () => {
       queryClient.invalidateQueries({
         queryKey: ["erp-contracts"],
       });
+    },
+  });
+};
+export const useFetchMutipleAccounts = () => {
+  return useQuery<MutipleAccountResponse>({
+    queryKey: ["user-multiple-accounts"],
+    queryFn: async () => {
+      const res = await apiClient.get(`/user/fetch-accounts`);
+      return res.data;
+    },
+  });
+};
+export const useSwitchAccount = () => {
+  const { setToken } = useUserStore();
+  const modal = useModalStore();
+  const { showToast } = useToastStore();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (
+      payload: SwitchAccountPayload
+    ): Promise<SwitchAccountResponse> => {
+      const res = await apiClient.post(`/user/switch-account`, payload);
+      return res.data;
+    },
+    onSuccess: (data) => {
+      // Refetch ALL erp-contracts queries (any page)
+      setToken(data.token);
+      queryClient.invalidateQueries({
+        queryKey: ["user-multiple-accounts"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["user"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["user-profile"],
+      });
+      modal.closeModal();
+      showToast("User switched successfully", "success");
+    },
+    onError() {
+      showToast("Failed to switch user", "error");
     },
   });
 };

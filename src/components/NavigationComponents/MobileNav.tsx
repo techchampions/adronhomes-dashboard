@@ -1,33 +1,31 @@
+import { Menu, X } from "lucide-react"; // or use any icon you prefer
 import { useState } from "react";
-import { FaUserAlt, FaUserCircle } from "react-icons/fa";
+import { FaUserCircle } from "react-icons/fa";
 import { FaArrowRightArrowLeft } from "react-icons/fa6";
-import { MdAddHome, MdDashboardCustomize, MdOutlineHelp } from "react-icons/md";
 import { IoDocumentAttach, IoSettingsSharp } from "react-icons/io5";
+import { MdAddHome, MdDashboardCustomize, MdOutlineHelp } from "react-icons/md";
 import {
   RiHomeHeartFill,
   RiLogoutBoxRFill,
   RiNotificationBadgeFill,
   RiWallet3Fill,
 } from "react-icons/ri";
-import { Menu, X } from "lucide-react"; // or use any icon you prefer
 
-import NavItem from "./NavItem";
-import NavbarAddorder from "./NavbarAddorder";
-import Auth from "../../utils/Auth";
-import { useUserStore } from "../../zustand/UserStore";
-import { Link, useNavigate } from "react-router-dom";
-import CopyButton from "../CopyButton";
-import { useGetNotifications } from "../../data/hooks";
 import { useQueryClient } from "@tanstack/react-query";
-import { useSearchStore } from "../../zustand/SearchStore";
+import { Link, useNavigate } from "react-router-dom";
 import { searchProperties } from "../../data/api";
+import { useGetNotifications } from "../../data/hooks";
+import Auth from "../../utils/Auth";
+import { useSearchStore } from "../../zustand/SearchStore";
+import { useUserStore } from "../../zustand/UserStore";
+import UserButton from "../UserButton";
+import NavItem from "./NavItem";
 
 const MobileNav = () => {
   const { user } = useUserStore();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { setSearchResults, setLoading } = useSearchStore();
-
   const { data: notificationData } = useGetNotifications(1);
   const unReadCount = notificationData?.unread || 0;
 
@@ -97,16 +95,7 @@ const MobileNav = () => {
                 <X size={24} />
               </button>
             </div>
-            <div className="border border-gray-300 rounded-xl px-4 py-1 gap-1 flex flex-col">
-              <div className="flex justify-between w-full gap-4">
-                <p className="text-[10px] text-gray-400">Customer ID</p>
-                <CopyButton text={user?.unique_customer_id} />
-              </div>
-              <p className="text-xs">
-                {user?.unique_customer_id || "No Customer ID"}
-              </p>
-            </div>
-
+            <UserButton />
             <input
               placeholder="Search..."
               className="px-6 bg-adron-body rounded-full py-2 text-xs"
@@ -158,7 +147,7 @@ const MobileNav = () => {
               <h4 className="text-adron-gray-400 font-bold px-7 mt-7 text-[13px]">
                 LISTINGS
               </h4>
-                <NavItem
+              <NavItem
                 onSlideBack={setIsMobileMenuOpen}
                 label="My Contracts"
                 icon={<IoDocumentAttach className=" w-4 h-4" />}

@@ -25,3 +25,15 @@ interface UserAccount {
   email: string;
   customer_code: string;
 }
+interface MutipleAccountResponse {
+  success: boolean;
+  accounts: UserAccount[];
+}
+interface SwitchAccountResponse {
+  success: boolean;
+  token: string;
+  account: UserAccount;
+}
+interface SwitchAccountPayload {
+  customer_code: string;
+}

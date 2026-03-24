@@ -7,7 +7,7 @@ import apiClient from "./AxiosInstance";
 
 const { showToast } = useToastStore.getState();
 const { setHasCompletedOnboarding, setStep } = useOnboardingStore.getState();
-const { setToken, setIsLoggedIn } = useUserStore.getState();
+const { setToken, setIsLoggedIn, setUsers } = useUserStore.getState();
 
 const handleResendOTP = async () => {
   try {
@@ -52,7 +52,7 @@ const login = async (
       );
       setToken(response.data.token); // Save token in store
       setIsLoggedIn(false); // Set logged-in state in store
-      // await getUser();
+      setUsers([]);
       handleResendOTP();
       setStep("verify OTP");
       if (navigate) {
@@ -60,6 +60,7 @@ const login = async (
       }
     } else if (!response.data.success && response.data.multiple_accounts) {
       showToast(response.data.message, "success");
+      setUsers(response.data.accounts);
       return response.data.accounts;
     } else if (response.data.errors) {
       const errorMessages = Object.values(response.data.errors)
