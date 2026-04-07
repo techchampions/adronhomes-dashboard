@@ -13,6 +13,8 @@ type AuthFormProps = {
   isSignup?: boolean;
   isForgotPassword?: boolean;
   isResetPassword?: boolean;
+  isSignupReferral?: boolean;
+  referralCodeFromUrl?: string;
 };
 
 const AuthForm = ({
@@ -20,6 +22,8 @@ const AuthForm = ({
   isForgotPassword = false,
   isResetPassword = false,
   isSignup = false,
+  isSignupReferral = false,
+  referralCodeFromUrl = "",
 }: AuthFormProps) => {
   const { setStep } = useOnboardingStore();
   const [showPassword, setShowPassword] = useState(false);
@@ -36,7 +40,7 @@ const AuthForm = ({
     password: "",
     confirmPassword: "",
     OTP: "",
-    marketerReferralCode: "",
+    marketerReferralCode: referralCodeFromUrl,
   };
 
   // Validation schema that changes based on the state (login, forgot, reset)
@@ -70,6 +74,18 @@ const AuthForm = ({
           password: Yup.string().required("Required"),
           marketerReferralCode: Yup.string().optional(),
         }
+      : isSignupReferral
+      ? {
+          fullName: Yup.string().required("Required"),
+          email: Yup.string().email("Invalid email").required("Required"),
+          phone: Yup.string()
+            .matches(/^[0-9]+$/, "Phone number must contain only digits")
+            .min(11, "Phone number must be at least 10 digits")
+            .max(15, "Phone number must be 15 digits or less")
+            .required("Required"),
+          password: Yup.string().required("Required"),
+          marketerReferralCode: Yup.string().optional(),
+        }
       : {
           fullName: Yup.string().required("Required"),
           phone: Yup.string()
@@ -90,12 +106,10 @@ const AuthForm = ({
     if (isForgotPassword) {
       Auth.handleForgotpassword(values, { setSubmitting }, navigate);
     } else if (isResetPassword) {
-      // Auth.handleResetPassword(values, { setSubmitting });
-      // When calling the function:
       Auth.handleResetPassword(
         {
           ...values,
-          OTP: Number(values.OTP), // Convert string OTP to number
+          OTP: Number(values.OTP),
         },
         { setSubmitting },
         navigate
@@ -103,8 +117,7 @@ const AuthForm = ({
       console.log("Resetting password:", values.password);
     } else if (isLogin) {
       Auth.login(values, navigate);
-    } else if (isSignup) {
-      // handleSignup(values, { setSubmitting });
+    } else if (isSignup || isSignupReferral) {
       Auth.register(values, { setSubmitting }, navigate);
       console.log("Registering with:", values);
     }
@@ -114,7 +127,6 @@ const AuthForm = ({
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
-      // onSubmit={handleSubmit}
       onSubmit={(values, { setSubmitting }) =>
         handleSubmit(values, setSubmitting)
       }
@@ -128,18 +140,21 @@ const AuthForm = ({
               ? "Reset Password"
               : isLogin
               ? "Login to Adron Homes"
+              : isSignupReferral
+              ? "Signup with Referral Code"
               : "Signup on Adron Homes"}
           </h1>
+          
           {/* Render based on state */}
           {!isLogin && !isForgotPassword && !isResetPassword && (
             <div className="">
               <label htmlFor="" className="text-gray-400 text-sm">
                 Full Name
               </label>
-
               <InputField name="fullName" placeholder="Full Name" />
             </div>
           )}
+          
           {!isResetPassword && (
             <div className="">
               <label htmlFor="" className="text-gray-400 text-sm">
@@ -153,12 +168,12 @@ const AuthForm = ({
               />
             </div>
           )}
+          
           {!isLogin && !isForgotPassword && !isResetPassword && (
             <div className="">
               <label htmlFor="" className="text-gray-400 text-sm">
                 Phone Number
               </label>
-
               <InputField
                 name="phone"
                 type="tel"
@@ -167,22 +182,22 @@ const AuthForm = ({
               />
             </div>
           )}
+          
           {isResetPassword && (
             <div className="">
               <label htmlFor="" className="text-gray-400 text-sm">
                 OTP Code
               </label>
-
               <InputField name="OTP" type="number" placeholder="OTP code" />
             </div>
           )}
+          
           {/* Password and Confirm Password Fields */}
-          {(isLogin || isResetPassword || isSignup) && (
+          {(isLogin || isResetPassword || isSignup || isSignupReferral) && (
             <div className="">
               <label htmlFor="" className="text-gray-400 text-sm">
                 Password
               </label>
-
               <InputField
                 name="password"
                 type={showPassword ? "text" : "password"}
@@ -204,28 +219,39 @@ const AuthForm = ({
               />
             </div>
           )}
-          {/* Marketer Referral Code (Only for Signup) */}
-          {isSignup && (
+          
+          {/* Marketer Referral Code - Different behavior for signup vs signupReferral */}
+          {(isSignup || isSignupReferral) && (
             <div className="">
               <label htmlFor="" className="text-gray-400 text-sm">
                 Marketer Referral Code
               </label>
-
               <InputField
                 name="marketerReferralCode"
                 type="text"
                 placeholder="Marketer Referral Code"
                 className="input"
+                disabled={isSignupReferral && !!referralCodeFromUrl}
               />
+              {/* {isSignupReferral && referralCodeFromUrl && (
+                <p className="text-xs text-green-600 mt-1">
+                  ✓ Referral code has been automatically applied
+                </p>
+              )}
+              {isSignupReferral && !referralCodeFromUrl && (
+                <p className="text-xs text-amber-600 mt-1">
+                  ⚠️ No referral code provided in the link
+                </p>
+              )} */}
             </div>
           )}
+          
           {/* Confirm Password (Only for reset) */}
           {isResetPassword && (
             <div className="">
               <label htmlFor="" className="text-gray-400 text-sm">
                 Confirm Password
               </label>
-
               <InputField
                 name="confirmPassword"
                 type={showPassword ? "text" : "password"}
@@ -247,6 +273,7 @@ const AuthForm = ({
               />
             </div>
           )}
+          
           {/* Forgot Password Link */}
           {isLogin && (
             <div className="flex justify-between items-center">
@@ -269,6 +296,7 @@ const AuthForm = ({
               </span>
             </div>
           )}
+          
           <Button
             type="submit"
             isLoading={isSubmitting}
@@ -285,6 +313,7 @@ const AuthForm = ({
             }
             className={`bg-adron-green text-white w-full py-2 rounded-full mt-10`}
           />
+          
           {/* Link to switch between forms */}
           <div className="text-sm flex gap-1 items-center text-center justify-center">
             {isLogin ? (
@@ -313,14 +342,6 @@ const AuthForm = ({
               </div>
             )}
           </div>
-          {/* Toast notification */}
-          {/* {showToast && (
-            <Toast
-              message={toastMsg}
-              type={toastType}
-              onClose={() => setShowToast(false)}
-            />
-          )} */}
         </Form>
       )}
     </Formik>

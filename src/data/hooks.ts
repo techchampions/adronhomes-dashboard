@@ -80,6 +80,7 @@ import {
 } from "./types/userTransactionByIDTypes";
 import { UserTransactionResponse } from "./types/userTransactionsTypes";
 import { UserWalletResponse } from "./types/userWalletTypes";
+import axios from "axios";
 
 //Query hook for User profile
 export const useGetUser = () => {
@@ -712,4 +713,39 @@ export const useSelectAccount = () => {
       showToast("Failed to select user", "error");
     },
   });
+};
+
+
+
+export interface VerifyReferralLinkResponse {
+  isValid: boolean;
+  message?: string;
+  referrerInfo?: {
+    name: string;
+    code: string;
+  };
+}
+
+export const verifyReferralLink = async (link: string): Promise<VerifyReferralLinkResponse> => {
+  try {
+    const response = await apiClient.post(`/verify-marketer-link`, {
+      link: link
+    });
+    
+    return {
+      isValid: true,
+      ...response.data
+    };
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      return {
+        isValid: false,
+        message: error.response.data?.message || "Invalid referral link"
+      };
+    }
+    return {
+      isValid: false,
+      message: "Failed to verify referral link. Please try again."
+    };
+  }
 };

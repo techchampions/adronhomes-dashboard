@@ -9,6 +9,7 @@ import {
   FaWhatsapp,
   FaLink,
 } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 
 interface ShareButtonProps {
   url?: string;
@@ -41,7 +42,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({
     },
     {
       name: "Twitter",
-      icon: <FaTwitter />,
+      icon: <FaXTwitter />,
       action: () => shareToTwitter(url, text),
       color: "bg-sky-500 hover:bg-sky-600",
     },
