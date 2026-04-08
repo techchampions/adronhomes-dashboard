@@ -29,12 +29,6 @@ const ShareButton: React.FC<ShareButtonProps> = ({
 
   const shareOptions = [
     {
-      name: "Copy Link",
-      icon: <FaCopy />,
-      action: () => copyToClipboard(url),
-      color: "bg-gray-500 hover:bg-gray-600",
-    },
-    {
       name: "Facebook",
       icon: <FaFacebook />,
       action: () => shareToFacebook(url, title),
