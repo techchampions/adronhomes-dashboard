@@ -37,6 +37,7 @@ import { FAQResponse } from "./types/FAQTypes";
 import { SettingsResponse } from "./types/SettingsTypes";
 import { ContractApiResponse, ContractTransactionApiResponse } from "./types/ContractTypes";
 import { ERPContractsSyncState } from "./types/ERPContractsSyncState";
+import { PayForContractRequest, PayForContractResponse } from "./types/PayForContractRequest";
 
 export type ApiError = {
   response?: {
@@ -226,6 +227,9 @@ export const filterProperties = async (
   const response = await apiClient.get(endpoint);
   return response.data;
 };
+
+
+
 
 export interface SearchParam {
   search?: string;
@@ -689,4 +693,11 @@ return response.data;
 
 
 
-  
+export const payForContract = async (params: PayForContractRequest): Promise<PayForContractResponse> => {
+  const formData = new FormData();
+  formData.append('amount', params.amount.toString());
+  formData.append('payment_type', params.payment_type);
+  formData.append('contract_id', params.contract_id);
+  const response = await apiClient.post('/user/pay-for-contract', formData);
+  return response.data;
+}

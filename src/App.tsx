@@ -56,7 +56,8 @@ function App() {
     metaImg.height = 1;
     metaImg.width = 1;
     metaImg.style.display = "none";
-    metaImg.src = "https://www.facebook.com/tr?id=2259472234373802&ev=PageView&noscript=1";
+    metaImg.src =
+      "https://www.facebook.com/tr?id=2259472234373802&ev=PageView&noscript=1";
     metaNoscript.appendChild(metaImg);
     document.body.appendChild(metaNoscript);
 
@@ -73,7 +74,7 @@ function App() {
 
   return (
     <ErrorBoundary>
-      <Providers>    
+      <Providers>
         <AllRoutes />
         <NetworkStatusBar />
       </Providers>
