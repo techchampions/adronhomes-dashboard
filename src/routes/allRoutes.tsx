@@ -36,6 +36,7 @@ import { useToastStore } from "../zustand/useToastStore";
 import AuthRoutes from "./authRoutes";
 import ProtectedRoutes from "./protectedRoutes";
 import SignUpReferral from "../pages/SignUpReferral";
+// import Payment from "../components/payment/page";
 
 const DashboardScreen = lazy(() => import("../pages/DashboardScreen"));
 
@@ -116,6 +117,7 @@ const AllRoutes = () => {
                   element={<MyPropertyPaymentList />}
                 />
                 <Route path="FAQs" element={<FAQAccordion />} />
+                {/* <Route path="Payment" element={<Payment />} /> */}
               </Route>
             </Route>
 

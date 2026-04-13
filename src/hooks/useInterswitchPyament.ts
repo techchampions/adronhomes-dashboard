@@ -7,6 +7,7 @@ type InterswitchProps = {
   payment_item_id: string;
   onSuccess: (reference: any) => void;
   onClose: () => void;
+  onError?: (error: any) => void;
   customerName?: string;
   phone?: string;
 };
@@ -20,6 +21,7 @@ export const useInterswitchPayment = () => {
     payment_item_id = "4397138",
     onSuccess,
     onClose,
+    onError,
     customerName = "Customer",
     phone = "",
   }: InterswitchProps) => {
@@ -41,38 +43,36 @@ export const useInterswitchPayment = () => {
         if (response.ResponseCode === "00") {
           // Payment successful
           onSuccess(response);
+        } else {
+          // Payment failed
+          const errorMessage = response.ResponseMessage || "Payment failed";
+          onError?.(errorMessage);
+          onClose();
         }
       },
       onclose: onClose,
-      oncancel: onclose,
-      onAbort: onclose,
-      onended: onclose,
+      oncancel: () => {
+        console.log("Payment cancelled by user");
+        onClose();
+      },
+      onAbort: () => {
+        console.log("Payment aborted");
+        onClose();
+      },
+      onended: () => {
+        console.log("Payment ended");
+        onClose();
+      },
     };
 
     const interswitch = window as any;
-    if (interswitch) {
+    if (interswitch && interswitch.webpayCheckout) {
       interswitch.webpayCheckout(interswitchConfig);
     } else {
+      console.error("Interswitch webpayCheckout not available");
+      onError?.("Payment gateway not available");
       onClose();
     }
-
-    // if (interswitch) {
-    //   console.log("yes, interswitch");
-    //   interswitch.setCallback(function (response: any) {
-    //     if (response.response_code === "00") {
-    //       // Payment successful
-    //       onSuccess(response);
-    //     } else {
-    //       // Payment failed or closed
-    //       onClose();
-    //     }
-    //   });
-
-    //   interswitch.loadIframe();
-    // } else {
-    //   console.error("Interswitch inline checkout not loaded");
-    //   onClose();
-    // }
   };
 
   return initializePayment;
