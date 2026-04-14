@@ -749,7 +749,6 @@ export const verifyReferralLink = async (link: string): Promise<VerifyReferralLi
       message: "Failed to verify referral link. Please try again."
     };
   }
-<<<<<<< kadirilatest
 };
 
 
@@ -773,6 +772,4 @@ export function usePayForContract() {
     },
   });
 }
-=======
-};
->>>>>>> main
+
