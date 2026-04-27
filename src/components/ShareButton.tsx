@@ -1,13 +1,11 @@
-import React, { useState, useRef } from "react";
+import React, { useRef, useState } from "react";
+import { BsTwitterX } from "react-icons/bs";
 import {
+  FaFacebook,
+  FaLinkedin,
   FaShareAlt,
   FaTimes,
-  FaCopy,
-  FaFacebook,
-  FaTwitter,
-  FaLinkedin,
   FaWhatsapp,
-  FaLink,
 } from "react-icons/fa";
 
 interface ShareButtonProps {
@@ -28,12 +26,6 @@ const ShareButton: React.FC<ShareButtonProps> = ({
 
   const shareOptions = [
     {
-      name: "Copy Link",
-      icon: <FaCopy />,
-      action: () => copyToClipboard(url),
-      color: "bg-gray-500 hover:bg-gray-600",
-    },
-    {
       name: "Facebook",
       icon: <FaFacebook />,
       action: () => shareToFacebook(url, title),
@@ -41,9 +33,9 @@ const ShareButton: React.FC<ShareButtonProps> = ({
     },
     {
       name: "Twitter",
-      icon: <FaTwitter />,
+      icon: <BsTwitterX />,
       action: () => shareToTwitter(url, text),
-      color: "bg-sky-500 hover:bg-sky-600",
+      color: "bg-black hover:bg-gray-900",
     },
     {
       name: "LinkedIn",

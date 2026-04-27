@@ -1,12 +1,11 @@
-import CopyButton from "../CopyButton";
-import Button from "../Button";
 import { useGetPaymentReciept, useGetTransactionByID } from "../../data/hooks";
-import ApiErrorBlock from "../ApiErrorBlock";
-import { formatPrice } from "../../data/utils";
 import { TransactionStatus } from "../../data/types/userTransactionsTypes";
-import SmallLoader from "../SmallLoader";
+import { formatPrice } from "../../data/utils";
+import ApiErrorBlock from "../ApiErrorBlock";
+import CopyButton from "../CopyButton";
 import LinkButton from "../LinkButton";
 import ShareButton from "../ShareButton";
+import SmallLoader from "../SmallLoader";
 
 const TransactionDetail = ({ id }: { id: number }) => {
   const { data, isLoading, isError } = useGetTransactionByID(id);
@@ -46,7 +45,7 @@ const TransactionDetail = ({ id }: { id: number }) => {
   };
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-5 w-sm">
       <h4 className="absolute top-4 left-4 font-bold text-lg">
         {`${
           data?.user_transaction.purpose === "property"
