@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
 import { useEffect } from "react";
 import { useModalStore } from "../zustand/useModalStore";
 import { useUserStore } from "../zustand/UserStore";
@@ -55,7 +56,6 @@ import {
   ContractApiResponse,
   ContractTransactionApiResponse,
 } from "./types/ContractTypes";
-import { UserDashboardResponseData } from "./types/dashboardHomeTypes";
 import { FAQResponse } from "./types/FAQTypes";
 import { GetPropertyByIdResponse } from "./types/GetPropertyByIdResponse";
 import { NotificationByIDResponse } from "./types/NotificationByIDTypes";
@@ -79,9 +79,7 @@ import {
   TransactionRecieptResponse,
   WalletTransactionByIDResponse,
 } from "./types/userTransactionByIDTypes";
-import { UserTransactionResponse } from "./types/userTransactionsTypes";
 import { UserWalletResponse } from "./types/userWalletTypes";
-import axios from "axios";
 
 //Query hook for User profile
 export const useGetUser = () => {
@@ -716,8 +714,6 @@ export const useSelectAccount = () => {
   });
 };
 
-
-
 export interface VerifyReferralLinkResponse {
   isValid: boolean;
   message?: string;
@@ -727,31 +723,31 @@ export interface VerifyReferralLinkResponse {
   };
 }
 
-export const verifyReferralLink = async (link: string): Promise<VerifyReferralLinkResponse> => {
+export const verifyReferralLink = async (
+  link: string
+): Promise<VerifyReferralLinkResponse> => {
   try {
     const response = await apiClient.post(`/verify-marketer-link`, {
-      link: link
+      link: link,
     });
-    
+
     return {
       isValid: true,
-      ...response.data
+      ...response.data,
     };
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
       return {
         isValid: false,
-        message: error.response.data?.message || "Invalid referral link"
+        message: error.response.data?.message || "Invalid referral link",
       };
     }
     return {
       isValid: false,
-      message: "Failed to verify referral link. Please try again."
+      message: "Failed to verify referral link. Please try again.",
     };
   }
 };
-
-
 
 export function usePayForContract() {
   const queryClient = useQueryClient();
@@ -760,16 +756,15 @@ export function usePayForContract() {
     mutationFn: payForContract,
     onSuccess: (data, variables) => {
       // Invalidate relevant queries to refresh data
-      queryClient.invalidateQueries({ queryKey: ['erp-contracts'] });
-      queryClient.invalidateQueries({ queryKey: ['user-wallet'] });
-      queryClient.invalidateQueries({ queryKey: ['wallet-data'] });
-      
+      queryClient.invalidateQueries({ queryKey: ["erp-contracts"] });
+      queryClient.invalidateQueries({ queryKey: ["user-wallet"] });
+      queryClient.invalidateQueries({ queryKey: ["wallet-data"] });
+
       // You can also update cache directly if needed
-      console.log('Payment successful:', data);
+      console.log("Payment successful:", data);
     },
     onError: (error: Error) => {
-      console.error('Payment error:', error.message);
+      console.error("Payment error:", error.message);
     },
   });
 }
-

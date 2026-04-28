@@ -1,10 +1,8 @@
-import { useGetUserTransactions } from "../data/hooks";
-import { Transaction } from "../data/types/userTransactionsTypes";
-import TransactionsList from "../components/DashboardTransactionComponents/TransactionsList";
-import { formatPrice } from "../data/utils";
 import { useState } from "react";
-import Pagination from "../components/Pagination";
 import PaymentsList from "../components/DashboardTransactionComponents/PaymentsList";
+import Pagination from "../components/Pagination";
+import { useGetUserTransactions } from "../data/hooks";
+import { formatPrice } from "../data/utils";
 
 const TransactionsPage = () => {
   const [page, setPage] = useState(1);

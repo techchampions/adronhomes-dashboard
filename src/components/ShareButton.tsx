@@ -1,15 +1,12 @@
-import React, { useState, useRef } from "react";
+import React, { useRef, useState } from "react";
+import { BsTwitterX } from "react-icons/bs";
 import {
+  FaFacebook,
+  FaLinkedin,
   FaShareAlt,
   FaTimes,
-  FaCopy,
-  FaFacebook,
-  FaTwitter,
-  FaLinkedin,
   FaWhatsapp,
-  FaLink,
 } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
 
 interface ShareButtonProps {
   url?: string;
@@ -36,9 +33,9 @@ const ShareButton: React.FC<ShareButtonProps> = ({
     },
     {
       name: "Twitter",
-      icon: <FaXTwitter />,
+      icon: <BsTwitterX />,
       action: () => shareToTwitter(url, text),
-      color: "bg-sky-500 hover:bg-sky-600",
+      color: "bg-black hover:bg-gray-900",
     },
     {
       name: "LinkedIn",

@@ -1,5 +1,4 @@
 import { PaginatedData } from "./PropertyRequestTypes";
-import { Transaction } from "./userTransactionsTypes";
 
 export interface Property {
   id: number;
@@ -71,14 +70,6 @@ type PlanProperty = {
   paid_other_amount: number;
   property: Property;
 };
-
-interface UserProperty {
-  id: number;
-  property_id: number;
-  user_id: number;
-  type: number;
-  status: number;
-}
 
 interface PaymentDetail {
   id: number;

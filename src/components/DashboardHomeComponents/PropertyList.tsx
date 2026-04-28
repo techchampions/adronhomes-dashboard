@@ -1,10 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { UserProperty } from "../../data/types/dashboardHomeTypes";
 import { formatPrice } from "../../data/utils";
-import SmallLoader from "../SmallLoader";
 import ApiErrorBlock from "../ApiErrorBlock";
 import NotFound from "../NotFound";
+import SmallLoader from "../SmallLoader";
 // types.ts
 type Props = {
   plans: UserProperty[];

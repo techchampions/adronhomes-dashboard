@@ -1,9 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Button from "../components/Button";
-import PropertyPlanList from "../components/DashboardHomeComponents/PropertyList";
-import TransactionsList from "../components/DashboardHomeComponents/TransactionList";
-import { useModalStore } from "../zustand/useModalStore";
 import AddFundAmount from "../components/DashboardHomeComponents/AddFundAmount";
+import PropertyPlanList from "../components/DashboardHomeComponents/PropertyList";
 import {
   useGetSlidersByType,
   useGetUserDashboardData,
@@ -11,25 +9,29 @@ import {
   useGetUserWalletdata,
   useResolveVirtualAccount,
 } from "../data/hooks";
-import { Transaction } from "../data/types/userTransactionsTypes";
+import { useModalStore } from "../zustand/useModalStore";
 // import Loader from "../components/Loader";
-import ApiErrorBlock from "../components/ApiErrorBlock";
-import { UserProperty } from "../data/types/dashboardHomeTypes";
-import { formatPrice } from "../data/utils";
-import SmallLoader from "../components/SmallLoader";
-import WalletTransactionsList from "../components/DashboardHomeComponents/WalletTransactionList";
 import { createPortal } from "react-dom";
+import ApiErrorBlock from "../components/ApiErrorBlock";
+import GiftNotificationSlider from "../components/DashboardHomeComponents/GiftNotificationSlider";
+import WalletTransactionsList from "../components/DashboardHomeComponents/WalletTransactionList";
+import SmallLoader from "../components/SmallLoader";
+import { formatPrice } from "../data/utils";
 
 const HomeScreen = () => {
   const [showWarning, setShowWarning] = useState(false);
   const openModal = useModalStore((state) => state.openModal);
   const { mutate: generateVirtualAccount, isPending: generating } =
     useResolveVirtualAccount();
-    const { data:walletdata, isLoading:walletLoading, isError:walletError } = useGetUserWalletdata();
+  const {
+    data: walletdata,
+    isLoading: walletLoading,
+    isError: walletError,
+  } = useGetUserWalletdata();
   const startFundWallet = () => {
     openModal(<AddFundAmount goBack={startFundWallet} />);
   };
-  
+
   const { data, isError, isLoading } = useGetUserDashboardData();
   const { data: dashboardSlider, isLoading: sliderLoading } =
     useGetSlidersByType("dashboard");
@@ -41,8 +43,11 @@ const HomeScreen = () => {
 
   const handleFundWalletClick = () => {
     // Check if virtual account exists
-    const hasVA = walletdata?.virtual_account && walletdata?.virtual_account.account_number ? true : false;
-  
+    const hasVA =
+      walletdata?.virtual_account && walletdata?.virtual_account.account_number
+        ? true
+        : false;
+
     if (!hasVA) {
       setShowWarning(true);
     } else {
@@ -56,7 +61,7 @@ const HomeScreen = () => {
   if (isError) {
     return <ApiErrorBlock />;
   }
-  
+
   const transactions: Transaction[] = data?.user_transactions ?? [];
   const plans: UserProperty[] = data?.user_properties ?? [];
   const landData = data?.total_property.breakdown.find(
@@ -67,57 +72,70 @@ const HomeScreen = () => {
     (item) => item.type_name === "Residential"
   );
   const numberofHouses = houseData?.count;
+  const gifts = plans.filter((plan) => plan.eligible_gifts.length > 0);
 
   return (
     <div className="flex flex-col w-full gap-6">
       {/* Warning Popup Modal */}
-      {showWarning && createPortal(
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={() => setShowWarning(false)}>
-          <div className="bg-white rounded-2xl p-8 max-w-md mx-4 relative" onClick={(e) => e.stopPropagation()}>
-            <button 
-              onClick={() => setShowWarning(false)}
-              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+      {showWarning &&
+        createPortal(
+          <div
+            className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+            onClick={() => setShowWarning(false)}
+          >
+            <div
+              className="bg-white rounded-2xl p-8 max-w-md mx-4 relative"
+              onClick={(e) => e.stopPropagation()}
             >
-              ✕
-            </button>
-            <div className="text-center">
-              <div className="text-6xl mb-4">⚠️</div>
-              <h3 className="text-xl font-bold text-gray-800 mb-2">Ooops!</h3>
-              <p className="text-gray-600 mb-6">
-                You cannot fund your wallet until virtual account number is generated. 
-                Click the "Generate Virtual Account" Button to generate your virtual account now
-              </p>
-              <div className="flex gap-3 justify-center">
-                <Button
-                  label="Generate"
-                  loadingText="Generating Account"
-                  isLoading={generating}
-                  disabled={generating}
-                  onClick={() => {
-                    generateVirtualAccount();
-                    setShowWarning(false);
-                  }}
-                  className="!px-6 !py-2 text-sm"
-                />
-                <Button
-                  label="Close"
-                  onClick={() => setShowWarning(false)}
-                  className="!px-6 !py-2 text-sm !bg-gray-200 !text-gray-800 hover:!bg-gray-300"
-                />
+              <button
+                onClick={() => setShowWarning(false)}
+                className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+              >
+                ✕
+              </button>
+              <div className="text-center">
+                <div className="text-6xl mb-4">⚠️</div>
+                <h3 className="text-xl font-bold text-gray-800 mb-2">Ooops!</h3>
+                <p className="text-gray-600 mb-6">
+                  You cannot fund your wallet until virtual account number is
+                  generated. Click the "Generate Virtual Account" Button to
+                  generate your virtual account now
+                </p>
+                <div className="flex gap-3 justify-center">
+                  <Button
+                    label="Generate"
+                    loadingText="Generating Account"
+                    isLoading={generating}
+                    disabled={generating}
+                    onClick={() => {
+                      generateVirtualAccount();
+                      setShowWarning(false);
+                    }}
+                    className="!px-6 !py-2 text-sm"
+                  />
+                  <Button
+                    label="Close"
+                    onClick={() => setShowWarning(false)}
+                    className="!px-6 !py-2 text-sm !bg-gray-200 !text-gray-800 hover:!bg-gray-300"
+                  />
+                </div>
               </div>
             </div>
-          </div>
-        </div>,
-        document.body
-      )}
-
-      <div className="w-full">
-        <img
-          // src="/images/Lemon-Friday-hor.png"
-          src={dashboardSlider?.data[0].image || ""}
-          alt=""
-          className="h-[180px] w-full object-cover rounded-3xl"
-        />
+          </div>,
+          document.body
+        )}
+      <div className="w-full grid md:grid-cols-3 gap-2">
+        <div
+          className={`${gifts.length > 0 ? "md:col-span-2" : "md:col-span-3"}`}
+        >
+          <img
+            // src="/images/Lemon-Friday-hor.png"
+            src={dashboardSlider?.data[0].image || ""}
+            alt=""
+            className="h-[180px] w-full object-cover rounded-3xl"
+          />
+        </div>
+        {gifts.length > 0 && <GiftNotificationSlider gifts={gifts} />}
       </div>
       <div className="grid grid-cols-2 md:grid-cols-3 grid-rows-2 md:grid-rows-3 gap-4">
         {/* My Wallet */}

@@ -35,9 +35,8 @@ const SupportScreen = () => {
           </p>
         </div>
         <LinkButton
-          href="https://tawk.to/chat/66ad19831601a2195ba01fda/1i4a2nafr"
+          link="https://tawk.to/chat/66ad19831601a2195ba01fda/1i4a2nafr"
           label="Start Conversation"
-          target={true}
           className="bg-black text-white font-bold !w-[155px] text-xs"
         />
       </div>

@@ -1,12 +1,10 @@
-import CopyButton from "../CopyButton";
-import Button from "../Button";
 import { useGetPaymentReciept, useGetTransactionByID } from "../../data/hooks";
-import ApiErrorBlock from "../ApiErrorBlock";
 import { formatPrice } from "../../data/utils";
-import { TransactionStatus } from "../../data/types/userTransactionsTypes";
-import SmallLoader from "../SmallLoader";
-import LinkButton from "../LinkButton";
+import ApiErrorBlock from "../ApiErrorBlock";
+import CopyButton from "../CopyButton";
+import LinkBtn from "../LinkBtn";
 import ShareButton from "../ShareButton";
+import SmallLoader from "../SmallLoader";
 
 const TransactionDetail = ({ id }: { id: number }) => {
   const { data, isLoading, isError } = useGetTransactionByID(id);
@@ -46,7 +44,7 @@ const TransactionDetail = ({ id }: { id: number }) => {
   };
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-5 w-sm">
       <h4 className="absolute top-4 left-4 font-bold text-lg">
         {`${
           data?.user_transaction.purpose === "property"
@@ -131,7 +129,7 @@ const TransactionDetail = ({ id }: { id: number }) => {
           url={recieptData?.download_url}
           className="text-xs bg-transparent !text-black hover:!bg-transparent"
         />
-        <LinkButton
+        <LinkBtn
           download={true}
           target={true}
           href={recieptData?.download_url || ""}

@@ -1,4 +1,3 @@
-import { Transaction, TransactionStatus } from "./userTransactionsTypes";
 export interface WalletTransaction {
   id: number;
   property_id: number;
