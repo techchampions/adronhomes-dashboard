@@ -1,9 +1,8 @@
 import { useGetPaymentReciept, useGetTransactionByID } from "../../data/hooks";
-import { TransactionStatus } from "../../data/types/userTransactionsTypes";
 import { formatPrice } from "../../data/utils";
 import ApiErrorBlock from "../ApiErrorBlock";
 import CopyButton from "../CopyButton";
-import LinkButton from "../LinkButton";
+import LinkBtn from "../LinkBtn";
 import ShareButton from "../ShareButton";
 import SmallLoader from "../SmallLoader";
 
@@ -130,7 +129,7 @@ const TransactionDetail = ({ id }: { id: number }) => {
           url={recieptData?.download_url}
           className="text-xs bg-transparent !text-black hover:!bg-transparent"
         />
-        <LinkButton
+        <LinkBtn
           download={true}
           target={true}
           href={recieptData?.download_url || ""}

@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -12,22 +12,21 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 
 import {
-  FaMapMarkerAlt,
   FaChevronLeft,
   FaChevronRight,
   FaHeart,
+  FaMapMarkerAlt,
   FaRegHeart,
 } from "react-icons/fa";
 import { GiStreetLight } from "react-icons/gi";
-import Button from "../Button";
-import { formatPrice } from "../../data/utils";
-import apiClient from "../../data/apiClient";
-import { useToastStore } from "../../zustand/useToastStore";
-import { Property, PropertyType } from "../../data/types/propertiesPageTypes";
 import { IoGiftOutline, IoLogoWhatsapp } from "react-icons/io5";
-import LinkButton from "../LinkButton";
 import { useToggleSaveProperty } from "../../data/hooks";
+import { Property } from "../../data/types/propertiesPageTypes";
+import { formatPrice } from "../../data/utils";
+import { useToastStore } from "../../zustand/useToastStore";
+import Button from "../Button";
 import InlineLoader from "../InlineLoader";
+import LinkButton from "../LinkButton";
 
 interface Props {
   property: Property;
@@ -233,7 +232,7 @@ export default function SwiperPropertyCard({ property }: Props) {
           />
           {isRented ? (
             <LinkButton
-              href={property.whatsapp_link}
+              link={property.whatsapp_link}
               label="Inquire"
               icon={<IoLogoWhatsapp className="h-4 w-4" />}
               className="text-xs py-3 !bg-transparent !text-green-700 border hover:!bg-green-700 hover:!text-white"

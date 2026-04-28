@@ -1,14 +1,10 @@
 import React, { useState } from "react";
-import { useModalStore } from "../../zustand/useModalStore";
-import TransactionDetail from "./TransactionDetail";
-import {
-  Transaction,
-  TransactionStatus,
-} from "../../data/types/userTransactionsTypes";
 import { formatDate, formatPrice } from "../../data/utils";
-import NotFound from "../NotFound";
+import { useModalStore } from "../../zustand/useModalStore";
 import ApiErrorBlock from "../ApiErrorBlock";
+import NotFound from "../NotFound";
 import SmallLoader from "../SmallLoader";
+import TransactionDetail from "./TransactionDetail";
 
 type Props = {
   data: Transaction[];

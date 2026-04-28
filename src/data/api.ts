@@ -1,42 +1,47 @@
+import { FundWalletResponse } from "../components/DashboardHomeComponents/SelectPaymentMethod";
 import apiClient from "./apiClient";
-import { GetPropertyByIdResponse } from "./types/GetPropertyByIdResponse";
-import { GetUserResponse } from "./types/UserProfileTypes";
+import { AccountDetailsResponse } from "./types/AccountDetailsTypes";
 import {
-  PaginatedProperties,
-  PropertiesResponse,
-} from "./types/propertiesPageTypes";
-import { PropertyLocationResponse } from "./types/PropertyLocationTypes";
-import { PropertiesTypeResponse } from "./types/propertyTypes";
-import { UserTransactionResponse } from "./types/userTransactionsTypes";
-import { UserDashboardResponseData } from "./types/dashboardHomeTypes";
-import { UserWalletResponse } from "./types/userWalletTypes";
-import { UserPropertyPlanResponse } from "./types/userPropertiesTypes";
-import { PlanPropertiesDetailResponse } from "./types/PropertyPlanDetailTypes";
-import { NotificationsResponse } from "./types/notificationTypes";
-import {
-  TransactionByIDResponse,
-  TransactionRecieptResponse,
-  WalletTransactionByIDResponse,
-} from "./types/userTransactionByIDTypes";
-import { NotificationByIDResponse } from "./types/NotificationByIDTypes";
+  ContractApiResponse,
+  ContractTransactionApiResponse,
+} from "./types/ContractTypes";
 import {
   NewPropertyPlanPayload,
   PendingPropertyPlanPayload,
   PropertyPlanPayload,
 } from "./types/CreatePropertyPayload";
-import { PropertyPlanPaymentResponse } from "./types/PropertyPlanPaymentListTypes";
-import { FundWalletPayload } from "./types/FundWalletPayloadTypes";
-import { PropertiesSearchResultResponse } from "./types/SearchPropertiesResultTypes";
-import { SavedPropertiesResponse } from "./types/SavedPropertiesResponse";
-import { FundWalletResponse } from "../components/DashboardHomeComponents/SelectPaymentMethod";
-import { AccountDetailsResponse } from "./types/AccountDetailsTypes";
-import { EnquirePayload } from "./types/EnquirePayload";
-import { PropertiesRequestResponse } from "./types/PropertyRequestTypes";
-import { SliderByTypeResponse } from "./types/SliderByTypeTypes";
-import { FAQResponse } from "./types/FAQTypes";
-import { SettingsResponse } from "./types/SettingsTypes";
-import { ContractApiResponse, ContractTransactionApiResponse } from "./types/ContractTypes";
 import { ERPContractsSyncState } from "./types/ERPContractsSyncState";
+import { EnquirePayload } from "./types/EnquirePayload";
+import { FAQResponse } from "./types/FAQTypes";
+import { FundWalletPayload } from "./types/FundWalletPayloadTypes";
+import { GetPropertyByIdResponse } from "./types/GetPropertyByIdResponse";
+import { NotificationByIDResponse } from "./types/NotificationByIDTypes";
+import {
+  PayForContractRequest,
+  PayForContractResponse,
+} from "./types/PayForContractRequest";
+import { PropertyLocationResponse } from "./types/PropertyLocationTypes";
+import { PlanPropertiesDetailResponse } from "./types/PropertyPlanDetailTypes";
+import { PropertyPlanPaymentResponse } from "./types/PropertyPlanPaymentListTypes";
+import { PropertiesRequestResponse } from "./types/PropertyRequestTypes";
+import { SavedPropertiesResponse } from "./types/SavedPropertiesResponse";
+import { PropertiesSearchResultResponse } from "./types/SearchPropertiesResultTypes";
+import { SettingsResponse } from "./types/SettingsTypes";
+import { SliderByTypeResponse } from "./types/SliderByTypeTypes";
+import { GetUserResponse } from "./types/UserProfileTypes";
+import { NotificationsResponse } from "./types/notificationTypes";
+import {
+  PaginatedProperties,
+  PropertiesResponse,
+} from "./types/propertiesPageTypes";
+import { PropertiesTypeResponse } from "./types/propertyTypes";
+import { UserPropertyPlanResponse } from "./types/userPropertiesTypes";
+import {
+  TransactionByIDResponse,
+  TransactionRecieptResponse,
+  WalletTransactionByIDResponse,
+} from "./types/userTransactionByIDTypes";
+import { UserWalletResponse } from "./types/userWalletTypes";
 
 export type ApiError = {
   response?: {
@@ -656,7 +661,6 @@ export const linkExistingContracts = async (formData: FormData) => {
   return response.data;
 };
 
-
 export const getERPContractTransaction = async (
   contractID: number
 ): Promise<ContractTransactionApiResponse> => {
@@ -674,16 +678,20 @@ export const getERPContracts = async (
   return response.data;
 };
 
+export const fetchERPContract = async (
+  userId: string
+): Promise<ERPContractsSyncState> => {
+  const response = await apiClient.get(`/erp-contracts-sync/${userId}`);
+  return response.data;
+};
 
-
-
-export const fetchERPContract=async(
-  userId:string
-):Promise<ERPContractsSyncState>=>{
-const response =await apiClient.get(`/erp-contracts-sync/${userId}`)
-return response.data;
-}
-
-
-
-
+export const payForContract = async (
+  params: PayForContractRequest
+): Promise<PayForContractResponse> => {
+  const formData = new FormData();
+  formData.append("amount", params.amount.toString());
+  formData.append("payment_type", params.payment_type);
+  formData.append("contract_id", params.contract_id);
+  const response = await apiClient.post("/user/pay-for-contract", formData);
+  return response.data;
+};

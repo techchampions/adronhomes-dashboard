@@ -1,5 +1,3 @@
-import { Transaction } from "./userTransactionsTypes";
-
 export type Status = 0 | 1 | 2;
 export interface VirtualAccount {
   id: number;

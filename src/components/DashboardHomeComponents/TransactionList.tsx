@@ -1,11 +1,10 @@
 import React from "react";
-import { useModalStore } from "../../zustand/useModalStore";
-import TransactionDetail from "../DashboardTransactionComponents/TransactionDetail";
-import { Transaction } from "../../data/types/userTransactionsTypes";
 import { formatDate, formatPrice } from "../../data/utils";
-import SmallLoader from "../SmallLoader";
+import { useModalStore } from "../../zustand/useModalStore";
 import ApiErrorBlock from "../ApiErrorBlock";
+import TransactionDetail from "../DashboardTransactionComponents/TransactionDetail";
 import NotFound from "../NotFound";
+import SmallLoader from "../SmallLoader";
 // types.ts
 type Props = {
   data: Transaction[];

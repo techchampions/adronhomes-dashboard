@@ -1,15 +1,13 @@
-import CopyButton from "../CopyButton";
-import Button from "../Button";
 import {
   useGetTransactionReciept,
   useGetWalletTransactionByID,
 } from "../../data/hooks";
-import ApiErrorBlock from "../ApiErrorBlock";
 import { formatPrice } from "../../data/utils";
-import { TransactionStatus } from "../../data/types/userTransactionsTypes";
-import SmallLoader from "../SmallLoader";
-import LinkButton from "../LinkButton";
+import ApiErrorBlock from "../ApiErrorBlock";
+import CopyButton from "../CopyButton";
+import LinkBtn from "../LinkBtn";
 import ShareButton from "../ShareButton";
+import SmallLoader from "../SmallLoader";
 
 const WalletTransactionDetail = ({ id }: { id: number }) => {
   const { data, isLoading, isError } = useGetWalletTransactionByID(id);
@@ -122,7 +120,7 @@ const WalletTransactionDetail = ({ id }: { id: number }) => {
           url={recieptData?.download_url}
           className="text-xs bg-transparent !text-black hover:!bg-transparent"
         />
-        <LinkButton
+        <LinkBtn
           download={true}
           href={recieptData?.download_url || ""}
           target={true}
