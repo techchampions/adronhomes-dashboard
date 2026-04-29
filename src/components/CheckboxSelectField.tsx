@@ -123,7 +123,7 @@ const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
           <p className="font-medium text-gray-700 text-sm">{label}</p>
 
           {/* Select All / Deselect All button */}
-          {options.length > 1 && !disabled && (
+          {options.length > 1 && !disabled && !defaultSelectAll && (
             <button
               type="button"
               onClick={handleSelectAll}

@@ -81,7 +81,7 @@ const MyPropertyDetail = () => {
   if (isError) {
     return <ApiErrorBlock />;
   }
-  const eligible_gifts = data?.user_property.eligible_gifts || [];
+  const eligible_gifts = data?.plan_properties.eligible_gifts || [];
   const transactions: Transaction[] = data?.transactions.data ?? [];
   const infrastructureBreakDown = data?.infrastructure_break_down || [];
   const OtherFeesBreakDown = data?.others_fee_break_down || [];

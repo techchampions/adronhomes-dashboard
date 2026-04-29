@@ -65,7 +65,7 @@ interface EligibleGift {
   promo_name: string;
   tier_id: number;
   unlocked_by: string; // Formatted currency string (e.g., "₦10,000")
-  reward_options: RewardGroup[];
+  reward_groups: RewardGroup[];
 }
 
 // Main type for the eligible_gifts array

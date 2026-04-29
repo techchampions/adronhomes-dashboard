@@ -69,6 +69,7 @@ type PlanProperty = {
   paid_infrastructure_amount: number;
   paid_other_amount: number;
   property: Property;
+  eligible_gifts: EligibleGifts;
 };
 
 interface PaymentDetail {
