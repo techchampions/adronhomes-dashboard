@@ -6,6 +6,7 @@ import { useToastStore } from "../../zustand/useToastStore";
 import apiClient from "../apiClient";
 interface Payload {
   promo_id: number;
+  plan_id: number;
   reward_group_id: number;
   property_id: number;
   logic: "AND" | "OR";

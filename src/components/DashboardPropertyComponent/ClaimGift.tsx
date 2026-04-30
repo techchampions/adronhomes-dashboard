@@ -11,8 +11,9 @@ import SelectFieldInput from "../SelectFieldInput";
 interface Prop {
   gift: EligibleGift;
   property_id: number;
+  plan_id?: number;
 }
-const ClaimGift: React.FC<Prop> = ({ gift, property_id }) => {
+const ClaimGift: React.FC<Prop> = ({ gift, property_id, plan_id }) => {
   const { closeModal } = useModalStore();
   const { mutate, isPending } = useMakeGiftRequest();
   const initialValues = {
@@ -50,7 +51,7 @@ const ClaimGift: React.FC<Prop> = ({ gift, property_id }) => {
     const selected_reward_group = gift.reward_groups.find(
       (item) => Number(values.reward_group) === item.id
     );
-    if (selected_reward_group) {
+    if (selected_reward_group && plan_id) {
       let items: RewardItem[] = [];
       if (selected_reward_group.logic === "AND") {
         // FIXED: Map through selected interests and find matching items
@@ -70,6 +71,7 @@ const ClaimGift: React.FC<Prop> = ({ gift, property_id }) => {
 
       const payload = {
         promo_id: gift.promo_id,
+        plan_id: plan_id,
         reward_group_id: selected_reward_group?.id,
         property_id: property_id,
         logic: selected_reward_group.logic,

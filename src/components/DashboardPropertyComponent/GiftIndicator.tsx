@@ -6,8 +6,13 @@ import SelectGiftPackage from "./SelectGiftPackage";
 interface Prop {
   eligible_gifts: EligibleGifts;
   property_id: number;
+  plan_id?: number;
 }
-const GiftIndicator: React.FC<Prop> = ({ eligible_gifts, property_id }) => {
+const GiftIndicator: React.FC<Prop> = ({
+  eligible_gifts,
+  property_id,
+  plan_id,
+}) => {
   const modal = useModalStore();
   const handleClick = () => {
     if (eligible_gifts.length > 0) {
@@ -15,6 +20,7 @@ const GiftIndicator: React.FC<Prop> = ({ eligible_gifts, property_id }) => {
         <SelectGiftPackage
           packages={eligible_gifts}
           property_id={property_id}
+          plan_id={plan_id}
         />
       );
     }
