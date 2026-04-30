@@ -400,7 +400,7 @@ const MyPropertyDetail = () => {
           plan_id={data?.plan_properties.id}
         />
       )}
-      {requested_gifts.length && (
+      {requested_gifts.length > 0 && (
         <GiftRequestIndicator gift_request={requested_gifts[0].gift_request} />
       )}
       <div className="flex justify-between flex-col md:flex-row bg-adron-green rounded-3xl overflow-hidden">
