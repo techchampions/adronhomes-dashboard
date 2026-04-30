@@ -25,13 +25,13 @@ const SelectGiftPackage: React.FC<Prop> = ({ packages, property_id }) => {
                   );
                 }
               }}
-              className="text-center flex flex-col items-center text-white cursor-pointer bg-gradient-to-br from-adron-green to-gray-600 p-6 group hover:from-adron-green-900 hover:to-black rounded-xl"
+              className="text-center min-h-46 flex flex-col items-center text-white cursor-pointer bg-gradient-to-br from-adron-green to-gray-600 p-6 group hover:from-adron-green-900 hover:to-black rounded-xl"
             >
               <div className="flex group-hover:hidden flex-col gap-4 items-center ">
                 <div className="">
                   <Gift size={50} />
                 </div>
-                <div className="text-sm">{item.promo_name}</div>
+                <div className="text-sm line-clamp-3">{item.promo_name}</div>
               </div>
               <div className="hidden group-hover:flex justify-center items-center my-auto text-3xl font-adron-bold">
                 Claim Now !

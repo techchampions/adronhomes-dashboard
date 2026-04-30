@@ -72,8 +72,14 @@ const HomeScreen = () => {
     (item) => item.type_name === "Residential"
   );
   const numberofHouses = houseData?.count;
-  const gifts = plans.filter((plan) => plan.eligible_gifts.length > 0);
-
+  const plan_with_gifts = plans.filter((plan) => {
+    return (
+      plan.eligible_gifts.length > 0 &&
+      plan.eligible_gifts.some(
+        (eligible_gift) => eligible_gift.is_claimed === false
+      )
+    );
+  });
   return (
     <div className="flex flex-col w-full gap-6">
       {/* Warning Popup Modal */}
@@ -126,7 +132,9 @@ const HomeScreen = () => {
         )}
       <div className="w-full grid md:grid-cols-3 gap-2">
         <div
-          className={`${gifts.length > 0 ? "md:col-span-2" : "md:col-span-3"}`}
+          className={`${
+            plan_with_gifts.length > 0 ? "md:col-span-2" : "md:col-span-3"
+          }`}
         >
           <img
             // src="/images/Lemon-Friday-hor.png"
@@ -135,7 +143,9 @@ const HomeScreen = () => {
             className="h-[180px] w-full object-cover rounded-3xl"
           />
         </div>
-        {gifts.length > 0 && <GiftNotificationSlider gifts={gifts} />}
+        {plan_with_gifts.length > 0 && (
+          <GiftNotificationSlider plan_with_gifts={plan_with_gifts} />
+        )}
       </div>
       <div className="grid grid-cols-2 md:grid-cols-3 grid-rows-2 md:grid-rows-3 gap-4">
         {/* My Wallet */}

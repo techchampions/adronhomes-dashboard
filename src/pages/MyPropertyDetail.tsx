@@ -23,6 +23,7 @@ import MyPlanPaymentHistory from "../components/DashboardMyPropertyComponents/My
 import SelectPaymentMethod from "../components/DashboardMyPropertyComponents/SelectPaymentMethod";
 import RequestDocument from "../components/DashboardNewPropertyComponent/RequestDocument";
 import GiftIndicator from "../components/DashboardPropertyComponent/GiftIndicator";
+import GiftRequestIndicator from "../components/DashboardPropertyComponent/GiftRequestIndicator";
 import { useToastStore } from "../zustand/useToastStore";
 
 const MyPropertyDetail = () => {
@@ -81,7 +82,11 @@ const MyPropertyDetail = () => {
   if (isError) {
     return <ApiErrorBlock />;
   }
-  const eligible_gifts = data?.plan_properties.eligible_gifts || [];
+  const gifts = data?.plan_properties.eligible_gifts || [];
+  const eligible_gifts = gifts.filter((item) => !item.is_claimed);
+  const requested_gifts = gifts.filter(
+    (item) => item.is_claimed && item.gift_request
+  );
   const transactions: Transaction[] = data?.transactions.data ?? [];
   const infrastructureBreakDown = data?.infrastructure_break_down || [];
   const OtherFeesBreakDown = data?.others_fee_break_down || [];
@@ -393,6 +398,9 @@ const MyPropertyDetail = () => {
           eligible_gifts={eligible_gifts}
           property_id={data?.user_property.property_id || 0}
         />
+      )}
+      {requested_gifts.length && (
+        <GiftRequestIndicator gift_request={requested_gifts[0].gift_request} />
       )}
       <div className="flex justify-between flex-col md:flex-row bg-adron-green rounded-3xl overflow-hidden">
         <div
