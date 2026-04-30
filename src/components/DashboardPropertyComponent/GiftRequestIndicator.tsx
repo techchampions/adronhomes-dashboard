@@ -2,21 +2,15 @@ import { Gift } from "lucide-react";
 import React from "react";
 import { useModalStore } from "../../zustand/useModalStore";
 import Button from "../Button";
-import SelectGiftPackage from "./SelectGiftPackage";
+import RequestedGift from "./RequestedGift";
 interface Prop {
-  eligible_gifts: EligibleGifts;
-  property_id: number;
+  gift_request?: GiftRequest;
 }
-const GiftIndicator: React.FC<Prop> = ({ eligible_gifts, property_id }) => {
+const GiftRequestIndicator: React.FC<Prop> = ({ gift_request }) => {
   const modal = useModalStore();
   const handleClick = () => {
-    if (eligible_gifts.length > 0) {
-      modal.openTransModal(
-        <SelectGiftPackage
-          packages={eligible_gifts}
-          property_id={property_id}
-        />
-      );
+    if (gift_request) {
+      modal.openTransModal(<RequestedGift gift_request={gift_request} />);
     }
   };
   return (
@@ -25,10 +19,12 @@ const GiftIndicator: React.FC<Prop> = ({ eligible_gifts, property_id }) => {
       <div className="flex items-center flex-1 justify-between">
         <div className="flex-1 text-xs md:text-sm">
           <b className="font-adron-bold">Gifts available</b>{" "}
-          <span>you have gifts available for this property</span>
+          <span>
+            you have already requested for the gifts available on this property
+          </span>
         </div>
         <Button
-          label="Claim now!"
+          label="View Gift Items"
           className="w-fit! px-5 text-xs"
           onClick={handleClick}
         />
@@ -37,4 +33,4 @@ const GiftIndicator: React.FC<Prop> = ({ eligible_gifts, property_id }) => {
   );
 };
 
-export default GiftIndicator;
+export default GiftRequestIndicator;

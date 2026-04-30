@@ -3,9 +3,9 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import GiftNotification from "./GiftNotification";
 interface Props {
-  gifts: UserProperty[];
+  plan_with_gifts: UserProperty[];
 }
-const GiftNotificationSlider: React.FC<Props> = ({ gifts }) => {
+const GiftNotificationSlider: React.FC<Props> = ({ plan_with_gifts }) => {
   // Embla Carousel Config
   const [emblaRef, embla] = useEmblaCarousel({
     align: "start",
@@ -41,7 +41,7 @@ const GiftNotificationSlider: React.FC<Props> = ({ gifts }) => {
     <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-adron-green to-gray-800">
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex">
-          {gifts.map((item, i) => (
+          {plan_with_gifts.map((item, i) => (
             <div key={i} className="flex-[0_0_100%] min-w-0 h-full">
               <GiftNotification item={item} />
             </div>

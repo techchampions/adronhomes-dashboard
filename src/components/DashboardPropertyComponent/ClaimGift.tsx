@@ -17,7 +17,8 @@ const ClaimGift: React.FC<Prop> = ({ gift, property_id }) => {
   const { mutate, isPending } = useMakeGiftRequest();
   const initialValues = {
     reward_group: "",
-    user_note: "I am bought this properties and I am interested in the gift.",
+    user_note:
+      "I have bought this property and I am interested in collecting my gifts.",
     gift: "",
     gifts: [] as string[],
   };
