@@ -397,6 +397,7 @@ const MyPropertyDetail = () => {
         <GiftIndicator
           eligible_gifts={eligible_gifts}
           property_id={data?.user_property.property_id || 0}
+          plan_id={data?.plan_properties.id}
         />
       )}
       {requested_gifts.length && (

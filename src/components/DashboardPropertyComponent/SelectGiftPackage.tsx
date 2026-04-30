@@ -5,8 +5,13 @@ import ClaimGift from "./ClaimGift";
 interface Prop {
   packages: EligibleGifts;
   property_id: number;
+  plan_id?: number;
 }
-const SelectGiftPackage: React.FC<Prop> = ({ packages, property_id }) => {
+const SelectGiftPackage: React.FC<Prop> = ({
+  packages,
+  property_id,
+  plan_id,
+}) => {
   const { openModal } = useModalStore();
   return (
     <div className="w-sm max-w-xs md:max-w-sm">
@@ -21,7 +26,11 @@ const SelectGiftPackage: React.FC<Prop> = ({ packages, property_id }) => {
               onClick={() => {
                 if (item) {
                   openModal(
-                    <ClaimGift gift={item} property_id={property_id} />
+                    <ClaimGift
+                      gift={item}
+                      property_id={property_id}
+                      plan_id={plan_id}
+                    />
                   );
                 }
               }}
