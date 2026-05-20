@@ -2,7 +2,7 @@ import { ErrorMessage, Field, useField } from "formik";
 import React from "react";
 import { FaChevronDown, FaExclamationCircle } from "react-icons/fa";
 
-interface SelectFieldInputProps {
+interface SelectInputProps {
   name: string;
   options: Array<{ value: string | number; label: string }>;
   placeholder?: string;
@@ -13,7 +13,7 @@ interface SelectFieldInputProps {
   label?: string;
 }
 
-const SelectFieldInput: React.FC<SelectFieldInputProps> = ({
+const SelectInput: React.FC<SelectInputProps> = ({
   name,
   options,
   placeholder = "Select an option",
@@ -33,12 +33,12 @@ const SelectFieldInput: React.FC<SelectFieldInputProps> = ({
       )}
 
       <div
-        className={`w-full relative flex flex-row items-center border rounded-xl py-3 ${
+        className={`w-full relative flex flex-row items-center rounded-xl py-2 ${
           hasError
-            ? "border-red-500"
+            ? "border border-red-500"
             : theme === "dark"
-            ? "border-gray-700"
-            : "border-gray-200 focus-within:border-blue-400"
+            ? "border-none"
+            : "border border-transparent focus-within:border-gray-200"
         } ${disabled ? "bg-gray-100" : ""} ${className}`}
       >
         {/* Left Icon */}
@@ -59,7 +59,11 @@ const SelectFieldInput: React.FC<SelectFieldInputProps> = ({
             {placeholder}
           </option>
           {options.map((option) => (
-            <option key={option.value} value={option.value}>
+            <option
+              key={option.value}
+              value={option.value}
+              className="capitalize"
+            >
               {option.label}
             </option>
           ))}
@@ -88,4 +92,4 @@ const SelectFieldInput: React.FC<SelectFieldInputProps> = ({
   );
 };
 
-export default SelectFieldInput;
+export default SelectInput;

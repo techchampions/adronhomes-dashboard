@@ -18,7 +18,7 @@ const SelectGiftPackage: React.FC<Prop> = ({
       <div className="text-center text-white text-3xl pb-10 font-adron-bold">
         Select Gift Package
       </div>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid gap-4">
         {packages.map((item, i) => {
           return (
             <div

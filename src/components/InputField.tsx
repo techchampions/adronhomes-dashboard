@@ -1,6 +1,6 @@
-import { Field, ErrorMessage, useField } from "formik";
-import { FaExclamationCircle } from "react-icons/fa";
+import { ErrorMessage, Field, useField } from "formik";
 import React from "react";
+import { FaExclamationCircle } from "react-icons/fa";
 
 interface InputFieldProps {
   type?:
@@ -12,6 +12,7 @@ interface InputFieldProps {
     | "checkbox"
     | "textarea";
   placeholder?: string;
+  label?: string;
   name: string;
   icon?: React.ReactNode;
   rightIcon?: React.ReactNode;
@@ -26,6 +27,7 @@ const InputField: React.FC<InputFieldProps> = ({
   type = "text",
   placeholder,
   name,
+  label,
   icon,
   rightIcon,
   className = "",
@@ -40,12 +42,17 @@ const InputField: React.FC<InputFieldProps> = ({
 
   return (
     <div className="w-full">
+      {label && (
+        <div className="font-bold text-sm text-gray-700 mb-2">{label}</div>
+      )}
       <div
         className={`w-full relative flex ${
           isTextarea ? "flex-col" : "flex-row"
         } border bg-adron-body rounded-full py-2 ${
           hasError ? "border-red-500" : "border-transparent"
-        } ${disabled ? "opacity-60 bg-gray-100" : ""} ${className}`}
+        } ${disabled ? "opacity-60 bg-gray-100" : ""} ${
+          isReadOnly && "cursor-not-allowed"
+        } ${className}`}
       >
         {/* Left Icon */}
         {icon && !isTextarea && (
@@ -64,7 +71,9 @@ const InputField: React.FC<InputFieldProps> = ({
           autoComplete={autocomplete}
           className={` text-gray-900 text-sm rounded-lg focus:ring-0 block w-full px-5 outline-none resize-none ${
             isTextarea ? "min-h-[60px]" : ""
-          } ${disabled ? "cursor-not-allowed bg-transparent" : ""}`}
+          } ${
+            disabled || isReadOnly ? "cursor-not-allowed bg-transparent" : ""
+          }`}
         />
 
         {/* Error Icon */}
