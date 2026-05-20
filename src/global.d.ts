@@ -341,6 +341,7 @@ interface RealEstatePayload {
 
   contract_marital_status: string;
   contract_gender: string;
+  contract_gender_code: string;
   contract_date_of_birth: string; // YYYY-MM-DD
   contract_nationality: string;
 
@@ -367,6 +368,7 @@ interface RealEstatePayload {
   contract_profile_picture: File | null;
   contract_profile_picture2: File | null;
   contract_id_files: File[] | null;
+  means_of_ids: File[] | null;
 
   land_size: string; // e.g., "600 sqm"
 
@@ -380,7 +382,7 @@ interface RealEstatePayload {
   start_date: string; // YYYY-MM-DD
   end_date: string; // YYYY-MM-DD
 
-  property_purpose: string; // e.g., "Residential"
+  purpose: string; // e.g., "Residential"
   longitude: number;
   latitude: number;
   property_id: string;

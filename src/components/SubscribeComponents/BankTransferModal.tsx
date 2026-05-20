@@ -4,7 +4,7 @@ import React from "react";
 import * as Yup from "yup";
 import { Property } from "../../data/types/GetPropertyByIdResponse";
 import { formatPrice } from "../../data/utils";
-import { useSubscribe } from "../../hooks/useSubscribe";
+import { useBuyProperty } from "../../hooks/useBuyProperty";
 import { useModalStore } from "../../zustand/useModalStore";
 import { useUserStore } from "../../zustand/UserStore";
 import Button from "../Button";
@@ -20,7 +20,7 @@ interface Props {
 }
 const BankTransferModal: React.FC<Props> = ({ payload, property }) => {
   const { accounts } = useUserStore();
-  const { mutate: subscribe, isPending } = useSubscribe();
+  const { mutate: subscribe, isPending } = useBuyProperty();
   const modal = useModalStore();
   const propertyAccount = accounts.find((item) => item.type === "property");
   const initialValues = { proof: null as File | null, bank_name: "" };

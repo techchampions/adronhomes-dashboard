@@ -24,11 +24,11 @@ const InputIdentityInfo: React.FC<Props> = ({ property }) => {
     setSubscribeFormData,
     contract_profile_picture,
     contract_profile_picture2,
-    contract_idFiles,
+    means_of_ids,
     soleOwner,
   } = useSubscribeFormData();
 
-  const contract_ID = contract_idFiles ? contract_idFiles[0] : null;
+  const contract_ID = means_of_ids ? means_of_ids[0] : null;
   const initialValues = {
     passport: contract_profile_picture || null,
     passport2: contract_profile_picture2 || null,
@@ -69,7 +69,7 @@ const InputIdentityInfo: React.FC<Props> = ({ property }) => {
             }
             if (values.id) {
               setSubscribeFormData({
-                contract_idFiles: [values.id],
+                means_of_ids: [values.id],
               });
             }
             action.openModal(<Branches property={property} />);

@@ -31,7 +31,7 @@ const InputAdditionalPersonalInfo: React.FC<Props> = ({ property }) => {
   } = useGetCittaMaritalStatus();
   const GENDER_OPTIONS =
     genderDataResponse?.data.map((item) => ({
-      value: item.pCode,
+      value: item.pName,
       label: item.pName,
     })) || [];
   const MARITAL_OPTIONS =
@@ -71,8 +71,12 @@ const InputAdditionalPersonalInfo: React.FC<Props> = ({ property }) => {
           validationSchema={validationSchema}
           validateOnMount
           onSubmit={(values) => {
+            const gender = genderDataResponse?.data.find(
+              (item) => values.gender === item.pName
+            );
             setSubscribeFormData({
               contract_gender: values.gender,
+              contract_gender_code: gender?.pCode,
               contract_marital_status: values.marital_status,
               contract_date_of_birth: values.dob,
             });

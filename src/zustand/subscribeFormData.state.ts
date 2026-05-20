@@ -13,6 +13,7 @@ type SubscribeFormData = {
   contract_additional_name: string;
   contract_marital_status: string;
   contract_gender: string;
+  contract_gender_code: string;
   contract_date_of_birth: string;
   contract_nationality: string;
   contract_residential_address: string;
@@ -34,7 +35,7 @@ type SubscribeFormData = {
   contract_next_of_kin_relationship: string;
   contract_profile_picture: File | null;
   contract_profile_picture2: File | null;
-  contract_idFiles: File[] | null;
+  means_of_ids: File[] | null;
   land_size: string | number;
   citta_id: string;
   payment_duration: string | number;
@@ -42,7 +43,7 @@ type SubscribeFormData = {
   start_date: string;
   end_date: string;
   payable_amount: string | number;
-  property_purpose: string;
+  purpose: string;
   payment_plan: string;
   payment_method: string;
   payment_type: string;
@@ -69,6 +70,7 @@ export const useSubscribeFormData = create<SubscribeFormData>((set) => ({
   contract_additional_name: "",
   contract_marital_status: "",
   contract_gender: "",
+  contract_gender_code: "",
   contract_date_of_birth: "",
   contract_nationality: "",
   contract_residential_address: "",
@@ -87,7 +89,7 @@ export const useSubscribeFormData = create<SubscribeFormData>((set) => ({
   contract_next_of_kin_relationship: "",
   contract_profile_picture: null,
   contract_profile_picture2: null,
-  contract_idFiles: null,
+  means_of_ids: null,
   land_size: "",
   citta_id: "",
   payment_duration: "",
@@ -95,7 +97,7 @@ export const useSubscribeFormData = create<SubscribeFormData>((set) => ({
   payable_amount: "",
   start_date: "",
   end_date: "",
-  property_purpose: "",
+  purpose: "",
   payment_plan: "",
   longitude: "",
   latitude: "",
@@ -120,6 +122,7 @@ export const useSubscribeFormData = create<SubscribeFormData>((set) => ({
       contract_additional_name: "",
       contract_marital_status: "",
       contract_gender: "",
+      contract_gender_code: "",
       contract_date_of_birth: "",
       contract_nationality: "",
       contract_residential_address: "",
@@ -138,7 +141,7 @@ export const useSubscribeFormData = create<SubscribeFormData>((set) => ({
       contract_next_of_kin_relationship: "",
       contract_profile_picture: null,
       contract_profile_picture2: null,
-      contract_idFiles: null,
+      means_of_ids: null,
       land_size: "",
       citta_id: "",
       payment_duration: "",
@@ -146,7 +149,7 @@ export const useSubscribeFormData = create<SubscribeFormData>((set) => ({
       payable_amount: "",
       start_date: "",
       end_date: "",
-      property_purpose: "",
+      purpose: "",
       payment_plan: "",
       longitude: "",
       latitude: "",

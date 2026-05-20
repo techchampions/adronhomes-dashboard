@@ -29,7 +29,7 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
   } = useGetCittaPurposes();
   const validationSchema = Yup.object().shape({
     property_size: Yup.mixed().required("required"),
-    property_purpose: Yup.mixed().required("required"),
+    purpose: Yup.mixed().required("required"),
     payment_plan: Yup.mixed().required("required"),
     units: Yup.number().required("required"),
     initial_deposit: Yup.number()
@@ -57,7 +57,7 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
     land_size,
     payment_duration,
     payment_schedule,
-    property_purpose,
+    purpose,
     // payment_plan,
     initial_deposit,
     units,
@@ -70,7 +70,7 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
     property_size: land_size,
     citta_id: citta_id,
     units: units,
-    property_purpose: property_purpose,
+    purpose: purpose,
     payment_plan: "Installment",
     initial_deposit: initial_deposit,
     payment_duration: payment_duration,
@@ -204,7 +204,7 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
           onSubmit={(values) => {
             setSubscribeFormData({
               land_size: values.property_size,
-              property_purpose: values.property_purpose,
+              purpose: values.purpose,
               payment_duration: values.payment_duration,
               payment_schedule: values.payment_schedule,
               start_date: values.start_date.toISOString(),
@@ -286,14 +286,14 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
                       ) : (
                         <SelectInput
                           label="Select your property purpose"
-                          name="property_purpose"
+                          name="purpose"
                           options={PURPOSE_OPTIONS}
                           className="py-3 bg-adron-body"
                         />
                       )}
                     </div>
                   )}
-                  {values.property_purpose && (
+                  {values.purpose && (
                     <div className="space-y-1">
                       <InputField
                         label="Select your number of units"
@@ -307,7 +307,7 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
                     values.units &&
                     values.payment_duration &&
                     values.payment_schedule &&
-                    values.property_purpose && (
+                    values.purpose && (
                       <div className="space-y-1">
                         <div className="text-sm font-bold">
                           Enter Initial Deposit

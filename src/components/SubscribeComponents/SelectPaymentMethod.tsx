@@ -3,9 +3,9 @@ import React, { useState } from "react";
 import { useGetUserWalletdata } from "../../data/hooks";
 import { Property } from "../../data/types/GetPropertyByIdResponse";
 import { formatPrice } from "../../data/utils";
+import { useBuyProperty } from "../../hooks/useBuyProperty";
 import { useInterswitchPayment } from "../../hooks/useInterswitchPyament";
 import { usePaystackPayment } from "../../hooks/usePaystackPayment";
-import { useSubscribe } from "../../hooks/useSubscribe";
 import { useSubscribeFormData } from "../../zustand/subscribeFormData.state";
 import { useModalStore } from "../../zustand/useModalStore";
 import Button from "../Button";
@@ -30,6 +30,7 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
     contract_business_type,
     contract_marital_status,
     contract_gender,
+    contract_gender_code,
     contract_date_of_birth,
     start_date,
     end_date,
@@ -49,7 +50,7 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
     payment_duration,
     payment_schedule,
     units,
-    property_purpose,
+    purpose,
     contract_town,
     contract_state,
     contract_country,
@@ -60,14 +61,14 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
     contract_next_of_kin_phone,
     contract_profile_picture,
     contract_profile_picture2,
-    contract_idFiles,
+    means_of_ids,
     land_size,
     latitude,
     longitude,
   } = useSubscribeFormData();
   const paystack = usePaystackPayment();
   const interswitch = useInterswitchPayment();
-  const { mutate: subscribe, isPending } = useSubscribe();
+  const { mutate: subscribe, isPending } = useBuyProperty();
   const handleContinue = () => {
     interface PaymentResponse {
       success: boolean;
@@ -87,6 +88,7 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
       contract_title: contract_title,
       contract_marital_status: contract_marital_status,
       contract_gender: contract_gender,
+      contract_gender_code: contract_gender_code,
       contract_date_of_birth: contract_date_of_birth,
       contract_nationality: contract_nationality,
       contract_residential_address: contract_residential_address,
@@ -106,7 +108,8 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
       contract_next_of_kin_relationship: contract_next_of_kin_relationship,
       contract_profile_picture: contract_profile_picture,
       contract_profile_picture2: contract_profile_picture2,
-      contract_id_files: contract_idFiles,
+      contract_id_files: means_of_ids,
+      means_of_ids: means_of_ids,
       payment_method:
         selectedPaymentMethod == "Bank Transfer"
           ? "bank_transfer"
@@ -120,7 +123,7 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
       paid_amount: total_amount,
       payable_amount: total_amount,
       number_of_unit: units,
-      property_purpose: property_purpose,
+      purpose: purpose,
       land_size: String(land_size),
       latitude: Number(latitude),
       longitude: Number(longitude),
