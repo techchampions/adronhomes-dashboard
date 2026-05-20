@@ -13,7 +13,7 @@ interface Props {
 }
 const PaymentSummary: React.FC<Props> = ({ property }) => {
   const {
-    property_purpose,
+    purpose,
     payment_duration,
     payment_schedule,
     payable_amount,
@@ -27,11 +27,11 @@ const PaymentSummary: React.FC<Props> = ({ property }) => {
   const modal = useModalStore();
   const feesList = property?.details || [];
   const otherFeesData = feesList.filter(
-    (item) => item.type === "others" && item.purpose === property_purpose
+    (item) => item.type === "others" && item.purpose === purpose
   );
   const infrastructureData = feesList.filter(
     (item) =>
-      item.type === "infrastructure" && item.purpose === property_purpose
+      item.type === "infrastructure" && item.purpose === purpose
   );
 
   const otherFees =
