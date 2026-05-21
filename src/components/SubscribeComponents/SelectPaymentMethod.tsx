@@ -79,7 +79,7 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
       merchant_code: string;
     }
     const payload: RealEstatePayload = {
-      marketID: marketID,
+      marketer_code: marketID,
       contract_business_type: contract_business_type,
       contract_subscriber_name_1: contract_subscriber_name_1,
       contract_subscriber_name_2: contract_subscriber_name_2,
@@ -115,11 +115,11 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
           ? "bank_transfer"
           : selectedPaymentMethod?.toLowerCase() || "",
       payment_type: payment_type == "One Time" ? 1 : 2,
-      payment_duration: String(payment_duration),
+      monthly_duration: String(payment_duration),
       property_id: String(property?.id),
       start_date: start_date,
       end_date: end_date,
-      payment_schedule: String(payment_schedule),
+      repayment_schedule: String(payment_schedule),
       paid_amount: total_amount,
       payable_amount: total_amount,
       number_of_unit: units,
