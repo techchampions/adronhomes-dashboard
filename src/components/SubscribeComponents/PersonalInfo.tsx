@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import { Property } from "../../data/types/GetPropertyByIdResponse";
 import Button from "../Button";
 import InputField from "../InputField";
-
+import SelectInput from "../FormComponents/SelectInput";
 import { useSubscribeFormData } from "../../zustand/subscribeFormData.state";
 import { useModalStore } from "../../zustand/useModalStore";
 import { useUserStore } from "../../zustand/UserStore";
@@ -35,6 +35,12 @@ const InputPersonalInfo: React.FC<Props> = ({ property }) => {
     contract_title,
     contract_sms,
   } = useSubscribeFormData();
+const TITLE_OPTIONS = [
+{value:"Mr.",label:"Mr."},
+{value:"Mrs.",label:"Mrs."},
+{value:"Miss.",label:"Miss."},
+{value:"Mst.",label:"Mst."},
+]
   const fullName = `${user?.first_name} ${user?.last_name}`;
   const initialValues = {
     contract_title: contract_title || "",
@@ -93,9 +99,9 @@ const InputPersonalInfo: React.FC<Props> = ({ property }) => {
                 {/* <CheckEmail email={values.email} /> */}
                 <div className="space-y-7">
                   <div className="grid grid-cols-4 gap-2">
-                    <InputField
+                    <SelectInput
                       name="contract_title"
-                      type="text"
+options={TITLE_OPTIONS}
                       label="Title"
                       placeholder="Mr/Mrs/Miss"
                       className="text-2xl font-bold rounded-xl py-3"
