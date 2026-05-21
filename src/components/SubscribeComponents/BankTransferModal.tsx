@@ -12,7 +12,7 @@ import CopyButton from "../CopyButton";
 import ImageInput from "../FormComponents/ImageInput";
 import InputField from "../InputField";
 import SelectPaymentMethod from "./SelectPaymentMethod";
-import SubscriptionSuccess from "./SubscriptionSuccess";
+import SubscriptionPending from "./SubscriptionPending";
 
 interface Props {
   payload: RealEstatePayload;
@@ -33,11 +33,11 @@ const BankTransferModal: React.FC<Props> = ({ payload, property }) => {
     const newPayload = {
       ...payload,
       bank_name: values.bank_name,
-      proof: values.proof,
+      proof_of_payment: values.proof,
     };
     subscribe(newPayload, {
       onSuccess() {
-        modal.openModal(<SubscriptionSuccess />);
+        modal.openModal(<SubscriptionPending />);
       },
     });
   };
