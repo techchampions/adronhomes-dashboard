@@ -102,8 +102,7 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
       contract_employer: contract_employer,
       contract_next_of_kin_phone: contract_next_of_kin_phone,
       // contract_next_of_kin_address: contract_next_of_kin_address,
-      contract_branch_name: contract_branch_name,
-      contract_branch_code: contract_branch_code,
+      
       contract_next_of_kin_name: contract_next_of_kin,
       contract_next_of_kin_relationship: contract_next_of_kin_relationship,
       contract_profile_picture: contract_profile_picture,
