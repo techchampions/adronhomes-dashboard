@@ -23,10 +23,12 @@ import { IoGiftOutline, IoLogoWhatsapp } from "react-icons/io5";
 import { useToggleSaveProperty } from "../../data/hooks";
 import { Property } from "../../data/types/propertiesPageTypes";
 import { formatPrice } from "../../data/utils";
+import { useModalStore } from "../../zustand/useModalStore";
 import { useToastStore } from "../../zustand/useToastStore";
 import Button from "../Button";
 import InlineLoader from "../InlineLoader";
 import LinkButton from "../LinkButton";
+import Start from "../SubscribeComponents/Start";
 
 interface Props {
   property: Property;
@@ -34,6 +36,7 @@ interface Props {
 
 export default function SwiperPropertyCard({ property }: Props) {
   const navigate = useNavigate();
+  const { openModal } = useModalStore();
   const { showToast } = useToastStore();
   const { mutate: toggleSave, isPending: isSaving } = useToggleSaveProperty();
   const features = property.features;
@@ -82,6 +85,9 @@ export default function SwiperPropertyCard({ property }: Props) {
   };
   const photos = Array.isArray(property.photos) ? property.photos : [];
   const hasPhotos = photos.length > 0;
+  const startSubscriptionProcess = () => {
+    openModal(<Start clickProperty={property} />);
+  };
 
   return (
     <div className="rounded-3xl">
@@ -248,10 +254,10 @@ export default function SwiperPropertyCard({ property }: Props) {
             <Button
               label="Subscribe"
               className="!bg-transparent !text-black border hover:!text-white hover:!bg-black text-xs py-3"
-              // onClick={() => navigate(`/invest-property/${property.id}`)}
-              onClick={() =>
-                navigate(`/dashboard/invest-property-form/${property.id}`)
-              }
+              onClick={startSubscriptionProcess}
+              // onClick={() =>
+              //   navigate(`/dashboard/invest-property-form/${property.id}`)
+              // }
             />
           )}
         </div>

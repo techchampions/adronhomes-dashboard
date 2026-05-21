@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import Button from "../Button";
-import { useModalStore } from "../../zustand/useModalStore";
-import BankTransfer from "./BankTransferMethod";
 import { FaWallet } from "react-icons/fa";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   useCreatePropertyPlan,
   useGetPropertyByID,
@@ -10,17 +8,18 @@ import {
   usePropertyPlanRepayment,
 } from "../../data/hooks";
 import { formatPrice } from "../../data/utils";
-import { useToastStore } from "../../zustand/useToastStore";
+import { useInterswitchPayment } from "../../hooks/useInterswitchPyament";
+import { usePaystackPayment } from "../../hooks/usePaystackPayment";
+import { useContractDeatilStore } from "../../zustand/ContractDetailsStore";
 import { usePaymentBreakDownStore } from "../../zustand/PaymentBreakDownStore";
+import { useModalStore } from "../../zustand/useModalStore";
+import { useUserStore } from "../../zustand/UserStore";
+import { useToastStore } from "../../zustand/useToastStore";
+import Button from "../Button";
+import { ApiError } from "../DashboardHomeComponents/SelectPaymentMethod";
 import PaymentSuccessfull from "../PaymentSuccessfull";
 import SmallLoader from "../SmallLoader";
-import { data, useNavigate, useParams } from "react-router-dom";
-import { usePaystackPayment } from "../../hooks/usePaystackPayment";
-import { useUserStore } from "../../zustand/UserStore";
-import { ApiError } from "../DashboardHomeComponents/SelectPaymentMethod";
-import { useContractDeatilStore } from "../../zustand/ContractDetailsStore";
-import { NewPropertyPlanPayload } from "../../data/types/CreatePropertyPayload";
-import { useInterswitchPayment } from "../../hooks/useInterswitchPyament";
+import BankTransfer from "./BankTransferMethod";
 
 const SelectPaymentMethod = ({
   goBack,

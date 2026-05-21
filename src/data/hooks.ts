@@ -19,6 +19,7 @@ import {
   getERPContracts,
   getERPContractTransaction,
   getFAQs,
+  getIfUserExists,
   getNotificationByID,
   getNotifications,
   getPaymentReciept,
@@ -49,6 +50,7 @@ import {
   StatementResponse,
   toggleSaveProperty,
   updateProfile,
+  verifyMarketer,
 } from "./api";
 import apiClient from "./apiClient";
 import { AccountDetailsResponse } from "./types/AccountDetailsTypes";
@@ -768,3 +770,73 @@ export function usePayForContract() {
     },
   });
 }
+export const useIsUserExist = (email: string) => {
+  return useQuery<UserExistsResponse>({
+    queryKey: ["is_user_exist", email],
+    queryFn: () => getIfUserExists(email),
+    enabled: !!email,
+    retry: false,
+  });
+};
+export const useVerifyMarkerter = (id: string) => {
+  return useQuery<VerifyMarketerResponse>({
+    queryKey: ["verify-marketer", id],
+    queryFn: () => verifyMarketer(id),
+    enabled: !!id,
+  });
+};
+
+export const useGetBusinessType = () => {
+  return useQuery<ApiResponse<BusinessType[]>>({
+    queryKey: ["citta-business-type"],
+    queryFn: async () => {
+      const res = await apiClient.get(`/admin/citta/business-types`);
+      return res.data;
+    },
+  });
+};
+export const useGetCittaGenders = () => {
+  return useQuery<ApiResponse<BusinessType[]>>({
+    queryKey: ["citta-genders"],
+    queryFn: async () => {
+      const res = await apiClient.get(`/admin/citta/genders`);
+      return res.data;
+    },
+  });
+};
+export const useGetCittaMaritalStatus = () => {
+  return useQuery<ApiResponse<BusinessType[]>>({
+    queryKey: ["citta-marital-statuses"],
+    queryFn: async () => {
+      const res = await apiClient.get(`/admin/citta/marital-statuses`);
+      return res.data;
+    },
+  });
+};
+export const useGetCittaCountries = () => {
+  return useQuery<ApiResponse<BusinessType[]>>({
+    queryKey: ["citta-countries"],
+    queryFn: async () => {
+      const res = await apiClient.get(`/admin/citta/countries`);
+      return res.data;
+    },
+  });
+};
+export const useGetCittaPurposes = () => {
+  return useQuery<ApiResponse<BusinessType[]>>({
+    queryKey: ["citta-purposes"],
+    queryFn: async () => {
+      const res = await apiClient.get(`/admin/citta/purposes`);
+      return res.data;
+    },
+  });
+};
+export const useGetCittaBranches = () => {
+  return useQuery<ApiResponse<BusinessType[]>>({
+    queryKey: ["citta-branches"],
+    queryFn: async () => {
+      const res = await apiClient.get(`/admin/citta/branches`);
+      return res.data;
+    },
+  });
+};

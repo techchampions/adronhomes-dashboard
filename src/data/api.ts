@@ -695,3 +695,24 @@ export const payForContract = async (
   const response = await apiClient.post("/user/pay-for-contract", formData);
   return response.data;
 };
+
+export const getIfUserExists = async (
+  email: string
+): Promise<UserExistsResponse> => {
+  const response = await apiClient.get(`/is-user-exist/${email}`);
+  return response.data;
+};
+
+export const verifyMarketer = async (
+  id: string
+): Promise<VerifyMarketerResponse> => {
+  const response = await apiClient.get(`/referral-marketer/${id}`);
+  return response.data;
+};
+
+export const subscribe = async (payload: Partial<RealEstatePayload>) => {
+  const response = await apiClient.post("/subscribe", payload, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+  return response.data;
+};
