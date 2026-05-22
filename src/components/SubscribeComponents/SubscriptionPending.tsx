@@ -1,6 +1,6 @@
 const SubscriptionPending = () => {
   return (
-    <div className="w-sm max-w-sm flex flex-col items-center gap-10">
+    <div className="w-sm max-w-xs md:max-w-sm flex flex-col items-center gap-10">
       <div className="flex flex-col items-center gap-2">
         <div className="relative">
           <div className="border-b-2 border-r-2 rounded-full animate-spin h-20 w-20">

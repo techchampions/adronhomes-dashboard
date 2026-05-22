@@ -30,7 +30,7 @@ const OwnershipInfo: React.FC<Props> = ({ property }) => {
     isError,
   } = useGetBusinessType();
   const contractBusinessTypes = businessTypeResponse?.data.map((item) => ({
-    value: item.pCode,
+    value: item.pName,
     label: item.pName,
   }));
   const initialValues = {
@@ -50,14 +50,19 @@ const OwnershipInfo: React.FC<Props> = ({ property }) => {
   });
 
   const handleSubmit = (values: typeof initialValues) => {
+    const selectedBusinessType = businessTypeResponse?.data.find(
+      (item) => item.pName === values.contract_business_type
+    );
     if (values.soleOwner === "yes") {
       setSubscribeFormData({
         contract_business_type: values.contract_business_type,
+        contract_business_type_code: selectedBusinessType?.pCode,
         soleOwner: values.soleOwner,
       });
     } else {
       setSubscribeFormData({
         contract_business_type: values.contract_business_type,
+        contract_business_type_code: selectedBusinessType?.pCode,
         soleOwner: values.soleOwner,
         contract_subscriber_name_2: "",
         contract_subscriber_name_3: "",
@@ -68,7 +73,7 @@ const OwnershipInfo: React.FC<Props> = ({ property }) => {
     } else modal.openModal(<CoOwnerInfo property={property} />);
   };
   return (
-    <div className="w-sm max-w-sm max-h-[65vh] overflow-y-scroll scrollbar-hide">
+    <div className="w-sm max-w-xs md:max-w-md max-h-[65vh] overflow-y-scroll scrollbar-hide">
       <div
         className="flex items-center gap-2 cursor-pointer absolute top-4 left-4"
         onClick={goBack}

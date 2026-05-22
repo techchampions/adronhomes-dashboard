@@ -1,15 +1,15 @@
-import Button from "../Button";
-import { Formik, Form } from "formik";
-import * as Yup from "yup";
-import InputField from "../InputField";
+import { Form, Formik } from "formik";
 import { ArrowLeft, ArrowRight, Info } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import { Property } from "../../data/types/GetPropertyByIdResponse";
-import { useModalStore } from "../../zustand/useModalStore";
-import { useSubscribeFormData } from "../../zustand/subscribeFormData.state";
+import * as Yup from "yup";
 import { useVerifyMarkerter } from "../../data/hooks";
-import Start from "./Start";
+import { Property } from "../../data/types/GetPropertyByIdResponse";
+import { useSubscribeFormData } from "../../zustand/subscribeFormData.state";
+import { useModalStore } from "../../zustand/useModalStore";
+import Button from "../Button";
+import InputField from "../InputField";
 import InputPersonalInfo from "./PersonalInfo";
+import Start from "./Start";
 
 const validationSchema = Yup.object().shape({
   marketerId: Yup.string().required("MarketerID is required"),

@@ -65,7 +65,7 @@ const InputPersonalInfo: React.FC<Props> = ({ property }) => {
   //   return null;
   // };
   return (
-    <div className="flex flex-col w-sm max-w-sm mx-h-[65vh]">
+    <div className="flex flex-col w-sm max-w-xs md:max-w-md max-h-[75vh] overflow-y-auto scrollbar-hide">
       <div
         className="flex items-center gap-2 cursor-pointer absolute top-4 left-4"
         onClick={goBack}

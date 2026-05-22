@@ -330,7 +330,9 @@ interface subscribePayload {
 
 interface BuyPropertyPayload {
   marketer_code: string;
+  citta_id: string;
   contract_business_type: string;
+  contract_business_type_code: string;
 
   contract_title: string;
 
@@ -340,6 +342,7 @@ interface BuyPropertyPayload {
   contract_additional_name?: string;
 
   contract_marital_status: string;
+  contract_marital_status_code: string;
   contract_gender: string;
   contract_gender_code: string;
   contract_date_of_birth: string; // YYYY-MM-DD
@@ -349,6 +352,7 @@ interface BuyPropertyPayload {
   contract_town: string;
   contract_state: string;
   contract_country: string;
+  contract_country_code: string;
 
   contract_email: string;
   contract_sms: string; // phone with country code
@@ -359,7 +363,7 @@ interface BuyPropertyPayload {
   contract_employer: string;
 
   contract_next_of_kin_phone: string;
-  contract_next_of_kin_name: string;
+  contract_next_of_kin: string;
   contract_next_of_kin_relationship: string;
 
   contract_profile_picture: File | null;
@@ -380,6 +384,9 @@ interface BuyPropertyPayload {
   end_date: string; // YYYY-MM-DD
 
   purpose: string; // e.g., "Residential"
+  contract_purpose_code: string;
+  contract_purpose_name: string;
+  contract_purpose: string;
   property_id: string;
   reference: string;
   number_of_unit: number;
@@ -393,4 +400,9 @@ interface ApiResponse<T> {
 interface BusinessType {
   pCode: string;
   pName: string;
+}
+
+interface ErrorResponse {
+  success: boolean;
+  message: string;
 }

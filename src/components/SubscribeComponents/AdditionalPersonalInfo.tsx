@@ -36,7 +36,7 @@ const InputAdditionalPersonalInfo: React.FC<Props> = ({ property }) => {
     })) || [];
   const MARITAL_OPTIONS =
     maritalDataResponse?.data.map((item) => ({
-      value: item.pCode,
+      value: item.pName,
       label: item.pName,
     })) || [];
   const {
@@ -54,7 +54,7 @@ const InputAdditionalPersonalInfo: React.FC<Props> = ({ property }) => {
     action.openModal(<OccupationInfo property={property} />);
   };
   return (
-    <div className="flex flex-col w-sm max-w-sm mx-h-[65vh]">
+    <div className="flex flex-col w-sm max-w-xs md:max-w-md max-h-[85vh] md:max-h-[75vh] overflow-auto scrollbar-hide">
       <div
         className="flex items-center gap-2 cursor-pointer absolute top-4 left-4"
         onClick={goBack}
@@ -74,10 +74,14 @@ const InputAdditionalPersonalInfo: React.FC<Props> = ({ property }) => {
             const gender = genderDataResponse?.data.find(
               (item) => values.gender === item.pName
             );
+            const maritalStatus = maritalDataResponse?.data.find(
+              (item) => item.pName === values.marital_status
+            );
             setSubscribeFormData({
               contract_gender: values.gender,
               contract_gender_code: gender?.pCode,
               contract_marital_status: values.marital_status,
+              contract_marital_status_code: maritalStatus?.pCode,
               contract_date_of_birth: values.dob,
             });
             action.openModal(<InputLocation property={property} />);

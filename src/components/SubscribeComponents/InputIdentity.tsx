@@ -7,8 +7,8 @@ import { useSubscribeFormData } from "../../zustand/subscribeFormData.state";
 import { useModalStore } from "../../zustand/useModalStore";
 import Button from "../Button";
 import ImageInput from "../FormComponents/ImageInput";
-import PropertySpecifications from "./PropertySpecifications";
 import NextOfKin from "./NextOfKin";
+import PropertySpecifications from "./PropertySpecifications";
 
 const validationSchema = Yup.object().shape({
   passport: Yup.mixed().required("required"),
@@ -38,7 +38,7 @@ const InputIdentityInfo: React.FC<Props> = ({ property }) => {
     action.openModal(<NextOfKin property={property} />);
   };
   return (
-    <div className="flex flex-col w-sm max-w-sm max-h-[75vh] overflow-y-scroll scrollbar-hide">
+    <div className="flex flex-col w-sm max-w-xs md:max-w-md max-h-[75vh] overflow-y-scroll scrollbar-hide">
       <div
         className="flex items-center gap-2 cursor-pointer absolute top-4 left-4"
         onClick={goBack}
@@ -72,7 +72,7 @@ const InputIdentityInfo: React.FC<Props> = ({ property }) => {
                 means_of_ids: [values.id],
               });
             }
-                        action.openModal(<PropertySpecifications property={property} />);
+            action.openModal(<PropertySpecifications property={property} />);
           }}
         >
           {({ isValid }) => (
@@ -106,7 +106,7 @@ const InputIdentityInfo: React.FC<Props> = ({ property }) => {
                     infoText="upload means of identification."
                     name="id"
                     className="!w-full"
-                    width={360}
+                    width={"100%"}
                     height={140}
                   />
                 </div>

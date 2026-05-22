@@ -47,7 +47,7 @@ const BankTransferModal: React.FC<Props> = ({ payload, property }) => {
     });
   };
   return (
-    <div className="w-sm max-h-[75vh] overflow-y-auto scrollbar-hide space-y-10">
+    <div className="w-sm max-w-xs md:max-w-md max-h-[75vh] overflow-y-auto scrollbar-hide space-y-10">
       <div className="flex flex-col gap-2">
         <div className="w-full bg-adron-green rounded-2xl flex gap-2 p-3">
           <img src="/bank-transfer-icon.svg" alt="" className="h-6 w-6" />
@@ -125,6 +125,7 @@ const BankTransferModal: React.FC<Props> = ({ payload, property }) => {
                   isLoading={isPending}
                   disabled={!isValid || isPending}
                   label="Proceed"
+                  loadingText="Processing"
                   rightIcon={<ArrowRight />}
                   className="rounded-xl"
                 />

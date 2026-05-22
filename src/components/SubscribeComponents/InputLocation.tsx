@@ -40,7 +40,7 @@ const InputLocation: React.FC<Props> = ({ property }) => {
   } = useGetCittaCountries();
   const COUNTRIES =
     countriesDataResponse?.data.map((item) => ({
-      value: item.pCode,
+      value: item.pName,
       label: item.pName,
     })) || [];
   const {
@@ -63,7 +63,7 @@ const InputLocation: React.FC<Props> = ({ property }) => {
     action.openModal(<InputAdditionalPersonalInfo property={property} />);
   };
   return (
-    <div className="flex flex-col w-sm md:w-lg max-w-sm md:max-w-lg mx-h-[65vh]">
+    <div className="flex flex-col w-sm max-w-xs md:max-w-md max-h-[85vh] md:max-h-[75vh]">
       <div
         className="flex items-center gap-2 cursor-pointer absolute top-4 left-4"
         onClick={goBack}
@@ -80,9 +80,13 @@ const InputLocation: React.FC<Props> = ({ property }) => {
           validationSchema={validationSchema}
           validateOnMount
           onSubmit={(values) => {
+            const selected_country = countriesDataResponse?.data.find(
+              (item) => item.pName === values.country
+            );
             setSubscribeFormData({
               contract_residential_address: values.address,
               contract_country: values.country,
+              contract_country_code: selected_country?.pCode,
               contract_state: values.state,
               contract_town: values.city,
               contract_nationality: values.nationality,
