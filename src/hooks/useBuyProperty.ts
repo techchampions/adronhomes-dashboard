@@ -1,6 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { InitiatePropertyPurchaseResponse } from "../data/api";
 import apiClient from "../data/apiClient";
-export const buyProperty = async (payload: Partial<RealEstatePayload>) => {
+export const buyProperty = async (
+  payload: Partial<BuyPropertyPayload>
+): Promise<InitiatePropertyPurchaseResponse> => {
   const response = await apiClient.post("/user/buy-property", payload, {
     headers: { "Content-Type": "multipart/form-data" },
   });

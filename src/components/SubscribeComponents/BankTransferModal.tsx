@@ -1,6 +1,7 @@
 import { Form, Formik } from "formik";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { Property } from "../../data/types/GetPropertyByIdResponse";
 import { formatPrice } from "../../data/utils";
@@ -12,13 +13,14 @@ import CopyButton from "../CopyButton";
 import ImageInput from "../FormComponents/ImageInput";
 import InputField from "../InputField";
 import SelectPaymentMethod from "./SelectPaymentMethod";
-import SubscriptionSuccess from "./SubscriptionSuccess";
+import SubscriptionPending from "./SubscriptionPending";
 
 interface Props {
-  payload: RealEstatePayload;
+  payload: BuyPropertyPayload;
   property?: Property;
 }
 const BankTransferModal: React.FC<Props> = ({ payload, property }) => {
+  const navigate = useNavigate();
   const { accounts } = useUserStore();
   const { mutate: subscribe, isPending } = useBuyProperty();
   const modal = useModalStore();
@@ -33,11 +35,14 @@ const BankTransferModal: React.FC<Props> = ({ payload, property }) => {
     const newPayload = {
       ...payload,
       bank_name: values.bank_name,
-      proof: values.proof,
+      proof_of_payment: values.proof,
     };
     subscribe(newPayload, {
-      onSuccess() {
-        modal.openModal(<SubscriptionSuccess />);
+      onSuccess(data) {
+        modal.openModal(<SubscriptionPending />);
+        navigate(`/dashboard/my-property/${data.plan?.id}`, {
+          replace: true,
+        });
       },
     });
   };

@@ -7,7 +7,7 @@ import { useSubscribeFormData } from "../../zustand/subscribeFormData.state";
 import { useModalStore } from "../../zustand/useModalStore";
 import Button from "../Button";
 import ImageInput from "../FormComponents/ImageInput";
-import Branches from "./Branch";
+import PropertySpecifications from "./PropertySpecifications";
 import NextOfKin from "./NextOfKin";
 
 const validationSchema = Yup.object().shape({
@@ -72,7 +72,7 @@ const InputIdentityInfo: React.FC<Props> = ({ property }) => {
                 means_of_ids: [values.id],
               });
             }
-            action.openModal(<Branches property={property} />);
+                        action.openModal(<PropertySpecifications property={property} />);
           }}
         >
           {({ isValid }) => (

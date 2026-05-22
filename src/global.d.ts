@@ -328,8 +328,8 @@ interface subscribePayload {
   means_of_ids?: File[] | null;
 }
 
-interface RealEstatePayload {
-  marketID: string;
+interface BuyPropertyPayload {
+  marketer_code: string;
   contract_business_type: string;
 
   contract_title: string;
@@ -362,9 +362,6 @@ interface RealEstatePayload {
   contract_next_of_kin_name: string;
   contract_next_of_kin_relationship: string;
 
-  contract_branch_name: string;
-  contract_branch_code: string;
-
   contract_profile_picture: File | null;
   contract_profile_picture2: File | null;
   contract_id_files: File[] | null;
@@ -372,8 +369,8 @@ interface RealEstatePayload {
 
   land_size: string; // e.g., "600 sqm"
 
-  payment_duration: string; // e.g., "12 months"
-  payment_schedule: string; // e.g., "Monthly"
+  monthly_duration: string; // e.g., "12 months"
+  repayment_schedule: string; // e.g., "Monthly"
   payable_amount: number;
   payment_method: string; // e.g., "interswitch"
   payment_type: number; // e.g., 1
@@ -383,8 +380,6 @@ interface RealEstatePayload {
   end_date: string; // YYYY-MM-DD
 
   purpose: string; // e.g., "Residential"
-  longitude: number;
-  latitude: number;
   property_id: string;
   reference: string;
   number_of_unit: number;

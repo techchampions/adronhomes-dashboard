@@ -14,7 +14,7 @@ import DatePickerInput from "../FormComponents/CustomDateInput";
 import SelectInput from "../FormComponents/SelectInput";
 import InlineLoading from "../InlineLoading";
 import InputField from "../InputField";
-import Branches from "./Branch";
+import InputIdentityInfo from "./InputIdentity";
 import PaymentSummary from "./PaymentSummary";
 
 interface Props {
@@ -102,7 +102,7 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
   //   ];
   // }
   const goBack = () => {
-    action.openModal(<Branches property={property} />);
+        action.openModal(<InputIdentityInfo property={property} />);
   };
   // Component to auto-calculate endDate
   const AutoEndDateUpdater = () => {
