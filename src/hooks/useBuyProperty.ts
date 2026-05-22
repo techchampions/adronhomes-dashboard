@@ -1,6 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import { InitiatePropertyPurchaseResponse } from "../data/api";
 import apiClient from "../data/apiClient";
+import { useToastStore } from "./../zustand/useToastStore";
 export const buyProperty = async (
   payload: Partial<BuyPropertyPayload>
 ): Promise<InitiatePropertyPurchaseResponse> => {
@@ -10,6 +12,7 @@ export const buyProperty = async (
   return response.data;
 };
 export const useBuyProperty = () => {
+  const toast = useToastStore();
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: buyProperty,
@@ -27,6 +30,11 @@ export const useBuyProperty = () => {
       queryClient.invalidateQueries({
         queryKey: ["user-transactions"],
       });
+    },
+    onError: (error: AxiosError<ErrorResponse>) => {
+      if (error.response) {
+        toast.showToast(error.response?.data.message, "error");
+      }
     },
   });
 };

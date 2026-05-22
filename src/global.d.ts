@@ -401,3 +401,8 @@ interface BusinessType {
   pCode: string;
   pName: string;
 }
+
+interface ErrorResponse {
+  success: boolean;
+  message: string;
+}
