@@ -7,7 +7,6 @@ import { useSubscribeFormData } from "../../zustand/subscribeFormData.state";
 import { useModalStore } from "../../zustand/useModalStore";
 import Button from "../Button";
 import ImageInput from "../FormComponents/ImageInput";
-import PropertySpecifications from "./PropertySpecifications";
 import NextOfKin from "./NextOfKin";
 import PropertySpecifications from "./PropertySpecifications";
 
