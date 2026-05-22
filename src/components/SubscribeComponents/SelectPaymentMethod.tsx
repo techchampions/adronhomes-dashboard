@@ -28,7 +28,9 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
   const {
     contract_email,
     contract_business_type,
+    contract_business_type_code,
     contract_marital_status,
+    contract_marital_status_code,
     contract_gender,
     contract_gender_code,
     contract_date_of_birth,
@@ -49,9 +51,12 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
     payment_schedule,
     units,
     purpose,
+    contract_purpose,
+    contract_purpose_code,
     contract_town,
     contract_state,
     contract_country,
+    contract_country_code,
     contract_occupation,
     contract_employer,
     contract_sms,
@@ -61,6 +66,7 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
     contract_profile_picture2,
     means_of_ids,
     land_size,
+    citta_id,
   } = useSubscribeFormData();
   const paystack = usePaystackPayment();
   const interswitch = useInterswitchPayment();
@@ -76,13 +82,16 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
     }
     const payload: BuyPropertyPayload = {
       marketer_code: marketID,
+      citta_id: citta_id,
       contract_business_type: contract_business_type,
+      contract_business_type_code: contract_business_type_code,
       contract_subscriber_name_1: contract_subscriber_name_1,
       contract_subscriber_name_2: contract_subscriber_name_2,
       contract_subscriber_name_3: contract_subscriber_name_3,
       // contract_additional_name: contract_additional_name,
       contract_title: contract_title,
       contract_marital_status: contract_marital_status,
+      contract_marital_status_code: contract_marital_status_code,
       contract_gender: contract_gender,
       contract_gender_code: contract_gender_code,
       contract_date_of_birth: contract_date_of_birth,
@@ -91,6 +100,7 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
       contract_town: contract_town,
       contract_state: contract_state,
       contract_country: contract_country,
+      contract_country_code: contract_country_code,
       contract_email: contract_email,
       contract_sms: contract_sms,
       contract_employer_address: contract_employer_address,
@@ -99,7 +109,7 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
       contract_next_of_kin_phone: contract_next_of_kin_phone,
       // contract_next_of_kin_address: contract_next_of_kin_address,
 
-      contract_next_of_kin_name: contract_next_of_kin,
+      contract_next_of_kin: contract_next_of_kin,
       contract_next_of_kin_relationship: contract_next_of_kin_relationship,
       contract_profile_picture: contract_profile_picture,
       contract_profile_picture2: contract_profile_picture2,
@@ -119,6 +129,9 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
       payable_amount: total_amount,
       number_of_unit: units,
       purpose: purpose,
+      contract_purpose: contract_purpose,
+      contract_purpose_name: contract_purpose,
+      contract_purpose_code: contract_purpose_code,
       land_size: String(land_size),
       contract_employer_phone: "",
       reference: "",
@@ -179,7 +192,7 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
     return <StartingPayment paymentMethod={selectedPaymentMethod || ""} />;
   }
   return (
-    <div className="flex flex-col w-sm max-w-sm">
+    <div className="flex flex-col w-sm max-w-xs md:max-w-md max-h-[75vh] overflow-auto scrollbar-hide">
       <div
         className="flex items-center gap-2 cursor-pointer absolute top-4 left-4"
         onClick={goBack}

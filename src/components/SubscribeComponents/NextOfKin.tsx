@@ -36,7 +36,7 @@ const NextOfKin: React.FC<Props> = ({ property }) => {
     action.openModal(<InputLocation property={property} />);
   };
   return (
-    <div className="flex flex-col w-sm max-w-sm mx-h-[65vh]">
+    <div className="flex flex-col w-sm max-w-xs md:max-w-md max-h-[85vh] md:max-h-[70vh] overflow-auto scrollbar-hide">
       <div
         className="flex items-center gap-2 cursor-pointer absolute top-4 left-4"
         onClick={goBack}

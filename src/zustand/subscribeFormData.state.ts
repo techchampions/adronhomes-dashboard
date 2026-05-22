@@ -7,11 +7,13 @@ type SubscribeFormData = {
   units: number;
   total_amount: number;
   contract_business_type: string;
+  contract_business_type_code: string;
   contract_subscriber_name_1: string;
   contract_subscriber_name_2: string;
   contract_subscriber_name_3: string;
   contract_additional_name: string;
   contract_marital_status: string;
+  contract_marital_status_code: string;
   contract_gender: string;
   contract_gender_code: string;
   contract_date_of_birth: string;
@@ -20,6 +22,7 @@ type SubscribeFormData = {
   contract_town: string;
   contract_state: string;
   contract_country: string;
+  contract_country_code: string;
   longitude: string;
   latitude: string;
   property_id: string;
@@ -30,7 +33,6 @@ type SubscribeFormData = {
   contract_occupation: string;
   contract_employer: string;
   contract_next_of_kin_phone: string;
-  contract_next_of_kin_name: string;
   contract_next_of_kin: string;
   contract_next_of_kin_relationship: string;
   contract_profile_picture: File | null;
@@ -44,6 +46,8 @@ type SubscribeFormData = {
   end_date: string;
   payable_amount: string | number;
   purpose: string;
+  contract_purpose: string;
+  contract_purpose_code: string;
   payment_plan: string;
   payment_method: string;
   payment_type: string;
@@ -64,11 +68,13 @@ export const useSubscribeFormData = create<SubscribeFormData>((set) => ({
   units: 1,
   total_amount: 0,
   contract_business_type: "",
+  contract_business_type_code: "",
   contract_subscriber_name_1: "",
   contract_subscriber_name_2: "",
   contract_subscriber_name_3: "",
   contract_additional_name: "",
   contract_marital_status: "",
+  contract_marital_status_code: "",
   contract_gender: "",
   contract_gender_code: "",
   contract_date_of_birth: "",
@@ -78,13 +84,13 @@ export const useSubscribeFormData = create<SubscribeFormData>((set) => ({
   contract_town: "",
   contract_state: "",
   contract_country: "",
+  contract_country_code: "",
   contract_email: "",
   contract_sms: "",
   contract_employer_address: "",
   contract_occupation: "",
   contract_employer: "",
   contract_next_of_kin_phone: "",
-  contract_next_of_kin_name: "",
   contract_next_of_kin: "",
   contract_next_of_kin_relationship: "",
   contract_profile_picture: null,
@@ -98,6 +104,8 @@ export const useSubscribeFormData = create<SubscribeFormData>((set) => ({
   start_date: "",
   end_date: "",
   purpose: "",
+  contract_purpose: "",
+  contract_purpose_code: "",
   payment_plan: "",
   longitude: "",
   latitude: "",
@@ -116,11 +124,13 @@ export const useSubscribeFormData = create<SubscribeFormData>((set) => ({
       units: 1,
       total_amount: 0,
       contract_business_type: "",
+      contract_business_type_code: "",
       contract_subscriber_name_1: "",
       contract_subscriber_name_2: "",
       contract_subscriber_name_3: "",
       contract_additional_name: "",
       contract_marital_status: "",
+      contract_marital_status_code: "",
       contract_gender: "",
       contract_gender_code: "",
       contract_date_of_birth: "",
@@ -130,13 +140,13 @@ export const useSubscribeFormData = create<SubscribeFormData>((set) => ({
       contract_town: "",
       contract_state: "",
       contract_country: "",
+      contract_country_code: "",
       contract_email: "",
       contract_sms: "",
       contract_employer_address: "",
       contract_occupation: "",
       contract_employer: "",
       contract_next_of_kin_phone: "",
-      contract_next_of_kin_name: "",
       contract_next_of_kin: "",
       contract_next_of_kin_relationship: "",
       contract_profile_picture: null,
@@ -150,6 +160,8 @@ export const useSubscribeFormData = create<SubscribeFormData>((set) => ({
       start_date: "",
       end_date: "",
       purpose: "",
+      contract_purpose: "",
+      contract_purpose_code: "",
       payment_plan: "",
       longitude: "",
       latitude: "",

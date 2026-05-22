@@ -1,10 +1,10 @@
-import React, { useState } from "react";
 import DOMPurify from "dompurify";
 import { ArrowLeft, ArrowRight, CheckSquare2, Square } from "lucide-react";
+import React, { useState } from "react";
 import { Property } from "../../data/types/GetPropertyByIdResponse";
 import { useModalStore } from "../../zustand/useModalStore";
-import PaymentSummary from "./PaymentSummary";
 import Button from "../Button";
+import PaymentSummary from "./PaymentSummary";
 import SelectPaymentMethod from "./SelectPaymentMethod";
 interface Props {
   property?: Property;
@@ -20,7 +20,7 @@ const PropertyTerms: React.FC<Props> = ({ property }) => {
   };
 
   return (
-    <div className="w-sm max-h-[75vh] overflow-y-scroll scrollbar-hide">
+    <div className="w-sm max-w-xs md:max-w-md max-h-[75vh] overflow-y-scroll scrollbar-hide">
       <div
         className="flex items-center gap-2 cursor-pointer absolute top-4 left-4"
         onClick={goBack}

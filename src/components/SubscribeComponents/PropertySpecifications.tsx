@@ -58,6 +58,7 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
     payment_duration,
     payment_schedule,
     purpose,
+    contract_purpose,
     // payment_plan,
     initial_deposit,
     units,
@@ -71,6 +72,7 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
     citta_id: citta_id,
     units: units,
     purpose: purpose,
+    contract_purpose: contract_purpose,
     payment_plan: "Installment",
     initial_deposit: initial_deposit,
     payment_duration: payment_duration,
@@ -89,10 +91,15 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
     label: `${option.size} ${option.measurement_unit}`,
     value: option.id,
   }));
-  const purposes = purposeDataResponse?.data ?? [];
-  const PURPOSE_OPTIONS = purposes.map((option) => ({
+  const purposes = property?.purpose || [];
+  const contract_purposes = purposeDataResponse?.data ?? [];
+  const CONTRACT_PURPOSE_OPTIONS = contract_purposes.map((option) => ({
     label: option.pName,
-    value: option.pCode,
+    value: option.pName,
+  }));
+  const PURPOSE_OPTIONS = purposes.map((option) => ({
+    label: option,
+    value: option,
   }));
   // let PAYMENT_PLAN: typeof PURPOSE_OPTIONS = [];
   // if (property.payment_type === "installment") {
@@ -102,7 +109,7 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
   //   ];
   // }
   const goBack = () => {
-        action.openModal(<InputIdentityInfo property={property} />);
+    action.openModal(<InputIdentityInfo property={property} />);
   };
   // Component to auto-calculate endDate
   const AutoEndDateUpdater = () => {
@@ -183,7 +190,7 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
     return null; // no UI
   };
   return (
-    <div className="flex flex-col w-sm max-w-sm max-h-[70vh] overflow-y-scroll scrollbar-hide">
+    <div className="flex flex-col w-sm max-w-xs md:max-w-md max-h-[70vh] overflow-y-scroll scrollbar-hide">
       <div
         className="flex items-center gap-2 cursor-pointer absolute top-4 left-4"
         onClick={goBack}
@@ -202,9 +209,14 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
           validateOnBlur
           validateOnChange
           onSubmit={(values) => {
+            const contractPurpose = contract_purposes.find(
+              (item) => item.pName === values.contract_purpose
+            );
             setSubscribeFormData({
               land_size: values.property_size,
               purpose: values.purpose,
+              contract_purpose: values.contract_purpose,
+              contract_purpose_code: contractPurpose?.pCode || "",
               payment_duration: values.payment_duration,
               payment_schedule: values.payment_schedule,
               start_date: values.start_date.toISOString(),
@@ -284,16 +296,24 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
                           </div>
                         </div>
                       ) : (
-                        <SelectInput
-                          label="Select your property purpose"
-                          name="purpose"
-                          options={PURPOSE_OPTIONS}
-                          className="py-3 bg-adron-body"
-                        />
+                        <div className="space-y-7">
+                          <SelectInput
+                            label="Select your property purposes"
+                            name="purpose"
+                            options={PURPOSE_OPTIONS}
+                            className="py-3 bg-adron-body"
+                          />
+                          <SelectInput
+                            label="Select your property contract purpose"
+                            name="contract_purpose"
+                            options={CONTRACT_PURPOSE_OPTIONS}
+                            className="py-3 bg-adron-body"
+                          />
+                        </div>
                       )}
                     </div>
                   )}
-                  {values.purpose && (
+                  {values.contract_purpose && (
                     <div className="space-y-1">
                       <InputField
                         label="Select your number of units"
@@ -307,7 +327,7 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
                     values.units &&
                     values.payment_duration &&
                     values.payment_schedule &&
-                    values.purpose && (
+                    values.contract_purpose && (
                       <div className="space-y-1">
                         <div className="text-sm font-bold">
                           Enter Initial Deposit

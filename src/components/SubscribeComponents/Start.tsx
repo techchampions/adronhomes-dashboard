@@ -31,7 +31,9 @@ const initialValues = {
 };
 const Start: React.FC<Props> = ({ property, clickProperty }) => {
   const modal = useModalStore();
-  const { data, isLoading } = useGetPropertyByID(String(clickProperty?.id));
+  const { data, isLoading } = useGetPropertyByID(
+    String(clickProperty?.id || property?.id)
+  );
   if (isLoading) {
     return (
       <div className="w-sm max-w-xs md:max-w-sm h-60 flex flex-col gap-3 justify-center items-center">
@@ -52,7 +54,9 @@ const Start: React.FC<Props> = ({ property, clickProperty }) => {
         <ArrowLeft /> Back
       </div>
 
-      <h4 className="font-bold text-2xl mt-5">Subscribe to {property?.name}</h4>
+      <h4 className="font-bold text-2xl mt-5">
+        Subscribe to {data?.data?.properties.name}
+      </h4>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -63,8 +67,11 @@ const Start: React.FC<Props> = ({ property, clickProperty }) => {
         {({ isValid, dirty }) => (
           <Form className="mt-5 space-y-8">
             <div className=" space-y-4">
-              <div className="">Were you referred by a Marketer?</div>
-              <RadioGroup name="referred" options={options} />
+              <RadioGroup
+                name="referred"
+                options={options}
+                label="Were you referred by a Marketer?"
+              />
             </div>
             <div className="flex items-center justify-between gap-2">
               <Button
