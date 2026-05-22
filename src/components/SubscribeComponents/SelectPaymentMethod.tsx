@@ -35,8 +35,6 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
     start_date,
     end_date,
     contract_title,
-    contract_branch_name,
-    contract_branch_code,
     contract_nationality,
     contract_next_of_kin,
     contract_next_of_kin_relationship,
@@ -63,8 +61,6 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
     contract_profile_picture2,
     means_of_ids,
     land_size,
-    latitude,
-    longitude,
   } = useSubscribeFormData();
   const paystack = usePaystackPayment();
   const interswitch = useInterswitchPayment();
@@ -78,7 +74,7 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
       payable_code: string;
       merchant_code: string;
     }
-    const payload: RealEstatePayload = {
+    const payload: BuyPropertyPayload = {
       marketer_code: marketID,
       contract_business_type: contract_business_type,
       contract_subscriber_name_1: contract_subscriber_name_1,
@@ -102,7 +98,7 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
       contract_employer: contract_employer,
       contract_next_of_kin_phone: contract_next_of_kin_phone,
       // contract_next_of_kin_address: contract_next_of_kin_address,
-      
+
       contract_next_of_kin_name: contract_next_of_kin,
       contract_next_of_kin_relationship: contract_next_of_kin_relationship,
       contract_profile_picture: contract_profile_picture,
@@ -124,19 +120,17 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
       number_of_unit: units,
       purpose: purpose,
       land_size: String(land_size),
-      latitude: Number(latitude),
-      longitude: Number(longitude),
       contract_employer_phone: "",
       reference: "",
     };
     if (selectedPaymentMethod == "Interswitch") {
       subscribe(payload, {
-        onSuccess(data: PaymentResponse) {
+        onSuccess(data) {
           interswitch({
             email: contract_email || "",
             customerName: contract_subscriber_name_1 || "",
             amount: Number(total_amount), // in Naira
-            reference: data.reference,
+            reference: data.payment.reference,
             merchant_code: data.merchant_code,
             payment_item_id: data.payable_code,
             onSuccess: () => {
@@ -152,11 +146,11 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
       });
     } else if (selectedPaymentMethod == "Paystack") {
       subscribe(payload, {
-        onSuccess(data: PaymentResponse) {
+        onSuccess(data) {
           paystack({
             email: contract_email || "",
             amount: Number(total_amount), // in Naira
-            reference: data.reference,
+            reference: data.payment.reference,
             onSuccess: () => {
               openModal(<SubscriptionSuccess />);
 

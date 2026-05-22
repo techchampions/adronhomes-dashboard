@@ -38,7 +38,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
             ? "border border-red-500"
             : theme === "dark"
             ? "border-none"
-            : "border border-transparent focus-within:border-gray-200"
+            : "border border-gray-200 focus-within:border-gray-200"
         } ${disabled ? "bg-gray-100" : ""} ${className}`}
       >
         {/* Left Icon */}
@@ -51,7 +51,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
           disabled={disabled}
           className={`appearance-none ${
             theme === "dark" ? "text-gray-300" : "text-gray-900"
-          } text-sm rounded-lg focus:ring-0 block w-full px-5 outline-none bg-transparent ${
+          } text-sm rounded-lg focus:ring-0 block w-full pl-5 outline-none bg-transparent ${
             !field.value ? "text-gray-400" : ""
           }`}
         >
@@ -70,7 +70,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
         </Field>
 
         {/* Chevron Icon */}
-        <div className="flex items-center px-3 pointer-events-none">
+        <div className="flex items-center pr-3 pointer-events-none">
           <FaChevronDown className="w-4 h-4 text-gray-400" />
         </div>
 

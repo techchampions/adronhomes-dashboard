@@ -328,7 +328,7 @@ interface subscribePayload {
   means_of_ids?: File[] | null;
 }
 
-interface RealEstatePayload {
+interface BuyPropertyPayload {
   marketer_code: string;
   contract_business_type: string;
 
@@ -362,7 +362,6 @@ interface RealEstatePayload {
   contract_next_of_kin_name: string;
   contract_next_of_kin_relationship: string;
 
-
   contract_profile_picture: File | null;
   contract_profile_picture2: File | null;
   contract_id_files: File[] | null;
@@ -381,8 +380,6 @@ interface RealEstatePayload {
   end_date: string; // YYYY-MM-DD
 
   purpose: string; // e.g., "Residential"
-  longitude: number;
-  latitude: number;
   property_id: string;
   reference: string;
   number_of_unit: number;

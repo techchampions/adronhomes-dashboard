@@ -1,6 +1,7 @@
 import { Form, Formik } from "formik";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { Property } from "../../data/types/GetPropertyByIdResponse";
 import { formatPrice } from "../../data/utils";
@@ -15,10 +16,11 @@ import SelectPaymentMethod from "./SelectPaymentMethod";
 import SubscriptionPending from "./SubscriptionPending";
 
 interface Props {
-  payload: RealEstatePayload;
+  payload: BuyPropertyPayload;
   property?: Property;
 }
 const BankTransferModal: React.FC<Props> = ({ payload, property }) => {
+  const navigate = useNavigate();
   const { accounts } = useUserStore();
   const { mutate: subscribe, isPending } = useBuyProperty();
   const modal = useModalStore();
@@ -36,8 +38,11 @@ const BankTransferModal: React.FC<Props> = ({ payload, property }) => {
       proof_of_payment: values.proof,
     };
     subscribe(newPayload, {
-      onSuccess() {
+      onSuccess(data) {
         modal.openModal(<SubscriptionPending />);
+        navigate(`/dashboard/my-property/${data.plan?.id}`, {
+          replace: true,
+        });
       },
     });
   };

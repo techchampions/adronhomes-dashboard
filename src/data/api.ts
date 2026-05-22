@@ -710,7 +710,7 @@ export const verifyMarketer = async (
   return response.data;
 };
 
-export const subscribe = async (payload: Partial<RealEstatePayload>) => {
+export const subscribe = async (payload: Partial<BuyPropertyPayload>) => {
   const response = await apiClient.post("/subscribe", payload, {
     headers: { "Content-Type": "multipart/form-data" },
   });
