@@ -36,7 +36,7 @@ const Modal = () => {
         >
           {isCloseable && (
             <button
-              className="bg-white rounded-full p-1 absolute top-4 right-3 text-gray-600 hover:text-gray-900 cursor-pointer"
+              className="bg-white rounded-full border border-gray-200 p-1 absolute top-4 right-3 text-gray-600 hover:text-gray-900 cursor-pointer"
               onClick={closeModal}
               aria-label="Close Modal"
             >

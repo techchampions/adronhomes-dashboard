@@ -30,8 +30,7 @@ const PaymentSummary: React.FC<Props> = ({ property }) => {
     (item) => item.type === "others" && item.purpose === purpose
   );
   const infrastructureData = feesList.filter(
-    (item) =>
-      item.type === "infrastructure" && item.purpose === purpose
+    (item) => item.type === "infrastructure" && item.purpose === purpose
   );
 
   const otherFees =
@@ -143,7 +142,14 @@ const PaymentSummary: React.FC<Props> = ({ property }) => {
           plan.
         </p>
       </div>
-      <div className="flex justify-between w-full gap-4 mt-4">
+      <div className="flex justify-between w-full gap-2 mt-4">
+        <Button
+          label="Back"
+          icon={<ArrowLeft />}
+          className="bg-gray-800 rounded-lg hidden sm:flex"
+          onClick={goBack}
+        />
+
         <Button
           label="Proceed"
           className="bg-adron-green rounded-lg"

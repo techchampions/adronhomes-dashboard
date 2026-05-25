@@ -35,6 +35,7 @@ type SubscribeFormData = {
   contract_next_of_kin_phone: string;
   contract_next_of_kin: string;
   contract_next_of_kin_relationship: string;
+  contract_next_of_kin_address: string;
   contract_profile_picture: File | null;
   contract_profile_picture2: File | null;
   means_of_ids: File[] | null;
@@ -93,6 +94,7 @@ export const useSubscribeFormData = create<SubscribeFormData>((set) => ({
   contract_next_of_kin_phone: "",
   contract_next_of_kin: "",
   contract_next_of_kin_relationship: "",
+  contract_next_of_kin_address: "",
   contract_profile_picture: null,
   contract_profile_picture2: null,
   means_of_ids: null,
@@ -149,6 +151,7 @@ export const useSubscribeFormData = create<SubscribeFormData>((set) => ({
       contract_next_of_kin_phone: "",
       contract_next_of_kin: "",
       contract_next_of_kin_relationship: "",
+      contract_next_of_kin_address: "",
       contract_profile_picture: null,
       contract_profile_picture2: null,
       means_of_ids: null,
