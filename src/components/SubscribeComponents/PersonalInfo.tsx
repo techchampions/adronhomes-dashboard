@@ -14,6 +14,7 @@ import OwnershipInfo from "./OwnershipInfo";
 import Start from "./Start";
 
 const validationSchema = Yup.object().shape({
+  contract_title: Yup.string().required("required"),
   fullName: Yup.string().required("required"),
   email: Yup.string().required("required"),
   phone: Yup.string().required("required"),
@@ -36,10 +37,10 @@ const InputPersonalInfo: React.FC<Props> = ({ property }) => {
     contract_sms,
   } = useSubscribeFormData();
   const TITLE_OPTIONS = [
-    { value: "Mr.", label: "Mr." },
-    { value: "Mrs.", label: "Mrs." },
-    { value: "Miss.", label: "Miss." },
-    { value: "Mst.", label: "Mst." },
+    { value: "Mr", label: "Mr" },
+    { value: "Mrs", label: "Mrs" },
+    { value: "Miss", label: "Miss" },
+    { value: "Mst", label: "Mst" },
   ];
   const fullName = `${user?.first_name} ${user?.last_name}`;
   const initialValues = {
