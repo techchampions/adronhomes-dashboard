@@ -790,7 +790,7 @@ export const useGetBusinessType = () => {
   return useQuery<ApiResponse<BusinessType[]>>({
     queryKey: ["citta-business-type"],
     queryFn: async () => {
-      const res = await apiClient.get(`/admin/citta/business-types`);
+      const res = await apiClient.get(`/citta/business-types`);
       return res.data;
     },
   });
@@ -799,7 +799,7 @@ export const useGetCittaGenders = () => {
   return useQuery<ApiResponse<BusinessType[]>>({
     queryKey: ["citta-genders"],
     queryFn: async () => {
-      const res = await apiClient.get(`/admin/citta/genders`);
+      const res = await apiClient.get(`/citta/genders`);
       return res.data;
     },
   });
@@ -808,7 +808,7 @@ export const useGetCittaMaritalStatus = () => {
   return useQuery<ApiResponse<BusinessType[]>>({
     queryKey: ["citta-marital-statuses"],
     queryFn: async () => {
-      const res = await apiClient.get(`/admin/citta/marital-statuses`);
+      const res = await apiClient.get(`/citta/marital-statuses`);
       return res.data;
     },
   });
@@ -817,7 +817,7 @@ export const useGetCittaCountries = () => {
   return useQuery<ApiResponse<BusinessType[]>>({
     queryKey: ["citta-countries"],
     queryFn: async () => {
-      const res = await apiClient.get(`/admin/citta/countries`);
+      const res = await apiClient.get(`/citta/countries`);
       return res.data;
     },
   });
@@ -826,7 +826,7 @@ export const useGetCittaPurposes = () => {
   return useQuery<ApiResponse<BusinessType[]>>({
     queryKey: ["citta-purposes"],
     queryFn: async () => {
-      const res = await apiClient.get(`/admin/citta/purposes`);
+      const res = await apiClient.get(`/citta/purposes`);
       return res.data;
     },
   });
@@ -835,7 +835,7 @@ export const useGetCittaBranches = () => {
   return useQuery<ApiResponse<BusinessType[]>>({
     queryKey: ["citta-branches"],
     queryFn: async () => {
-      const res = await apiClient.get(`/admin/citta/branches`);
+      const res = await apiClient.get(`/citta/branches`);
       return res.data;
     },
   });

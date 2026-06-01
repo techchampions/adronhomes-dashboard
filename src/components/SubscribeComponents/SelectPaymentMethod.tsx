@@ -1,5 +1,6 @@
 import { ArrowLeft, Wallet2 } from "lucide-react";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useGetUserWalletdata } from "../../data/hooks";
 import { Property } from "../../data/types/GetPropertyByIdResponse";
 import { formatPrice } from "../../data/utils";
@@ -20,7 +21,7 @@ interface Props {
 }
 const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
   const { data: userWalletData, isLoading, isError } = useGetUserWalletdata();
-
+  const navigate = useNavigate();
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<
     string | null
   >(null);
@@ -149,6 +150,9 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
             payment_item_id: data.payable_code,
             onSuccess: () => {
               openModal(<SubscriptionSuccess />);
+              navigate(`/dashboard/my-property/${data.plan?.id}`, {
+                replace: true,
+              });
             },
             onClose: () => {
               openModal(
@@ -167,7 +171,9 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
             reference: data.payment.reference,
             onSuccess: () => {
               openModal(<SubscriptionSuccess />);
-
+              navigate(`/dashboard/my-property/${data.plan?.id}`, {
+                replace: true,
+              });
               // TODO: call your backend API to confirm payment
             },
             onClose: () => {
@@ -178,8 +184,11 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
       });
     } else if (selectedPaymentMethod == "Virtual Wallet") {
       subscribe(payload, {
-        onSuccess() {
+        onSuccess(data) {
           openModal(<SubscriptionSuccess />);
+          navigate(`/dashboard/my-property/${data.plan?.id}`, {
+            replace: true,
+          });
         },
       });
     } else if (selectedPaymentMethod == "Bank Transfer") {
