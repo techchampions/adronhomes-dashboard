@@ -134,7 +134,7 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
       contract_purpose: contract_purpose,
       contract_purpose_name: contract_purpose,
       contract_purpose_code: contract_purpose_code,
-      land_size: String(land_size),
+      property_size: String(land_size),
       contract_employer_phone: "",
       reference: "",
     };

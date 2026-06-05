@@ -372,7 +372,7 @@ interface BuyPropertyPayload {
   contract_id_files: File[] | null;
   means_of_ids: File[] | null;
 
-  land_size: string; // e.g., "600 sqm"
+  property_size: string; // e.g., "600 sqm"
 
   monthly_duration: string; // e.g., "12 months"
   repayment_schedule: string; // e.g., "Monthly"

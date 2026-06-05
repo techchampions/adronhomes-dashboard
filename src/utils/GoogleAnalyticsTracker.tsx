@@ -14,7 +14,23 @@ function AnalyticsTracker() {
     });
   }, [location]);
 
-  return null;
+  return (
+    <>
+      <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=G-302H8BY6RY"
+      ></script>
+      <script>
+        {`
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+ 
+  gtag('config', 'G-302H8BY6RY');
+`}
+      </script>
+    </>
+  );
 }
 
 export default AnalyticsTracker;
