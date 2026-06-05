@@ -365,6 +365,7 @@ interface BuyPropertyPayload {
   contract_next_of_kin_phone: string;
   contract_next_of_kin: string;
   contract_next_of_kin_relationship: string;
+  contract_next_of_kin_address: string;
 
   contract_profile_picture: File | null;
   contract_profile_picture2: File | null;

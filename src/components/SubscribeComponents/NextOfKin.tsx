@@ -14,6 +14,7 @@ const validationSchema = Yup.object().shape({
   fullName: Yup.string().required("required"),
   relationship: Yup.string().required("required"),
   phone: Yup.string().required("required"),
+  address: Yup.string().required("required"),
 });
 interface Props {
   property?: Property;
@@ -25,12 +26,14 @@ const NextOfKin: React.FC<Props> = ({ property }) => {
     setSubscribeFormData,
     contract_next_of_kin,
     contract_next_of_kin_phone,
+    contract_next_of_kin_address,
     contract_next_of_kin_relationship,
   } = useSubscribeFormData();
   const initialValues = {
     fullName: contract_next_of_kin || "",
     relationship: contract_next_of_kin_relationship || "",
     phone: contract_next_of_kin_phone || "",
+    address: contract_next_of_kin_address || "",
   };
   const goBack = () => {
     action.openModal(<InputLocation property={property} />);
@@ -44,7 +47,7 @@ const NextOfKin: React.FC<Props> = ({ property }) => {
         <ArrowLeft /> Back
       </div>
 
-      <div className="flex flex-col mt-5">
+      <div className="flex flex-col mt-2">
         <div className="text-2xl font-bold">Enter your next of kin details</div>
       </div>
       <div className="flex flex-col justify-between mt-7">
@@ -56,6 +59,7 @@ const NextOfKin: React.FC<Props> = ({ property }) => {
             setSubscribeFormData({
               contract_next_of_kin: values.fullName,
               contract_next_of_kin_phone: values.phone,
+              contract_next_of_kin_address: values.address,
               contract_next_of_kin_relationship: values.relationship,
             });
             action.openModal(<InputIdentityInfo property={property} />);
@@ -63,42 +67,43 @@ const NextOfKin: React.FC<Props> = ({ property }) => {
         >
           {({ isValid }) => (
             <Form className="flex flex-col gap-8 justify-between min-h-[220px]">
-              <div className="space-y-7">
-                <div className="space-y-1">
-                  <div className="text-lg">What is his/her name?</div>
-                  <InputField
-                    name="fullName"
-                    type="text"
-                    placeholder="Full Name"
-                    className="text-2xl font-bold rounded-xl py-3"
-                  />
-                </div>
-                <div className="space-y-1">
-                  <div className="text-lg">What is your relationship?</div>
-                  <InputField
-                    name="relationship"
-                    type="text"
-                    placeholder="Relationship (eg. Brother, sister)"
-                    className="text-2xl font-bold rounded-xl py-3"
-                  />
-                </div>
-                <div className="space-y-1">
-                  <div className="text-lg">What is his/her phone No.?</div>
-                  <InputField
-                    name="phone"
-                    type="text"
-                    placeholder="Phone number"
-                    className="text-2xl font-bold rounded-xl py-3"
-                  />
-                </div>
+              <div className="space-y-5">
+                <InputField
+                  name="fullName"
+                  type="text"
+                  label="What is his/her name?"
+                  placeholder="Full Name"
+                  className="text-2xl font-bold rounded-xl py-3"
+                />
+
+                <InputField
+                  name="relationship"
+                  type="text"
+                  label="What is your relationship?"
+                  placeholder="Relationship (eg. Brother, sister)"
+                  className="text-2xl font-bold rounded-xl py-3"
+                />
+                <InputField
+                  name="phone"
+                  type="text"
+                  placeholder="Phone number"
+                  label="What is his/her phone No.?"
+                  className="text-2xl font-bold rounded-xl py-3"
+                />
+                <InputField
+                  name="address"
+                  placeholder="Address"
+                  label="What's his/her address?"
+                  className="text-2xl font-bold rounded-xl py-3"
+                />
               </div>
-              <div className="flex justify-center w-full gap-4 mt-4">
-                {/* <Button
-                  div="Back"
+              <div className="flex justify-center w-full gap-2 mt-2">
+                <Button
+                  label="Back"
                   icon={<ArrowLeft />}
-                  className="bg-black rounded-lg"
+                  className="bg-gray-800 rounded-lg hidden sm:flex"
                   onClick={goBack}
-                /> */}
+                />
                 <Button
                   label="Proceed"
                   className="bg-adron-green rounded-lg"

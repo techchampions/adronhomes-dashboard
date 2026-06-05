@@ -369,7 +369,14 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
                       </div>
                     </div>
                   )}
-                <div className="flex justify-center w-full gap-4 mt-4">
+                <div className="flex justify-center w-full gap-2 mt-4">
+                  <Button
+                    label="Back"
+                    icon={<ArrowLeft />}
+                    className="bg-gray-800 rounded-lg hidden sm:flex"
+                    onClick={goBack}
+                  />
+
                   <Button
                     label="Proceed"
                     className="bg-adron-green rounded-lg"

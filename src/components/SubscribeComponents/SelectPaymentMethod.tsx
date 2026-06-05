@@ -1,5 +1,6 @@
 import { ArrowLeft, Wallet2 } from "lucide-react";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useGetUserWalletdata } from "../../data/hooks";
 import { Property } from "../../data/types/GetPropertyByIdResponse";
 import { formatPrice } from "../../data/utils";
@@ -20,7 +21,7 @@ interface Props {
 }
 const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
   const { data: userWalletData, isLoading, isError } = useGetUserWalletdata();
-
+  const navigate = useNavigate();
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<
     string | null
   >(null);
@@ -40,6 +41,7 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
     contract_nationality,
     contract_next_of_kin,
     contract_next_of_kin_relationship,
+    contract_next_of_kin_address,
     contract_residential_address,
     contract_subscriber_name_1,
     contract_subscriber_name_2,
@@ -107,7 +109,7 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
       contract_occupation: contract_occupation,
       contract_employer: contract_employer,
       contract_next_of_kin_phone: contract_next_of_kin_phone,
-      // contract_next_of_kin_address: contract_next_of_kin_address,
+      contract_next_of_kin_address: contract_next_of_kin_address,
 
       contract_next_of_kin: contract_next_of_kin,
       contract_next_of_kin_relationship: contract_next_of_kin_relationship,
@@ -148,6 +150,9 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
             payment_item_id: data.payable_code,
             onSuccess: () => {
               openModal(<SubscriptionSuccess />);
+              navigate(`/dashboard/my-property/${data.plan?.id}`, {
+                replace: true,
+              });
             },
             onClose: () => {
               openModal(
@@ -166,7 +171,9 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
             reference: data.payment.reference,
             onSuccess: () => {
               openModal(<SubscriptionSuccess />);
-
+              navigate(`/dashboard/my-property/${data.plan?.id}`, {
+                replace: true,
+              });
               // TODO: call your backend API to confirm payment
             },
             onClose: () => {
@@ -177,8 +184,11 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
       });
     } else if (selectedPaymentMethod == "Virtual Wallet") {
       subscribe(payload, {
-        onSuccess() {
+        onSuccess(data) {
           openModal(<SubscriptionSuccess />);
+          navigate(`/dashboard/my-property/${data.plan?.id}`, {
+            replace: true,
+          });
         },
       });
     } else if (selectedPaymentMethod == "Bank Transfer") {
@@ -349,7 +359,14 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
             </div>
           </div> */}
 
-          <div className="flex justify-between w-full gap-4 mt-4">
+          <div className="flex justify-between w-full gap-2 mt-4">
+            <Button
+              label="Back"
+              icon={<ArrowLeft />}
+              className="bg-gray-800 rounded-lg hidden sm:flex"
+              onClick={goBack}
+            />
+
             <Button
               label="Make Payment"
               // isLoading={isPaying}

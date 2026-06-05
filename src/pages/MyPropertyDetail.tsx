@@ -14,8 +14,10 @@ import { formatDate, formatPrice } from "../data/utils";
 import { usePaymentBreakDownStore } from "../zustand/PaymentBreakDownStore";
 import { useModalStore } from "../zustand/useModalStore";
 
+import { DownloadCloud } from "lucide-react";
 import { BsFillExclamationCircleFill } from "react-icons/bs";
 import { FaCheckCircle, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { GrDocument } from "react-icons/gr";
 import CopyButton from "../components/CopyButton";
 import DownloadPropertyDocuments from "../components/DashboardMyPropertyComponents/DownloadPropertyDocuments";
 import InputInfrastructureAmount from "../components/DashboardMyPropertyComponents/InputAmount";
@@ -95,6 +97,7 @@ const MyPropertyDetail = () => {
   const infrastructureProgress =
     data?.plan_properties.infrastructure_percentage || 0;
   const otherFeeProgress = data?.plan_properties.other_percentage || 0;
+  const contract_documents_length = data?.contract_documents.length || 0;
   const handleViewProperty = () => {
     navigate(
       `/dashboard/properties/${
@@ -834,7 +837,52 @@ const MyPropertyDetail = () => {
           />
         </div>
       </div>
-
+      <div className="grid sm:grid-cols-2 gap-4">
+        {contract_documents_length > 0 && (
+          <div className="bg-white px-4 py-2 rounded-3xl sm:flex space-y-4 justify-between items-end">
+            <div className="flex-1 flex gap-1 items-start">
+              <div className="text-adron-green bg-adron-green/20 flex items-center justify-center p-2 rounded-full">
+                <GrDocument size={18} />
+              </div>
+              <div className="text-xs">
+                <div className="text-lg font-bold">Contract of Sale</div>
+                <div className="text-gray-400">
+                  Hello, your contract of sale for the above properties is
+                  ready. click the button to download
+                </div>
+              </div>
+            </div>
+            <Button
+              label="Download"
+              icon={<DownloadCloud size={18} />}
+              className="text-xs w-fit! px-8"
+            />
+          </div>
+        )}
+        {contract_documents_length > 0 && (
+          <div className="bg-white px-4 py-2 rounded-3xl sm:flex space-y-4 justify-between items-end">
+            <div className="flex-1 flex gap-1 items-start">
+              <div className="text-adron-green bg-adron-green/20 flex items-center justify-center p-2 rounded-full">
+                <GrDocument size={18} />
+              </div>
+              <div className="text-xs">
+                <div className="text-lg font-bold">
+                  Provisional Letter of Allocation
+                </div>
+                <div className="text-gray-400">
+                  Hello, your PLA documents for the above properties are ready.
+                  click the button to download
+                </div>
+              </div>
+            </div>
+            <Button
+              label="Download"
+              icon={<DownloadCloud size={18} />}
+              className="text-xs w-fit! px-8"
+            />
+          </div>
+        )}
+      </div>
       {/* Payment Schedule List */}
       {data?.plan_properties.payment_type === "2" && (
         <div className=" flex flex-col md:flex-row gap-3 justify-between md:items-center bg-white py-4 px-4 md:px-12 rounded-3xl">

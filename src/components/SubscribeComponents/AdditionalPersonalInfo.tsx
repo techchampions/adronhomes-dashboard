@@ -130,13 +130,13 @@ const InputAdditionalPersonalInfo: React.FC<Props> = ({ property }) => {
                   <DateInput name="dob" label="What is your date of birth" />
                 </div>
               </div>
-              <div className="flex justify-center w-full gap-4 mt-4">
-                {/* <Button
-                  div="Back"
+              <div className="flex justify-center w-full gap-2 mt-4">
+                <Button
+                  label="Back"
                   icon={<ArrowLeft />}
-                  className="bg-black rounded-lg"
+                  className="bg-gray-800 rounded-lg hidden sm:flex"
                   onClick={goBack}
-                /> */}
+                />
                 <Button
                   label="Proceed"
                   className="bg-adron-green rounded-lg"

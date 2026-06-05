@@ -115,12 +115,13 @@ const OwnershipInfo: React.FC<Props> = ({ property }) => {
                 />
               </div>
             </div>
-            <div className="flex items-center justify-between gap-4">
-              {/* <Button
-                label="Cancel"
-                className="bg-gray-700 hover:bg-adron-black rounded-lg"
-                onClick={() => modal.closeModal()}
-              /> */}
+            <div className="flex items-center justify-between gap-2">
+              <Button
+                label="Back"
+                icon={<ArrowLeft />}
+                className="bg-gray-800 rounded-lg hidden sm:flex"
+                onClick={goBack}
+              />
               <Button
                 label="Proceed"
                 rightIcon={<ArrowRight />}
