@@ -6,7 +6,6 @@ import NetworkStatusBar from "./components/NetworkStatus";
 import { Providers } from "./data/Provider";
 import AllRoutes from "./routes/allRoutes";
 import FacebookMetaScript from "./utils/FacebookMetaScript";
-import AnalyticsTracker from "./utils/GoogleAnalyticsTracker";
 
 function App() {
   useEffect(() => {
@@ -77,7 +76,7 @@ function App() {
   return (
     <ErrorBoundary>
       <Providers>
-        <AnalyticsTracker />
+        {/* <AnalyticsTracker /> */}
         <FacebookMetaScript />
         <AllRoutes />
         <NetworkStatusBar />
