@@ -8,6 +8,8 @@ export interface Property {
   display_image: string;
   lga: string;
   state: string;
+  country: string;
+  street_address: string;
   slug: String;
   initial_deposit: number;
 }
