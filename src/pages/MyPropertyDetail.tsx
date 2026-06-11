@@ -724,8 +724,9 @@ const MyPropertyDetail = () => {
                   <div className="flex items-center  text-sm">
                     <HiOutlineLocationMarker className="mr-2 flex-shrink-0" />
                     <p className="truncate">
-                      {data?.plan_properties.property.lga},{" "}
-                      {data?.plan_properties.property.state}
+                      {data?.plan_properties.property.street_address},{" "}
+                      {data?.plan_properties.property.state}{" "}
+                      {data?.plan_properties.property.country}
                     </p>
                   </div>
                   <div className="flex items-center gap-4 text-[10px] ">
@@ -739,7 +740,9 @@ const MyPropertyDetail = () => {
                       />
 
                       <span className="mr-1">
-                        {data?.plan_properties.property.size} Sq M
+                        {data?.plan_properties.purchased_property_size
+                          ? `${data?.plan_properties.purchased_property_size} Sq M`
+                          : "No size"}
                       </span>
                     </div>
 

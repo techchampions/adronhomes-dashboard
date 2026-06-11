@@ -8,6 +8,8 @@ export interface Property {
   display_image: string;
   lga: string;
   state: string;
+  country: string;
+  street_address: string;
   slug: String;
   initial_deposit: number;
 }
@@ -69,6 +71,7 @@ type PlanProperty = {
   paid_infrastructure_amount: number;
   paid_other_amount: number;
   property: Property;
+  purchased_property_size: string | number;
   eligible_gifts: EligibleGifts;
 };
 
