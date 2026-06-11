@@ -71,6 +71,7 @@ type PlanProperty = {
   paid_infrastructure_amount: number;
   paid_other_amount: number;
   property: Property;
+  purchased_property_size: string | number;
   eligible_gifts: EligibleGifts;
 };
 

@@ -740,7 +740,9 @@ const MyPropertyDetail = () => {
                       />
 
                       <span className="mr-1">
-                        {data?.plan_properties.property.size} Sq M
+                        {data?.plan_properties.purchased_property_size
+                          ? `${data?.plan_properties.purchased_property_size} Sq M`
+                          : "No size"}
                       </span>
                     </div>
 
