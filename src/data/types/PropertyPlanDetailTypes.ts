@@ -8,6 +8,8 @@ export interface Property {
   display_image: string;
   lga: string;
   state: string;
+  country: string;
+  street_address: string;
   slug: String;
   initial_deposit: number;
 }
@@ -69,6 +71,7 @@ type PlanProperty = {
   paid_infrastructure_amount: number;
   paid_other_amount: number;
   property: Property;
+  purchased_property_size: string | number;
   eligible_gifts: EligibleGifts;
 };
 
@@ -120,9 +123,12 @@ export interface ContractDocument {
   id: number;
   plan_id: number;
   document_name: string;
+  download_link: string;
   document_file: string;
   created_at: string;
   updated_at: string;
+  is_approved: number;
+  is_generated: number;
 }
 export interface PlanPropertiesDetailResponse {
   success: boolean;
@@ -137,4 +143,6 @@ export interface PlanPropertiesDetailResponse {
   transactions: PaginatedData<Transaction>;
   contract: Contract;
   contract_documents: ContractDocument[];
+  allocation_document: ContractDocument[];
+  contract_of_sales_document: ContractDocument[];
 }

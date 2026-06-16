@@ -1,12 +1,11 @@
+import { Info } from "lucide-react";
 import React from "react";
 import { FaMapMarkerAlt, FaUser } from "react-icons/fa";
-import { Link } from "react-router-dom";
 import { formatDate } from "../../data/utils";
-import Button from "../Button";
 import { useModalStore } from "../../zustand/useModalStore";
-import EditProfile from "./UpdateProfile";
+import Button from "../Button";
 import ChangePassword from "./ChangePassword";
-import { Info } from "lucide-react";
+import EditProfile from "./UpdateProfile";
 
 interface Props {
   firstName: string;

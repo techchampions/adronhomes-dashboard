@@ -14,10 +14,9 @@ import { formatDate, formatPrice } from "../data/utils";
 import { usePaymentBreakDownStore } from "../zustand/PaymentBreakDownStore";
 import { useModalStore } from "../zustand/useModalStore";
 
-import { DownloadCloud } from "lucide-react";
+import { Eye, FileText } from "lucide-react";
 import { BsFillExclamationCircleFill } from "react-icons/bs";
 import { FaCheckCircle, FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { GrDocument } from "react-icons/gr";
 import CopyButton from "../components/CopyButton";
 import DownloadPropertyDocuments from "../components/DashboardMyPropertyComponents/DownloadPropertyDocuments";
 import InputInfrastructureAmount from "../components/DashboardMyPropertyComponents/InputAmount";
@@ -26,6 +25,7 @@ import SelectPaymentMethod from "../components/DashboardMyPropertyComponents/Sel
 import RequestDocument from "../components/DashboardNewPropertyComponent/RequestDocument";
 import GiftIndicator from "../components/DashboardPropertyComponent/GiftIndicator";
 import GiftRequestIndicator from "../components/DashboardPropertyComponent/GiftRequestIndicator";
+import { ContractDocument } from "../data/types/PropertyPlanDetailTypes";
 import { useToastStore } from "../zustand/useToastStore";
 
 const MyPropertyDetail = () => {
@@ -98,6 +98,9 @@ const MyPropertyDetail = () => {
     data?.plan_properties.infrastructure_percentage || 0;
   const otherFeeProgress = data?.plan_properties.other_percentage || 0;
   const contract_documents_length = data?.contract_documents.length || 0;
+  const PLA_documents_length = data?.allocation_document.length || 0;
+  const contract_of_sales_documents_length =
+    data?.contract_of_sales_document.length || 0;
   const handleViewProperty = () => {
     navigate(
       `/dashboard/properties/${
@@ -174,20 +177,10 @@ const MyPropertyDetail = () => {
   const viewPaymentList = () => {
     navigate(`/dashboard/my-property/payment-list/${id}`);
   };
-  const handleDownload = () => {
+  const handleDownload = (documents: ContractDocument[], title?: string) => {
     openModal(
-      <DownloadPropertyDocuments
-        contractDocuments={data?.contract_documents || []}
-      />
+      <DownloadPropertyDocuments contractDocuments={documents} title={title} />
     );
-    // if (data?.contract_documents) {
-    //   const link = document.createElement("a");
-    //   link.href = data.contract_documents;
-    //   link.download = "property-document.pdf";
-    //   document.body.appendChild(link);
-    //   link.click();
-    //   document.body.removeChild(link);
-    // }
   };
   const renderButton = () => {
     const docLength = data?.contract_documents.length || 0;
@@ -233,7 +226,12 @@ const MyPropertyDetail = () => {
                 <div className="flex items-center gap-1">
                   <Button
                     label="Download Document"
-                    onClick={handleDownload}
+                    onClick={() =>
+                      handleDownload(
+                        data.contract_documents,
+                        "Download Contract Documents"
+                      )
+                    }
                     className=" bg-white !text-adron-green !w-fit px-6 text-sm"
                   />
                 </div>
@@ -279,7 +277,12 @@ const MyPropertyDetail = () => {
           <div className="flex items-center gap-1">
             <Button
               label="Download Document"
-              onClick={handleDownload}
+              onClick={() =>
+                handleDownload(
+                  data.contract_documents,
+                  "Download Contract Documents"
+                )
+              }
               className=" bg-white !text-adron-green !w-fit px-6 text-sm"
             />
           </div>
@@ -301,7 +304,15 @@ const MyPropertyDetail = () => {
     ) {
       return (
         <div className="flex items-center mb-5 gap-2 text-white">
-          <Button label="Download Document" onClick={handleDownload} />
+          <Button
+            label="Download Document"
+            onClick={() =>
+              handleDownload(
+                data.contract_documents,
+                "Download Contract Documents"
+              )
+            }
+          />
           <InlineLoader />
           <p className="text-sm">Documents are being prepared</p>
         </div>
@@ -724,8 +735,9 @@ const MyPropertyDetail = () => {
                   <div className="flex items-center  text-sm">
                     <HiOutlineLocationMarker className="mr-2 flex-shrink-0" />
                     <p className="truncate">
-                      {data?.plan_properties.property.lga},{" "}
-                      {data?.plan_properties.property.state}
+                      {data?.plan_properties.property.street_address},{" "}
+                      {data?.plan_properties.property.state}{" "}
+                      {data?.plan_properties.property.country}
                     </p>
                   </div>
                   <div className="flex items-center gap-4 text-[10px] ">
@@ -739,7 +751,9 @@ const MyPropertyDetail = () => {
                       />
 
                       <span className="mr-1">
-                        {data?.plan_properties.property.size} Sq M
+                        {data?.plan_properties.purchased_property_size
+                          ? `${data?.plan_properties.purchased_property_size} Sq M`
+                          : "No size"}
                       </span>
                     </div>
 
@@ -837,37 +851,45 @@ const MyPropertyDetail = () => {
           />
         </div>
       </div>
-      <div className="grid sm:grid-cols-2 gap-4">
-        {contract_documents_length > 0 && (
-          <div className="bg-white px-4 py-2 rounded-3xl sm:flex space-y-4 justify-between items-end">
+      <div className="grid sm:grid-cols-3 gap-2">
+        {PLA_documents_length > 0 && (
+          <div className="bg-white px-4 py-2 rounded-3xl flex sm:block space-y-4 justify-between items-end">
             <div className="flex-1 flex gap-1 items-start">
               <div className="text-adron-green bg-adron-green/20 flex items-center justify-center p-2 rounded-full">
-                <GrDocument size={18} />
+                <FileText size={18} />
               </div>
               <div className="text-xs">
-                <div className="text-lg font-bold">Contract of Sale</div>
+                <div className="text-lg font-bold">Allocation Documents</div>
                 <div className="text-gray-400">
                   Hello, your contract of sale for the above properties is
                   ready. click the button to download
                 </div>
               </div>
             </div>
-            <Button
-              label="Download"
-              icon={<DownloadCloud size={18} />}
-              className="text-xs w-fit! px-8"
-            />
+            <div className="flex justify-end">
+              <Button
+                label="View"
+                icon={<Eye size={18} />}
+                onClick={() =>
+                  handleDownload(
+                    data?.allocation_document || [],
+                    "Download Allocation Documents"
+                  )
+                }
+                className="text-xs w-fit! px-4 bg-transparent text-adron-green! border hover:bg-adron-green hover:text-white!"
+              />
+            </div>
           </div>
         )}
-        {contract_documents_length > 0 && (
-          <div className="bg-white px-4 py-2 rounded-3xl sm:flex space-y-4 justify-between items-end">
+        {contract_of_sales_documents_length > 0 && (
+          <div className="bg-white px-4 py-2 rounded-3xl flex sm:block space-y-4 justify-between items-end">
             <div className="flex-1 flex gap-1 items-start">
               <div className="text-adron-green bg-adron-green/20 flex items-center justify-center p-2 rounded-full">
-                <GrDocument size={18} />
+                <FileText size={18} />
               </div>
               <div className="text-xs">
                 <div className="text-lg font-bold">
-                  Provisional Letter of Allocation
+                  Contract of Sales Documents
                 </div>
                 <div className="text-gray-400">
                   Hello, your PLA documents for the above properties are ready.
@@ -875,11 +897,50 @@ const MyPropertyDetail = () => {
                 </div>
               </div>
             </div>
-            <Button
-              label="Download"
-              icon={<DownloadCloud size={18} />}
-              className="text-xs w-fit! px-8"
-            />
+            <div className="flex justify-end">
+              <Button
+                label="View"
+                icon={<Eye size={18} />}
+                onClick={() =>
+                  handleDownload(
+                    data?.contract_of_sales_document ?? [],
+                    "Download Contract of Sales"
+                  )
+                }
+                className="text-xs w-fit! px-4 bg-transparent text-adron-green! border hover:bg-adron-green hover:text-white!"
+              />
+            </div>
+          </div>
+        )}
+        {contract_documents_length > 0 && (
+          <div className="bg-white px-4 py-2 rounded-3xl flex sm:block space-y-4 justify-between items-end">
+            <div className="flex-1 flex gap-1 items-start">
+              <div className="text-adron-green bg-adron-green/20 flex items-center justify-center p-2 rounded-full">
+                <FileText size={18} />
+              </div>
+              <div className="text-xs">
+                <div className="text-lg font-bold">
+                  Other Contract Documents
+                </div>
+                <div className="text-gray-400">
+                  Hello, your PLA documents for the above properties are ready.
+                  click the button to download
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-end">
+              <Button
+                label="View"
+                icon={<Eye size={18} />}
+                onClick={() =>
+                  handleDownload(
+                    data?.contract_documents ?? [],
+                    "Download Other Documents"
+                  )
+                }
+                className="text-xs w-fit! px-4 bg-transparent text-adron-green! border hover:bg-adron-green hover:text-white!"
+              />
+            </div>
           </div>
         )}
       </div>

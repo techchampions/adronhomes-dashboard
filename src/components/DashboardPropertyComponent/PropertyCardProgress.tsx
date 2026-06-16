@@ -1,11 +1,11 @@
 import React from "react";
 import { FaMapMarkerAlt } from "react-icons/fa";
-import Button from "../Button";
 import { useNavigate } from "react-router-dom";
-import { useModalStore } from "../../zustand/useModalStore";
-import SelectPaymentMethod from "../DashboardMyPropertyComponents/SelectPaymentMethod";
-import { formatDate } from "../../data/utils";
 import { useGetPropertyPlanByID } from "../../data/hooks";
+import { formatDate } from "../../data/utils";
+import { useModalStore } from "../../zustand/useModalStore";
+import Button from "../Button";
+import SelectPaymentMethod from "../DashboardMyPropertyComponents/SelectPaymentMethod";
 
 type PropertyCardProps = {
   id: number;
@@ -14,7 +14,8 @@ type PropertyCardProps = {
   imageUrl: string;
   title: string;
   state: string;
-  lga: string;
+  country: string;
+  address: string;
   progress: number;
   raisedAmount: number;
   targetAmount: number;
@@ -33,7 +34,8 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
   imageUrl,
   title,
   state,
-  lga,
+  country,
+  address,
   progress,
   raisedAmount,
   targetAmount,
@@ -66,7 +68,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
       );
     }
   };
-  const location = `${lga}, ${state}`;
+  const location = `${address}, ${state} ${country}`;
   // if (units > 1) {
   //   raisedAmount = raisedAmount * units;
   //   targetAmount = targetAmount * units;

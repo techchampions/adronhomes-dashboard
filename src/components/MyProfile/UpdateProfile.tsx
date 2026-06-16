@@ -24,7 +24,7 @@ const EditProfile = () => {
     firstName: `${userData?.first_name}`,
     lastName: ` ${userData?.last_name}`,
     email: `${userData?.email}`,
-    date_of_birth: `${userData?.date_of_birth}`,
+    date_of_birth: userData?.date_of_birth || "",
     phone: `${userData?.phone_number}`,
     state: `${userData?.state || ""}`,
     country: `${userData?.country || ""}`,
