@@ -5,6 +5,7 @@ import { FaArrowRightArrowLeft } from "react-icons/fa6";
 import { IoDocumentAttach, IoSettingsSharp } from "react-icons/io5";
 import { MdAddHome, MdDashboardCustomize, MdOutlineHelp } from "react-icons/md";
 import {
+  RiCommunityFill,
   RiHomeHeartFill,
   RiLogoutBoxRFill,
   RiNotificationBadgeFill,
@@ -118,7 +119,7 @@ const MobileNav = () => {
           </div>
 
           <div className="w-full py-1.5 h-[88%] overflow-y-scroll scrollbar-hide bg-white rounded-2xl">
-            <nav className="space-y-2 p-2">
+            <nav className="space-y-2 py-2">
               <NavItem
                 onSlideBack={setIsMobileMenuOpen}
                 label="Dashboard"
@@ -152,6 +153,12 @@ const MobileNav = () => {
                 label="My Contracts"
                 icon={<IoDocumentAttach className=" w-4 h-4" />}
                 path="/dashboard/my-contracts"
+              />
+              <NavItem
+                onSlideBack={setIsMobileMenuOpen}
+                label="Estate Communities"
+                icon={<RiCommunityFill className=" w-4 h-4" />}
+                path="/dashboard/estate"
               />
               <NavItem
                 onSlideBack={setIsMobileMenuOpen}

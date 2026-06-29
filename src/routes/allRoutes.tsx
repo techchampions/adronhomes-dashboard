@@ -1,5 +1,6 @@
 import { Suspense, lazy } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import communityRoutes from "../components/CommunityDashboardtwo/AppRouteExample";
 import ContractTransactionList from "../components/ContractsDashboardComponents/TransactionListModal";
 import Loader from "../components/Loader";
 import Modal from "../components/Modal2";
@@ -26,6 +27,7 @@ import ProppertyAgreement from "../pages/ProppertyAgreement";
 import ResetPassword from "../pages/ResetPassword";
 import SavedPropertyScreen from "../pages/SavedPropertyScreen";
 import SignUp from "../pages/SignUp";
+import SignUpReferral from "../pages/SignUpReferral";
 import SupportScreen from "../pages/SupportScreen";
 import TransactionsPage from "../pages/TransactionScreen";
 import WalletScreen from "../pages/WalletScreen";
@@ -35,7 +37,6 @@ import { useUserStore } from "../zustand/UserStore";
 import { useToastStore } from "../zustand/useToastStore";
 import AuthRoutes from "./authRoutes";
 import ProtectedRoutes from "./protectedRoutes";
-import SignUpReferral from "../pages/SignUpReferral";
 // import Payment from "../components/payment/page";
 
 const DashboardScreen = lazy(() => import("../pages/DashboardScreen"));
@@ -117,6 +118,7 @@ const AllRoutes = () => {
                   element={<MyPropertyPaymentList />}
                 />
                 <Route path="FAQs" element={<FAQAccordion />} />
+                {communityRoutes}
                 {/* <Route path="Payment" element={<Payment />} /> */}
               </Route>
             </Route>
@@ -126,7 +128,7 @@ const AllRoutes = () => {
               <Route element={<OnboardingScreen />}>
                 <Route path="/login" index element={<Login />} />
                 <Route path="/signup" element={<SignUp />} />
-                 <Route path="/ref/:ref" element={<SignUpReferral />} />
+                <Route path="/ref/:ref" element={<SignUpReferral />} />
                 <Route path="/verify-otp" element={<OTPScreen />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
                 <Route path="/reset-password" element={<ResetPassword />} />

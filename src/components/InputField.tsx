@@ -43,13 +43,13 @@ const InputField: React.FC<InputFieldProps> = ({
   return (
     <div className="w-full">
       {label && (
-        <div className="font-bold text-sm text-gray-700 mb-2">{label}</div>
+        <div className="font-bold text-sm text-gray-700 mb-1">{label}</div>
       )}
       <div
         className={`w-full relative flex ${
           isTextarea ? "flex-col" : "flex-row"
-        } border bg-adron-body rounded-full py-2 ${
-          hasError ? "border-red-500" : "border-transparent"
+        }  bg-adron-body rounded-full py-2 ${
+          hasError && "border border-red-500"
         } ${disabled ? "opacity-60 bg-gray-100" : ""} ${
           isReadOnly && "cursor-not-allowed"
         } ${className}`}

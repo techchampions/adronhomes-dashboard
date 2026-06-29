@@ -1,6 +1,6 @@
 import { JSX, useState } from "react";
-import { NavLink } from "react-router-dom";
 import { FaChevronDown } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 
 interface NavItemProps {
   label: string;
@@ -43,7 +43,7 @@ const NavItem: React.FC<NavItemProps> = ({
         >
           <div className="flex items-center space-x-2" onClick={closeNav}>
             {icon}
-            <span className=" text-[12px]">{label}</span>
+            <span className="line-clamp-1 text-[12px]">{label}</span>
             {(badge || 0) > 0 && badge != undefined && (
               <div className="w-4 h-4 rounded-full bg-red-600 text-white text-[9px] flex items-center justify-center text-center">
                 {badge}
