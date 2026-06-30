@@ -54,8 +54,11 @@ function DashboardScreen() {
   const isMobileApp = userAgent.includes("WebViewApp/1.0");
   useEffect(() => {
     // Scroll the main element to top on route change
+    if (location.pathname.startsWith("/dashboard/estate")) {
+      return;
+    }
     if (mainRef.current) {
-      mainRef.current.scrollTop = 0;
+      // mainRef.current.scrollTop = 0;
     }
   }, [location.pathname]);
   return (
@@ -72,6 +75,7 @@ function DashboardScreen() {
       {/* Main Content */}
       <main
         ref={mainRef}
+        id="main-layout"
         className={`pt-[70px] md:pt-24 lg:pt-2 flex-1 bg-adron-body overflow-y-auto py-5 px-4 md:px-2 lg:pr-4 scrollbar-hide`}
       >
         <Header pageTitle={pageTitle} />

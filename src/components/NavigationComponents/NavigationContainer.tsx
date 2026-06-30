@@ -2,6 +2,7 @@ import { FaArrowRightArrowLeft } from "react-icons/fa6";
 import { IoDocumentAttach, IoSettingsSharp } from "react-icons/io5";
 import { MdAddHome, MdDashboardCustomize, MdOutlineHelp } from "react-icons/md";
 import {
+  RiCommunityFill,
   RiHomeHeartFill,
   RiLogoutBoxRFill,
   RiNotificationBadgeFill,
@@ -55,6 +56,11 @@ function NavigationContainer() {
             path="/dashboard/my-contracts"
           />
           <NavItem
+            label="Estate Communities"
+            icon={<RiCommunityFill className=" w-4 h-4" />}
+            path="/dashboard/estate"
+          />
+          <NavItem
             label="My Properties"
             icon={<MdAddHome className=" w-4 h-4" />}
             path="/dashboard/my-properties"
@@ -64,6 +70,7 @@ function NavigationContainer() {
             icon={<MdAddHome className=" w-4 h-4" />}
             path="/dashboard/new-properties"
           />
+
           <NavItem
             label="Saved Properties"
             icon={<RiHomeHeartFill className=" w-4 h-4" />}
