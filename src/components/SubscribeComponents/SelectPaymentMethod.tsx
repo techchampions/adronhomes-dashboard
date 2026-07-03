@@ -216,9 +216,9 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
           Select your preferred payment method for your plan{" "}
           {/* <b className="text-black">({formatPrice(Number(total_amount))})</b>. */}
         </p>
-        <div className="grid grid-cols-2 text-sm border mt-2 border-adron-green rounded-lg p-2 bg-[#e2f7c9]">
+        <div className="grid grid-cols-2 text-sm mt-2 rounded-lg p-2 bg-linear-to-l from-adron-green to-adron-green/50 text-white">
           <div className="">Total payable:</div>
-          <div className="text-right text-bold">
+          <div className="text-right font-bold">
             {formatPrice(Number(total_amount))}
           </div>
         </div>
@@ -363,7 +363,7 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
             <Button
               label="Back"
               icon={<ArrowLeft />}
-              className="bg-gray-800 rounded-lg hidden sm:flex"
+              className="bg-gray-800 rounded-lg hidden sm:block"
               onClick={goBack}
             />
 

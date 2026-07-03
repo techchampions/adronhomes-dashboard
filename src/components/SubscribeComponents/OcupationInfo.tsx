@@ -149,7 +149,7 @@ const OccupationInfo: React.FC<Props> = ({ property }) => {
                 <Button
                   label="Back"
                   icon={<ArrowLeft />}
-                  className="bg-gray-800 rounded-lg hidden sm:flex"
+                  className="bg-gray-800 rounded-lg hidden sm:block"
                   onClick={goBack}
                 />
                 <Button

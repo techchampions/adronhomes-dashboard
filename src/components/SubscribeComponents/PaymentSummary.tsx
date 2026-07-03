@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowRight, Info } from "lucide-react";
+import { ArrowLeft, ArrowRight, Info, Tag } from "lucide-react";
 import React from "react";
 import { Property } from "../../data/types/GetPropertyByIdResponse";
 import { formatPrice } from "../../data/utils";
@@ -72,8 +72,29 @@ const PaymentSummary: React.FC<Props> = ({ property }) => {
       >
         <ArrowLeft /> Back
       </div>
-
-      <h4 className="text-2xl font-bold mt-7">Payment Summary</h4>
+      <div className="mt-7">
+        <h4 className="text-2xl font-bold">Payment Summary</h4>
+        {propertySize?.citta_promo_name && (
+          <div className="bg-linear-to-r from-adron-green to-adron-green/50 rounded-xl flex items-start gap-2 p-2 text-xs text-white">
+            <Tag fill="white" color="#79b833" size={30} />
+            <div className="space-y-1 flex-1">
+              <div className="">You have promo applied to this property</div>
+              <div className="line-clamp-1">
+                {propertySize?.citta_promo_name}
+              </div>
+              {/* <div className="flex items-center gap-2 border p-1 rounded-md border-gray-300 w-fit">
+                              <div className="">
+                                {selectedSize?.citta_promo_code}
+                              </div>
+                              <CopyButton
+                                text={selectedSize?.citta_promo_code}
+                                className="text-white!"
+                              />
+                            </div> */}
+            </div>
+          </div>
+        )}
+      </div>
 
       <div className="">
         <div className="divide divide-y-1 space-y-2 divide-gray-300">
@@ -146,7 +167,7 @@ const PaymentSummary: React.FC<Props> = ({ property }) => {
         <Button
           label="Back"
           icon={<ArrowLeft />}
-          className="bg-gray-800 rounded-lg hidden sm:flex"
+          className="bg-gray-800 rounded-lg hidden sm:block"
           onClick={goBack}
         />
 
