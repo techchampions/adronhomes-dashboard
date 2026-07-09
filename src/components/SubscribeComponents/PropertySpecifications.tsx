@@ -1,6 +1,6 @@
 import { addMonths } from "date-fns";
 import { Form, Formik, useFormikContext } from "formik";
-import { ArrowLeft, ArrowRight, Info } from "lucide-react";
+import { ArrowLeft, ArrowRight, Info, Tag } from "lucide-react";
 import React, { useEffect } from "react";
 import * as Yup from "yup";
 import { useGetCittaPurposes } from "../../data/hooks";
@@ -328,24 +328,48 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
                     values.payment_duration &&
                     values.payment_schedule &&
                     values.contract_purpose && (
-                      <div className="space-y-1">
-                        <div className="text-sm font-bold">
-                          Enter Initial Deposit
+                      <>
+                        <div className="space-y-1">
+                          {selectedSize?.citta_promo_name && (
+                            <div className="bg-linear-to-r from-adron-green to-adron-green/50 rounded-xl flex items-start gap-2 p-2 text-xs text-white">
+                              <Tag fill="white" color="#79b833" size={30} />
+                              <div className="space-y-1 flex-1">
+                                <div className="">
+                                  You have promo applied to this property
+                                </div>
+                                <div className="line-clamp-1">
+                                  {selectedSize?.citta_promo_name}
+                                </div>
+                                {/* <div className="flex items-center gap-2 border p-1 rounded-md border-gray-300 w-fit">
+                              <div className="">
+                                {selectedSize?.citta_promo_code}
+                              </div>
+                              <CopyButton
+                                text={selectedSize?.citta_promo_code}
+                                className="text-white!"
+                              />
+                            </div> */}
+                              </div>
+                            </div>
+                          )}
+                          <div className="text-sm font-bold">
+                            Enter Initial Deposit
+                          </div>
+                          <div className="flex items-center text-gray-400 text-xs gap-1">
+                            <Info size={15} />
+                            <span>
+                              the price of this property is{" "}
+                              {formatPrice(values.duration_price)}
+                            </span>
+                          </div>
+                          <CurrencyInputField
+                            name="initial_deposit"
+                            placeholder="Initial Deposit"
+                            formatAsNaira
+                            className="text-2xl font-bold rounded-xl py-3"
+                          />
                         </div>
-                        <div className="flex items-center text-gray-400 text-xs gap-1">
-                          <Info size={15} />
-                          <span>
-                            the price of this property is{" "}
-                            {formatPrice(values.duration_price)}
-                          </span>
-                        </div>
-                        <CurrencyInputField
-                          name="initial_deposit"
-                          placeholder="Initial Deposit"
-                          formatAsNaira
-                          className="text-2xl font-bold rounded-xl py-3"
-                        />
-                      </div>
+                      </>
                     )}
                 </div>
                 {values.payment_plan === "Installment" &&
@@ -373,7 +397,7 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
                   <Button
                     label="Back"
                     icon={<ArrowLeft />}
-                    className="bg-gray-800 rounded-lg hidden sm:flex"
+                    className="bg-gray-800 rounded-lg hidden sm:block"
                     onClick={goBack}
                   />
 

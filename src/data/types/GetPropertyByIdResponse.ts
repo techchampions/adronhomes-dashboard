@@ -115,6 +115,8 @@ export interface LandSize {
   size: string; // Could be number as string like "648"
   measurement_unit: "sqm" | "sqft" | "acre" | "hectare" | string;
   durations: Duration[];
+  citta_promo_code: string;
+  citta_promo_name: string;
 }
 
 export interface PropertyType {
