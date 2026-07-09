@@ -15,6 +15,7 @@ import { createPortal } from "react-dom";
 import ApiErrorBlock from "../components/ApiErrorBlock";
 import GiftNotificationSlider from "../components/DashboardHomeComponents/GiftNotificationSlider";
 import WalletTransactionsList from "../components/DashboardHomeComponents/WalletTransactionList";
+import Slider from "../components/Slider";
 import SmallLoader from "../components/SmallLoader";
 import { formatPrice } from "../data/utils";
 
@@ -80,6 +81,9 @@ const HomeScreen = () => {
       )
     );
   });
+  const slides: Slides[] =
+    dashboardSlider?.data.map((slide) => ({ image: slide.image, text: "" })) ||
+    [];
   return (
     <div className="flex flex-col w-full gap-6">
       {/* Warning Popup Modal */}
@@ -136,12 +140,14 @@ const HomeScreen = () => {
             plan_with_gifts.length > 0 ? "md:col-span-2" : "md:col-span-3"
           }`}
         >
-          <img
-            // src="/images/Lemon-Friday-hor.png"
+          <div className="w-full h-[180px] rounded-3xl overflow-hidden">
+            <Slider slides={slides} showNav={false} />
+          </div>
+          {/* <img
             src={dashboardSlider?.data[0].image || ""}
             alt=""
             className="h-[180px] w-full object-cover rounded-3xl"
-          />
+          /> */}
         </div>
         {plan_with_gifts.length > 0 && (
           <GiftNotificationSlider plan_with_gifts={plan_with_gifts} />

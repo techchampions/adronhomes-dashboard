@@ -164,8 +164,8 @@ const CommunityDashboard: React.FC<CommunityDashboardProps> = () => {
             setSelected={setSelectedEstate}
           />
         )}
-        <div className="overflow-hidden rounded-2xl bg-white p-5 sticky top-1 z-50 shadow-lg">
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-4">
+        <div className="overflow-hidden rounded-xl sm:rounded-2xl bg-white p-2 sm:p-5 sticky top-0 z-50 shadow-lg">
+          <div className="flex overflow-x-scroll scrollbar-hide sm:grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-4">
             {sectionRoutes.map((section, i) => (
               <SectionRouteItem section={section} key={i} />
             ))}{" "}

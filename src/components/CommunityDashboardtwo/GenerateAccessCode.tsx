@@ -14,7 +14,7 @@ const GenerateAccessCode: React.FC<Prop> = ({ setShowModal }) => {
   const { mutate, isPending } = useGenerateNewAccessCode();
   const initialValues = {
     estate_id: Number(context.data?.estate_info.id || ""),
-    access_type: "",
+    name: "",
     expiry_date: "",
   };
   const submit = (values: typeof initialValues) => {
@@ -38,9 +38,9 @@ const GenerateAccessCode: React.FC<Prop> = ({ setShowModal }) => {
             </div>
             <div className="space-y-2">
               <InputField
-                name="access_type"
-                label="Access Type"
-                placeholder="E.g Main Gate, Parking"
+                name="name"
+                label="Visitor's name"
+                placeholder="Enter visitor's fullname"
                 className="rounded-xl py-3"
               />
               <DateInput name="expiry_date" label="Expiry date" />

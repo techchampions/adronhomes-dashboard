@@ -1,12 +1,9 @@
 // components/PaymentSection.tsx
 import React, { useState } from "react";
-import { AiFillBank, AiFillWallet } from "react-icons/ai";
 import {
   FiAlertCircle,
-  FiArrowRight,
   FiCheckCircle,
   FiClock,
-  FiCreditCard,
   FiHome,
   FiUsers,
 } from "react-icons/fi";
@@ -70,7 +67,7 @@ const PaymentSection: React.FC = () => {
       </div>
 
       {/* Payment Type Cards */}
-      <div className="grid grid-cols-3 gap-3">
+      {/* <div className="grid grid-cols-3 gap-3">
         {paymentTypes.map((type) => {
           const Icon = type.icon;
           const isActive = paymentType === type.id;
@@ -99,11 +96,11 @@ const PaymentSection: React.FC = () => {
             </button>
           );
         })}
-      </div>
+      </div> */}
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid gap-6">
         {/* Payment Form */}
-        <div className="bg-white rounded-xl border border-gray-100 p-6">
+        {/* <div className="bg-white rounded-xl border border-gray-100 p-6">
           <h4 className="font-semibold text-gray-800 mb-4">Make Payment</h4>
 
           <form onSubmit={handlePayment} className="space-y-4">
@@ -205,58 +202,10 @@ const PaymentSection: React.FC = () => {
               <FiArrowRight className="w-5 h-5" />
             </button>
           </form>
-        </div>
+        </div> */}
 
         {/* Payment History */}
         <PaymentList payments={payments} />
-        {/* <div>
-          <div className="bg-white rounded-xl border border-gray-100 p-6 h-full">
-            <div className="flex items-center justify-between mb-4">
-              <h4 className="font-semibold text-gray-800">Recent Payments</h4>
-              <button className="text-sm text-[#79B833] hover:underline">
-                View All
-              </button>
-            </div>
-            <div className="space-y-3">
-              {recentPayments.map((payment) => (
-                <div
-                  key={payment.id}
-                  className="p-3 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors"
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center justify-between">
-                        <p className="font-medium text-gray-800 text-sm">
-                          {payment.type}
-                        </p>
-                        <span className="text-sm font-bold text-gray-800">
-                          {payment.amount}
-                        </span>
-                      </div>
-                      <p className="text-xs text-gray-500 mt-1">
-                        {payment.property}
-                      </p>
-                      <div className="flex items-center justify-between mt-1.5">
-                        <span className="text-xs text-gray-400 flex items-center">
-                          <FiCalendar className="w-3 h-3 mr-1" />
-                          {payment.date}
-                        </span>
-                        <span
-                          className={`inline-flex items-center space-x-1 px-2 py-0.5 rounded-full text-xs font-medium ${getStatusColor(
-                            payment.status
-                          )}`}
-                        >
-                          {getStatusIcon(payment.status)}
-                          <span>{payment.status}</span>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div> */}
       </div>
     </div>
   );

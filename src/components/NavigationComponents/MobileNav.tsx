@@ -118,7 +118,7 @@ const MobileNav = () => {
             />
           </div>
 
-          <div className="w-full py-1.5 h-[88%] overflow-y-scroll scrollbar-hide bg-white rounded-2xl">
+          <div className="w-full pt-1.5 pb-20 h-[88%] overflow-y-scroll scrollbar-hide bg-white rounded-2xl">
             <nav className="space-y-2 py-2">
               <NavItem
                 onSlideBack={setIsMobileMenuOpen}
