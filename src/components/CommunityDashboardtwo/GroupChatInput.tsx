@@ -1,5 +1,5 @@
 import { Form, Formik } from "formik";
-import { FiImage, FiPaperclip, FiSend, FiSmile } from "react-icons/fi";
+import { FiSend } from "react-icons/fi";
 import { useOutletContext } from "react-router-dom";
 import * as Yup from "yup";
 import { useSendGroupMessage } from "../../hooks/estateCommunity/useEstateCommunity";
@@ -34,7 +34,7 @@ const GroupChatInput: React.FC = () => {
       {({ isValid, values }) => (
         <Form className="p-4 border-t border-gray-100 bg-white">
           <div className="flex items-center space-x-2">
-            <div className="flex items-center space-x-1 flex-shrink-0">
+            {/* <div className="flex items-center space-x-1 flex-shrink-0">
               <button
                 type="button"
                 className="p-2 hover:bg-gray-100 rounded-full transition-colors"
@@ -53,7 +53,7 @@ const GroupChatInput: React.FC = () => {
               >
                 <FiSmile className="w-5 h-5 text-gray-400" />
               </button>
-            </div>
+            </div> */}
             <div className="flex items-center bg-adron-body rounded-3xl p-2 flex-1">
               <InputField
                 name="message"

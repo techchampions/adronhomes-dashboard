@@ -660,6 +660,7 @@ interface UtitlityPayload {
 interface AccessCodePayload {
   estate_id: number;
   name: string;
+  access_type: string;
   expiry_date: string;
 }
 
