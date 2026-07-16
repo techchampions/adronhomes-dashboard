@@ -840,3 +840,13 @@ export const useGetCittaBranches = () => {
     },
   });
 };
+
+export const useGetPickupStation = (state: string) => {
+  return useQuery<AvailableVendorResponse>({
+    queryKey: ["pickup-stations", state],
+    queryFn: async () => {
+      const res = await apiClient.get(`available-vendors?state=${state}`);
+      return res.data;
+    },
+  });
+};
