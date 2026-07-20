@@ -660,6 +660,7 @@ interface UtitlityPayload {
 interface AccessCodePayload {
   estate_id: number;
   name: string;
+  access_type: string;
   expiry_date: string;
 }
 
@@ -711,4 +712,19 @@ interface GroupMessageResponse {
 interface Slides {
   image: string;
   text?: string;
+}
+
+interface PickupStation {
+  id: number;
+  name: string;
+  phone: string;
+  email: string;
+  address: string;
+  lga: string;
+  state: string;
+}
+interface AvailableVendorResponse {
+  success: boolean;
+  message: string;
+  data: PickupStation[];
 }

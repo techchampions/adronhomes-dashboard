@@ -44,7 +44,7 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
           return (
             <label
               key={option.value}
-              className={`flex items-center justify-between border rounded-lg p-2 cursor-pointer transition-all 
+              className={`flex items-center border rounded-lg p-2 cursor-pointer transition-all 
                 ${
                   isSelected
                     ? !hasError
@@ -74,7 +74,7 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
                   )}
                 </div>
 
-                <span className="text-gray-800 text-xs capitalize">
+                <span className="text-gray-800 text-xs capitalize flex-1">
                   {option.label}
                 </span>
               </div>

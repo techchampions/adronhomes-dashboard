@@ -15,6 +15,7 @@ const GenerateAccessCode: React.FC<Prop> = ({ setShowModal }) => {
   const initialValues = {
     estate_id: Number(context.data?.estate_info.id || ""),
     name: "",
+    access_type: "gate",
     expiry_date: "",
   };
   const submit = (values: typeof initialValues) => {

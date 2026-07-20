@@ -5,7 +5,7 @@ import {
 import { formatPrice } from "../../data/utils";
 import ApiErrorBlock from "../ApiErrorBlock";
 import CopyButton from "../CopyButton";
-import LinkBtn from "../LinkBtn";
+import DownloadButton from "../DownloadButton";
 import ShareButton from "../ShareButton";
 import SmallLoader from "../SmallLoader";
 
@@ -120,7 +120,13 @@ const WalletTransactionDetail = ({ id }: { id: number }) => {
           url={recieptData?.download_url}
           className="text-xs bg-transparent !text-black hover:!bg-transparent"
         />
-        <LinkBtn
+        <DownloadButton
+          fileUrl={recieptData?.download_url || ""}
+          disabled={gettingReciept}
+          className="bg-black !w-fit px-6 text-xs"
+        />
+
+        {/* <LinkBtn
           download={true}
           href={recieptData?.download_url || ""}
           target={true}
@@ -128,7 +134,7 @@ const WalletTransactionDetail = ({ id }: { id: number }) => {
           className="bg-black px-6 !w-fit text-xs"
           isLoading={gettingReciept}
           loadingText="Getting Reciept"
-        />
+        /> */}
       </div>
     </div>
   );

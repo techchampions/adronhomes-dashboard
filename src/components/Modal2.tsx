@@ -31,7 +31,7 @@ const Modal = () => {
         <div
           className={`${
             isTransModal ? "bg-transparent" : "bg-white shadow-lg"
-          } p-5 md:p-10 rounded-2xl w-fit md:max-w-lg relative`}
+          } p-5 md:p-10 rounded-2xl w-fit relative`}
           onClick={(e) => e.stopPropagation()}
         >
           {isCloseable && (
