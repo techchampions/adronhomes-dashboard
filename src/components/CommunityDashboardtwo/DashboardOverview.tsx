@@ -23,9 +23,9 @@ const DashboardOverview = () => {
   const { user } = useUserStore();
   const stats = [
     {
-      label: "Properties",
+      label: "Gate Entrance Access Codes",
       value: "3",
-      icon: FiHome,
+      icon: FiKey,
       color: "from-blue-500 to-blue-600",
       bgColor: "bg-blue-50",
       iconColor: "text-blue-600",
