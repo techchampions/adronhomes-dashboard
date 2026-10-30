@@ -43,6 +43,7 @@
     "@types/react-places-autocomplete": "^7.2.14",
     "@types/swiper": "^6.0.0",
     "@vitejs/plugin-react": "^4.3.4",
+    "baseline-browser-mapping": "^2.11.34",
     "eslint": "^9.22.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
