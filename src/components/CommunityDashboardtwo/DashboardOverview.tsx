@@ -2,11 +2,10 @@
 import { MessageCircle, MessagesSquare } from "lucide-react";
 import React from "react";
 import {
-  FiCreditCard,
-  FiFileText,
   FiHome,
   FiKey,
   FiMessageCircle,
+  FiShoppingBag,
   FiTool,
   FiUsers,
   FiZap,
@@ -15,7 +14,6 @@ import { Link, useOutletContext } from "react-router-dom";
 import { useUserStore } from "../../zustand/UserStore";
 import AccessCodeList from "./AccessCodeList";
 import type { CommunitySection } from "./CommunityDashboard";
-import PaymentList from "./PaymentList";
 
 const DashboardOverview = () => {
   const context: CommunityOutletContext = useOutletContext();
@@ -24,7 +22,7 @@ const DashboardOverview = () => {
   const stats = [
     {
       label: "Gate Entrance Access Codes",
-      value: "3",
+      value: context.data?.total_access_codes ?? 0,
       icon: FiKey,
       color: "from-blue-500 to-blue-600",
       bgColor: "bg-blue-50",
@@ -63,14 +61,14 @@ const DashboardOverview = () => {
     icon: React.ComponentType<{ className?: string }>;
   }> = [
     {
-      label: "Pay outstanding bill",
-      description: "Property installment, dues, or utility bill",
-      section: "payments",
-      icon: FiCreditCard,
+      label: "Shop the marketplace",
+      description: "Buy estate products with your wallet",
+      section: "marketplace",
+      icon: FiShoppingBag,
     },
     {
       label: "Buy electricity units",
-      description: "Enter meter number and token amount",
+      description: "Pay for units with your wallet",
       section: "utilities",
       icon: FiZap,
     },
@@ -93,10 +91,10 @@ const DashboardOverview = () => {
       icon: FiMessageCircle,
     },
     {
-      label: "View documents",
-      description: "Receipts, allocation letters, meeting minutes",
-      section: "documents",
-      icon: FiFileText,
+      label: "Family and staff",
+      description: "Add household members and house staff",
+      section: "household",
+      icon: FiHome,
     },
   ];
 
@@ -175,15 +173,10 @@ const DashboardOverview = () => {
         </div>
       </div>
 
-      {/* Recent Activity */}
-      {context.data?.recent_payments.data && (
-        <div className="grid sm:grid-cols-2 gap-2">
-          <PaymentList payments={context.data?.recent_payments.data} />
-          <AccessCodeList
-            accessCodes={context.data?.active_access_codes.data}
-          />
-        </div>
-      )}
+      <AccessCodeList
+        accessCodes={context.data?.active_access_codes.data}
+        title="Active Access Codes"
+      />
     </div>
   );
 };
