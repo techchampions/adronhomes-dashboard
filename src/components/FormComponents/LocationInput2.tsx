@@ -110,7 +110,7 @@ const LocationAutocomplete2: React.FC<LocationAutocompleteProps> = ({
   const [isGeocoding, setIsGeocoding] = useState(false);
   const [isGoogleLoaded, setIsGoogleLoaded] = useState(false);
   const [internalError, setInternalError] = useState<string>("");
-  const [loadingTimeout, setLoadingTimeout] = useState<number | null>(null);
+  const [loadingTimeout, setLoadingTimeout] = useState<ReturnType<typeof setTimeout> | null>(null);
 
   // Check if Google Maps is loaded
   useEffect(() => {
