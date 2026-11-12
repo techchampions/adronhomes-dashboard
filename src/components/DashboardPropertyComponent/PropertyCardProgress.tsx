@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { useGetPropertyPlanByID } from "../../data/hooks";
+import { useDeletePendingProperty, useGetPropertyPlanByID } from "../../data/hooks";
 import { formatDate } from "../../data/utils";
 import { useModalStore } from "../../zustand/useModalStore";
 import Button from "../Button";
@@ -47,6 +47,9 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
   const navigate = useNavigate();
   const { openModal, closeModal } = useModalStore();
   const { data, isLoading } = useGetPropertyPlanByID(id);
+  const { mutate: deleteProperty, isPending: isDeleting } = useDeletePendingProperty();
+  const [confirmingDelete, setConfirmingDelete] = useState(false);
+  const isPendingProperty = Number(status) === 0;
   // const progressPercent = Math.min(
   //   100,
   //   (raisedAmount / targetAmount) * 100
@@ -118,7 +121,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
       </div>
 
       {/* Button */}
-      <div className="mt-4 flex items-center justify-between">
+      <div className="mt-4 flex flex-wrap items-center gap-2">
         <Button
           label="View Details"
           className="!w-fit px-4 text-[9px] md:text-xs"
@@ -135,7 +138,46 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
               onClick={makePayment}
             />
           )}
+        {isPendingProperty && (
+          <Button
+            label="Delete"
+            className="!w-fit px-4 text-[9px] md:text-xs !bg-transparent !text-red-600 border border-red-200"
+            onClick={() => setConfirmingDelete(true)}
+          />
+        )}
       </div>
+      {confirmingDelete && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/50 p-4">
+          <div className="w-full max-w-sm rounded-3xl bg-white p-6">
+            <h4 className="text-lg font-bold text-[#032147]">Delete pending property</h4>
+            <p className="mt-2 text-sm leading-6 text-gray-600">
+              {title} will be removed from your pending list. This is only available while the property is still pending.
+            </p>
+            <div className="mt-5 flex gap-3">
+              <button
+                type="button"
+                disabled={isDeleting}
+                onClick={() => setConfirmingDelete(false)}
+                className="h-11 flex-1 rounded-full border border-gray-200 text-sm font-semibold text-gray-600"
+              >
+                Go back
+              </button>
+              <button
+                type="button"
+                disabled={isDeleting}
+                onClick={() =>
+                  deleteProperty(user_property_id, {
+                    onSuccess: () => setConfirmingDelete(false),
+                  })
+                }
+                className="h-11 flex-1 rounded-full bg-red-600 text-sm font-semibold text-white disabled:bg-gray-300"
+              >
+                {isDeleting ? "Deleting..." : "Delete"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

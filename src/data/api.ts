@@ -87,6 +87,11 @@ export const getUserPropertiesPlan = async (
   return response.data;
 };
 
+export const deletePendingProperty = async (id: number) => {
+  const response = await apiClient.delete(`/user/pending-properties/${id}`);
+  return response.data;
+};
+
 //Get Properties Plan Datails by ID Data
 export const getPropertyPlanByID = async (
   id: number | string

@@ -9,16 +9,16 @@ import { useMyPropertyTab } from "../zustand/MyPropertyTabsStore";
 
 const MyPropertyScreen = () => {
   const [page, setPage] = useState(1);
-  const { activetab, setTab } = useMyPropertyTab();
+  const { setTab } = useMyPropertyTab();
   const tabs = ["Pending", "Awaiting", "In Progress", "Completed"];
   type Tab = (typeof tabs)[number];
 
-  const [activeTab, setActiveTab] = useState<Tab>(activetab);
+  const [activeTab, setActiveTab] = useState<Tab>("Pending");
 
   const { data, isLoading, isError } = useGetUserPropertiesPlan(page);
-  let totalPages = data?.user_properties.last_page || 0;
-  let hasPrev = !!data?.user_properties.prev_page_url;
-  let hasNext = !!data?.user_properties.next_page_url;
+  let totalPages = data?.pending_user_properties.last_page || 0;
+  let hasPrev = !!data?.pending_user_properties.prev_page_url;
+  let hasNext = !!data?.pending_user_properties.next_page_url;
 
   if (isError) {
     return <ApiErrorBlock />;
@@ -31,8 +31,9 @@ const MyPropertyScreen = () => {
     (item) => item.type_name === "Residential"
   );
   const numberofHouses = houseData?.count;
-  let properties = data?.new_form_properties.data ?? [];
-  let propertyInfo = "";
+  let properties = data?.pending_user_properties.data ?? [];
+  let propertyInfo =
+    "These are properties where your payment is yet to be confirmed by AdronHomes Admin. Confirmation is required to proceed.";
   if (activeTab === "In Progress") {
     properties = data?.user_properties.data ?? [];
     totalPages = data?.user_properties.last_page || 0;
