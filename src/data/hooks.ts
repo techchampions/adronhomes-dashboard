@@ -16,6 +16,7 @@ import {
   getAllPropertyLocations,
   getAllPropertyType,
   getDashboardHomeData,
+  deletePendingProperty,
   getERPContracts,
   getERPContractTransaction,
   getFAQs,
@@ -164,6 +165,24 @@ export const useGetUserPropertiesPlan = (page: number) => {
   return useQuery<UserPropertyPlanResponse>({
     queryKey: ["user-properties-plan", page],
     queryFn: () => getUserPropertiesPlan(page),
+  });
+};
+
+export const useDeletePendingProperty = () => {
+  const queryClient = useQueryClient();
+  const toast = useToastStore();
+  return useMutation({
+    mutationFn: deletePendingProperty,
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["user-properties-plan"] });
+      queryClient.invalidateQueries({ queryKey: ["dashboard-data"] });
+      if (data?.message) toast.showToast(data.message, "success");
+    },
+    onError: (error) => {
+      if (axios.isAxiosError(error) && error.response?.data?.message) {
+        toast.showToast(error.response.data.message, "error");
+      }
+    },
   });
 };
 
