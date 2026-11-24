@@ -74,7 +74,7 @@ const sectionRoutes: Array<{
   {
     id: "utilities",
     label: "Utilities",
-    helper: "Buy electricity with wallet",
+    helper: "Electricity and estate charges",
     path: "/dashboard/estate/utilities",
     icon: FiZap,
   },

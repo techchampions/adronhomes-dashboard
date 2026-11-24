@@ -79,6 +79,33 @@ export const useElectricityRate = () => {
   });
 };
 
+export interface EstateUtility {
+  id: number;
+  name: string;
+  code: string;
+  unit_price: number | null;
+  amount_due: number | null;
+  balance_due: number | null;
+  amount_paid: number | null;
+}
+
+const getEstateUtilities = async (
+  estateId: number,
+): Promise<ApiResponse<EstateUtility[]>> => {
+  const res = await apiClient.get(`/user/estates/utilities`, {
+    params: { estate_id: estateId },
+  });
+  return res.data;
+};
+
+export const useEstateUtilities = (estateId?: number) => {
+  return useQuery({
+    queryKey: ["estate-utilities", estateId],
+    queryFn: () => getEstateUtilities(estateId as number),
+    enabled: !!estateId,
+  });
+};
+
 const payForUtility = async (
   payload: UtitlityPayload
 ): Promise<UtilityPaymentResponse> => {
@@ -113,6 +140,12 @@ export const usePayUtitlity = () => {
       });
       queryClient.invalidateQueries({
         queryKey: ["user-wallet"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["estate-utilities"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["utility-payment-history"],
       });
       if (data.success && data.message) {
         toast.showToast(data.message, "success");
