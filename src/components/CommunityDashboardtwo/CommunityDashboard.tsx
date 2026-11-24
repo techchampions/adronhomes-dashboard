@@ -1,6 +1,7 @@
 import { AlertTriangle } from "lucide-react";
 import React, { useRef, useState } from "react";
 import {
+  FiClock,
   FiGrid,
   FiHome,
   FiKey,
